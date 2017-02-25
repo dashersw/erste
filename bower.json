@@ -1,0 +1,23 @@
+{
+  "name": "erste.js",
+  "description": "Your first choice for hybrid mobile applications",
+  "main": "dist/erste.min.js",
+  "authors": [
+    "Armagan Amcalar <armagan@amcalar.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "Hybrid",
+    "mobile",
+    "applications",
+    "javascript",
+    "framework"
+  ],
+  "homepage": "https://github.com/dashersw/erste.js",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
