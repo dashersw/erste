@@ -679,6 +679,8 @@
 
   /**
    * @export
+   *
+   * @param {?Function=} fn Functions to remove
    */
   EventEmitter.prototype.offAny = function(fn) {
     var i = 0, l = 0, fns;

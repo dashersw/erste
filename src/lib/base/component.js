@@ -29,6 +29,13 @@ export default class Component extends EventEmitter2 {
          */
         this.element_ = null;
 
+        /**
+         * @type {?string}
+         *
+         * @private
+         */
+        this.template_ = null;
+
         ComponentManager.setComponent(this);
     }
 
@@ -42,13 +49,14 @@ export default class Component extends EventEmitter2 {
 
     /**
      * @export
-     * @return {!Element}
+     * @return {!HTMLElement}
      */
     get el() {
         let rv = this.element_;
-        if (!rv)
+        if (!rv) {
             rv = this.element_ = document.getElementById(this.id) ||
-                ComponentManager.createElement(this.toString().trim());
+                ComponentManager.createElement(this.toString());
+        }
 
         return rv;
     }
@@ -58,7 +66,21 @@ export default class Component extends EventEmitter2 {
      * @override
      */
     toString() {
-        return this.template();
+        if (this.template_) return this.template_;
+
+        var tagRegex = /^(<[^>]+)/;
+        var template = this.template().trim();
+
+        if (!template.match(tagRegex))
+            throw Error('Template needs to start with a valid tag.');
+
+        template = template
+            .replace(/\s+/, ' ')
+            .replace(tagRegex, `$1 id="${this.id}"`);
+
+        this.template_ = template;
+
+        return this.template_;
     }
 
     /**
@@ -95,11 +117,8 @@ export default class Component extends EventEmitter2 {
     render(opt_base, opt_index) {
         if (!opt_base) return;
 
-        this.element_ = this.element_ || ComponentManager.createElement(this.toString().trim());
-        this.element_.id = this.id;
-
         var child = opt_base.children[opt_index ? opt_index : opt_base.children.length - 1];
-        opt_base.insertBefore(this.element_, child || null);
+        opt_base.insertBefore(this.el, child || null);
     }
 
     /**
@@ -116,6 +135,8 @@ export default class Component extends EventEmitter2 {
      */
     dispose() {
         ComponentManager.removeComponent(this);
+        this.removeAllListeners();
+
         this.element_ && this.element_.parentNode && this.element_.parentNode.removeChild(this.element_);
         this.element_ = null;
     }

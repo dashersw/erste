@@ -37,9 +37,9 @@ export default class Sidebar extends Component {
      */
     template() {
         return `
-<sidebar-view class="view">
-    <sidebar-items>${this.template_items}</sidebar-items>
-</sidebar-view>
+<sidebar>
+    <sidebar-items>${this.template_items()}</sidebar-items>
+</sidebar>
 `;
     };
 
@@ -49,7 +49,7 @@ export default class Sidebar extends Component {
      *
      * @return {string} Returns the items for the sidebar.
      */
-    get template_items() {
+    template_items() {
         return '';
     };
 
@@ -68,7 +68,7 @@ export default class Sidebar extends Component {
     get events() {
         return {
             'tap': {
-                [this.mappings.ITEM]: this.onSidebarItemTap.bind(this)
+                [this.mappings.ITEM]: this.onSidebarItemTap
             }
         };
     }

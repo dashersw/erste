@@ -5,9 +5,9 @@ tab-bar {
     width: 100%;
     text-align: center;
     line-height: 120px;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
     background: white;
-    -webkit-transform: translate3d(0,0,1000px);
+    transform: translate3d(0, 0, 1000px);
     border-top: 1px solid #ccc;
     z-index: 1;
 }

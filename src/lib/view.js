@@ -61,7 +61,7 @@ export default class View extends Component {
      * Method called when the View is being activated by a ViewManager. Subclasses should override this method for tasks
      * that should be done when the View is in viewport, such as updating information, etc.
      */
-    activate() { };
+    onActivation() { };
 
 
     /**
@@ -72,10 +72,11 @@ export default class View extends Component {
      * @override
      */
     template() {
+        var classDefinition = this.className ? `class="${this.className}"` : '';
         return `
-<view class="${this.className}"
-    style="-webkit-transform: translate3d(100%, 0, ${this.index}px)">
-    ${this.template_content}
+<view ${classDefinition}
+    style="transform: translate3d(100%, 0, ${this.index}px)">
+    ${this.template_content()}
 </view>`;
     };
 
@@ -87,7 +88,7 @@ export default class View extends Component {
      *
      * @return {string} Content markup for the view.
      */
-    get template_content() {
+    template_content() {
         return '';
     };
 }

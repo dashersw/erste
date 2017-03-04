@@ -37,11 +37,11 @@ export default class NavBar extends Component {
         var backButton = '',
             menuButton = '';
 
-        if (this.hasBackButton) backButton = `<back-button style="display: block"><i class="icon-back"></i></back-button>`;
-        if (this.hasMenuButton) menuButton = `<menu-button><i class="icon-navigation"></i></menu-button>`;
+        if (this.hasBackButton) backButton = `<back-button></back-button>`;
+        if (this.hasMenuButton) menuButton = `<menu-button></menu-button>`;
 
         return `
-<nav-bar id="${this.id}">${backButton}${menuButton}${this.config.title || ''}</nav-bar>
+<nav-bar>${backButton}${menuButton}${this.config.title || ''}</nav-bar>
 `;
     }
 
@@ -55,8 +55,8 @@ export default class NavBar extends Component {
     get events() {
         return {
             'tap': {
-                [this.mappings.BACK_BUTTON]: this.onBackButtonTap.bind(this),
-                [this.mappings.MENU_BUTTON]: this.onMenuButtonTap.bind(this)
+                [this.mappings.BACK_BUTTON]: this.onBackButtonTap,
+                [this.mappings.MENU_BUTTON]: this.onMenuButtonTap
             }
         };
     }

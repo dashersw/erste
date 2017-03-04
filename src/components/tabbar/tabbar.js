@@ -6,6 +6,11 @@ export default class TabBar extends View {
         super();
 
         this.vm = null;
+
+        /**
+         * @type {!Array.<!View>}
+         */
+        this.views = [];
     }
 
     /**
@@ -86,24 +91,27 @@ export default class TabBar extends View {
      *
      * @return {string} Base template of NavigationBar component.
      */
-    get template_content() {
+    template_content() {
         return `
+        ${this.template_views()}
 <tab-bar>
     <tab-items>
-        ${this.template_items}
+        ${this.template_items()}
     </tab-items>
 </tab-bar>
 `;
     };
 
-
+    template_views() {
+        return this.views.join('');
+    }
 
     /**
      * @export
      *
      * @return {string} Template for tab bar items.
      */
-    get template_items() {
+    template_items() {
         return '';
     };
 

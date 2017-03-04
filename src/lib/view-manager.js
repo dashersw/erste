@@ -126,7 +126,7 @@ export default class ViewManager {
         });
 
         this.currentView = lastView;
-        lastView.activate && lastView.activate();
+        lastView.onActivation && lastView.onActivation();
 
         setTimeout(() => currentView.dispose(), 1000);
 
@@ -156,7 +156,7 @@ export default class ViewManager {
 
         view.index = this.topIndex += 2;
         this.currentView = view;
-        this.currentView.activate && this.currentView.activate();
+        this.currentView.onActivation && this.currentView.onActivation();
 
 
         // Dispose all views in history.
@@ -329,7 +329,7 @@ export default class ViewManager {
                 this.currentView = /** View */this.getLastViewInHistory();
                 history.pop();
 
-                lastView.activate && lastView.activate();
+                lastView.onActivation && lastView.onActivation();
 
                 setTimeout(() => {
                     currentView.dispose();
@@ -420,7 +420,7 @@ export default class ViewManager {
      */
     toggleSidebar_(state) {
         var currentView = this.currentView,
-            sidebar = document.querySelector('sidebar-view');
+            sidebar = document.querySelector('sidebar');
 
         setTimeout(() => {
             currentView.el.style.transitionDuration = '0.35s';
@@ -470,7 +470,7 @@ export default class ViewManager {
          do not call event.preventDefault(). */
         e.preventDefault();
 
-        var sidebar = document.querySelector('sidebar-view');
+        var sidebar = document.querySelector('sidebar');
         var currentView = this.currentView;
         var currentViewDiff = clientX - this.firstX;
 
