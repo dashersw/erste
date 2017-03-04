@@ -1,7 +1,7 @@
 {
   "name": "erste.js",
   "description": "Your first choice for hybrid mobile applications",
-  "main": "dist/erste.min.js",
+  "main": "dist/erste.js",
   "authors": [
     "Armagan Amcalar <armagan@amcalar.com>"
   ],
