@@ -91,6 +91,25 @@ export default class View extends Component {
     template_content() {
         return '';
     };
+
+    /**
+     * @export
+     *
+     * @return {number} Gives the device width.
+     */
+    static get WIDTH() {
+        if (!View.width_) {
+            var bodyStyle = window.getComputedStyle(document.body, null);
+
+            var width = parseInt(bodyStyle && bodyStyle.width || 0, 10);
+
+            View.width_ = width;
+            return View.width_;
+        }
+        else {
+            return View.width_;
+        }
+    }
 }
 
 
@@ -135,15 +154,6 @@ View.prototype.hasSidebar = false;
  */
 View.prototype.className = '';
 
-
-var bodyStyle = window.getComputedStyle(document.body, null);
-
-/**
- * @export
- *
- * @type {number} Gives the device width.
- */
-View.WIDTH = parseInt(bodyStyle && bodyStyle.width || 0, 10);
 
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);

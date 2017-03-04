@@ -118,8 +118,8 @@ g.polyfill("Promise", function(a) {
     var b = this.createResolveAndReject_();
     try {
       a(b.resolve, b.reject);
-    } catch (n) {
-      b.reject(n);
+    } catch (p) {
+      b.reject(p);
     }
   }
   function c() {
@@ -201,8 +201,8 @@ g.polyfill("Promise", function(a) {
     var b = void 0;
     try {
       b = a.then;
-    } catch (n) {
-      this.reject_(n);
+    } catch (p) {
+      this.reject_(p);
       return;
     }
     "function" == typeof b ? this.settleSameAsThenable_(b, a) : this.fulfill_(a);
@@ -247,8 +247,8 @@ g.polyfill("Promise", function(a) {
       return "function" == typeof a ? function(b) {
         try {
           e(a(b));
-        } catch (ha) {
-          f(ha);
+        } catch (ga) {
+          f(ga);
         }
       } : b;
     }
@@ -303,13 +303,13 @@ g.polyfill("Promise", function(a) {
       function f(b) {
         return function(c) {
           h[b] = c;
-          n--;
-          0 == n && a(h);
+          p--;
+          0 == p && a(h);
         };
       }
-      var h = [], n = 0;
+      var h = [], p = 0;
       do {
-        h.push(void 0), n++, b.resolve(d.value).callWhenSettled_(f(h.length - 1), e), d = c.next();
+        h.push(void 0), p++, b.resolve(d.value).callWhenSettled_(f(h.length - 1), e), d = c.next();
       } while (!d.done);
     });
   };
@@ -384,7 +384,7 @@ var l = {default:{angle:function(a, b, c, d) {
 }, lerp:function(a, b, c) {
   return a + c * (b - a);
 }}};
-var m = {}, aa = navigator.userAgent.match(/iPhone/i) && /OS ([6-9]|\d{2})_\d/.test(navigator.userAgent), p = {TAP:"tap", LONG_TAP:"longTap", SWIPE_RIGHT:"swipeRight", SWIPE_UP:"swipeUp", SWIPE_LEFT:"swipeLeft", SWIPE_DOWN:"swipeDown"};
+var m = {}, aa = navigator.userAgent.match(/iPhone/i) && /OS ([6-9]|\d{2})_\d/.test(navigator.userAgent), n = {TAP:"tap", LONG_TAP:"longTap", SWIPE_RIGHT:"swipeRight", SWIPE_UP:"swipeUp", SWIPE_LEFT:"swipeLeft", SWIPE_DOWN:"swipeDown"};
 function r(a) {
   this.el = a || document.body;
   this.canSwipe = this.canTap = this.isInMotion = !1;
@@ -412,7 +412,7 @@ r.prototype.onTouchmove = function(a) {
       var d = a.timeStamp, b = b.filter(function(a, b, c) {
         return c[b - b % 3] > d - 250;
       });
-      1 >= b.length / 3 || 60 > l.default.distance(b[1], b[2], b[b.length - 2], b[b.length - 1]) || (c = l.default.angle(b[1], b[2], b[b.length - 2], b[b.length - 1]), b = p.SWIPE_RIGHT, 45 < c && 135 > c ? b = p.SWIPE_DOWN : 135 < c && 225 > c ? b = p.SWIPE_LEFT : 225 < c && 315 > c && (b = p.SWIPE_UP), (c = document.createEvent("Event")) && c.initEvent(b, !0, !0), a.target.dispatchEvent(c), this.canSwipe = !1);
+      1 >= b.length / 3 || 60 > l.default.distance(b[1], b[2], b[b.length - 2], b[b.length - 1]) || (c = l.default.angle(b[1], b[2], b[b.length - 2], b[b.length - 1]), b = n.SWIPE_RIGHT, 45 < c && 135 > c ? b = n.SWIPE_DOWN : 135 < c && 225 > c ? b = n.SWIPE_LEFT : 225 < c && 315 > c && (b = n.SWIPE_UP), (c = document.createEvent("Event")) && c.initEvent(b, !0, !0), a.target.dispatchEvent(c), this.canSwipe = !1);
     }
   }
 };
@@ -423,7 +423,7 @@ r.prototype.onTouchend = function(a) {
     if (20 < Math.abs(c.pageX - b[1]) || 20 < Math.abs(c.pageY - b[2])) {
       this.canTap = !1;
     } else {
-      var d = (new Date).getTime() - this.touchStartTime, b = document.createEvent("Event"), d = 800 < d ? p.LONG_TAP : p.TAP;
+      var d = (new Date).getTime() - this.touchStartTime, b = document.createEvent("Event"), d = 800 < d ? n.LONG_TAP : n.TAP;
       b && b.initEvent(d, !0, !0);
       b && (b.target = a.target);
       a = a.target;
@@ -476,10 +476,10 @@ function da(a) {
       break;
     }
     for (var c = b, d = a, e = !1, f = 0;f < c.length;f++) {
-      var h = c[f], n = h && h.events && h.events[d.type];
-      if (n) {
-        var q = Object.keys(n);
-        if (!1 === ga(h, d, n, q)) {
+      var h = c[f], p = h && h.events && h.events[d.type];
+      if (p) {
+        var q = Object.keys(p);
+        if (!1 === ha(h, d, p, q)) {
           e = !0;
           break;
         }
@@ -488,7 +488,7 @@ function da(a) {
     c = e;
   } while ((a.targetEl = a.targetEl.parentNode) && a.targetEl != document.body);
 }
-function ga(a, b, c, d) {
+function ha(a, b, c, d) {
   var e = !0;
   d.forEach(function(d) {
     b.targetEl.matches && b.targetEl.matches(d) && (e = c[d].call(a, b, v[b.targetEl.id]));
@@ -535,11 +535,11 @@ function F(a, b, c, d) {
   if (!c) {
     return [];
   }
-  var e = [], f, h, n, q;
-  n = b.length;
+  var e = [], f, h, p, q;
+  p = b.length;
   q = b[d];
   var A = b[d + 1];
-  if (d === n && c._listeners) {
+  if (d === p && c._listeners) {
     if ("function" === typeof c._listeners) {
       a && a.push(c._listeners);
     } else {
@@ -557,9 +557,9 @@ function F(a, b, c, d) {
       return e;
     }
     if ("**" === q) {
-      (q = d + 1 === n || d + 2 === n && "*" === A) && c._listeners && (e = e.concat(F(a, b, c, n)));
+      (q = d + 1 === p || d + 2 === p && "*" === A) && c._listeners && (e = e.concat(F(a, b, c, p)));
       for (f in c) {
-        "_listeners" !== f && c.hasOwnProperty(f) && ("*" === f || "**" === f ? (c[f]._listeners && !q && (e = e.concat(F(a, b, c[f], n))), e = e.concat(F(a, b, c[f], d))) : e = f === A ? e.concat(F(a, b, c[f], d + 2)) : e.concat(F(a, b, c[f], d)));
+        "_listeners" !== f && c.hasOwnProperty(f) && ("*" === f || "**" === f ? (c[f]._listeners && !q && (e = e.concat(F(a, b, c[f], p))), e = e.concat(F(a, b, c[f], d))) : e = f === A ? e.concat(F(a, b, c[f], d + 2)) : e.concat(F(a, b, c[f], d)));
       }
       return e;
     }
@@ -567,12 +567,12 @@ function F(a, b, c, d) {
   }
   (h = c["*"]) && F(a, b, h, d + 1);
   if (c = c["**"]) {
-    if (d < n) {
-      for (f in c._listeners && F(a, b, c, n), c) {
-        "_listeners" !== f && c.hasOwnProperty(f) && (f === A ? F(a, b, c[f], d + 2) : f === q ? F(a, b, c[f], d + 1) : (n = {}, n[f] = c[f], F(a, b, {"**":n}, d + 1)));
+    if (d < p) {
+      for (f in c._listeners && F(a, b, c, p), c) {
+        "_listeners" !== f && c.hasOwnProperty(f) && (f === A ? F(a, b, c[f], d + 2) : f === q ? F(a, b, c[f], d + 1) : (p = {}, p[f] = c[f], F(a, b, {"**":p}, d + 1)));
       }
     } else {
-      c._listeners ? F(a, b, c, n) : c["*"] && c["*"]._listeners && F(a, b, c["*"], n);
+      c._listeners ? F(a, b, c, p) : c["*"] && c["*"]._listeners && F(a, b, c["*"], p);
     }
   }
   return e;
@@ -847,16 +847,16 @@ E.prototype.off = function(a, b) {
     var h = e[f];
     d = h._listeners;
     if (z(d)) {
-      for (var n = -1, q = 0, A = d.length;q < A;q++) {
+      for (var p = -1, q = 0, A = d.length;q < A;q++) {
         if (d[q] === b || d[q].listener && d[q].listener === b || d[q]._origin && d[q]._origin === b) {
-          n = q;
+          p = q;
           break;
         }
       }
-      if (0 > n) {
+      if (0 > p) {
         continue;
       }
-      this.wildcard ? h._listeners.splice(n, 1) : this._events[a].splice(n, 1);
+      this.wildcard ? h._listeners.splice(p, 1) : this._events[a].splice(p, 1);
       0 === d.length && (this.wildcard ? delete h._listeners : delete this._events[a]);
       this.emit("removeListener", a, b);
       return this;
@@ -1016,6 +1016,13 @@ J.prototype.template_content = function() {
   return "";
 };
 k.exportProperty(J.prototype, "template_content", J.prototype.template_content);
+g.global.Object.defineProperties(J, {WIDTH:{configurable:!0, enumerable:!0, get:function() {
+  if (!J.width_) {
+    var a = window.getComputedStyle(document.body, null), a = parseInt(a && a.width || 0, 10);
+    J.width_ = a;
+  }
+  return J.width_;
+}}});
 J.prototype.index = 0;
 k.exportProperty(J.prototype, "index", J.prototype.index);
 J.prototype.supportsBackGesture = !0;
@@ -1024,24 +1031,21 @@ J.prototype.hasSidebar = !1;
 k.exportProperty(J.prototype, "hasSidebar", J.prototype.hasSidebar);
 J.prototype.className = "";
 k.exportProperty(J.prototype, "className", J.prototype.className);
-var K = window.getComputedStyle(document.body, null);
-J.WIDTH = parseInt(K && K.width || 0, 10);
-k.exportSymbol("View$$module$$src$lib$view.WIDTH", J.WIDTH);
 I.default = J;
-var L = {};
-function M(a) {
+var K = {};
+function L(a) {
   this.history = [];
   this.lastTouches = [];
-  this.state = M.State.DEFAULT;
+  this.state = L.State.DEFAULT;
   this.rootEl = a || document.body;
   this.currentView = null;
   this.initTouchEvents_();
   this.firstX = this.hideSidebarTimeout = null;
 }
-M.prototype.getLastViewInHistory = function() {
+L.prototype.getLastViewInHistory = function() {
   return this.history[this.history.length - 1];
 };
-M.prototype.pull = function(a, b) {
+L.prototype.pull = function(a, b) {
   a.rendered || a.render(this.rootEl, this.topIndex += 2);
   var c = this.currentView;
   if (!c) {
@@ -1072,14 +1076,14 @@ M.prototype.pull = function(a, b) {
     a.el.style.boxShadow = "0 0 24px black";
   }, 50);
   this.currentView = a;
-  this.state = M.State.DEFAULT;
+  this.state = L.State.DEFAULT;
 };
-k.exportProperty(M.prototype, "pull", M.prototype.pull);
-M.prototype.canGoBack = function() {
+k.exportProperty(L.prototype, "pull", L.prototype.pull);
+L.prototype.canGoBack = function() {
   return this.history && 0 < this.history.length;
 };
-k.exportProperty(M.prototype, "canGoBack", M.prototype.canGoBack);
-M.prototype.push = function() {
+k.exportProperty(L.prototype, "canGoBack", L.prototype.canGoBack);
+L.prototype.push = function() {
   var a = this.history.pop(), b = this.currentView;
   a && (window.requestAnimationFrame(function() {
     a.el.style.transitionDuration = "0s";
@@ -1093,10 +1097,10 @@ M.prototype.push = function() {
     });
   }), this.currentView = a, a.onActivation && a.onActivation(), setTimeout(function() {
     return b.dispose();
-  }, 1000), this.state = M.State.DEFAULT);
+  }, 1000), this.state = L.State.DEFAULT);
 };
-k.exportProperty(M.prototype, "push", M.prototype.push);
-M.prototype.setCurrentView = function(a, b) {
+k.exportProperty(L.prototype, "push", L.prototype.push);
+L.prototype.setCurrentView = function(a, b) {
   a.rendered || a.render(this.rootEl, this.topIndex += 2);
   var c = this.currentView;
   b ? c && (c.el.style.transitionDuration = "0s", c.el.style.transform = "translate3d(100%, 0, " + c.index + "px)") : setTimeout(function() {
@@ -1111,63 +1115,63 @@ M.prototype.setCurrentView = function(a, b) {
   this.history = [];
   b = "translate3d(0, 0, " + a.index + "px)";
   a.el.style.transitionDuration = "0s";
-  this.state == M.State.SIDEBAR_OPEN ? (b = "translate3d(" + (128 - I.default.WIDTH) + "px, 0, " + a.index + "px)", a.el.style.transform = b, this.toggleSidebar_(!1)) : (a.el.style.transform = b, this.state = M.State.DEFAULT);
+  this.state == L.State.SIDEBAR_OPEN ? (b = "translate3d(" + (128 - I.default.WIDTH) + "px, 0, " + a.index + "px)", a.el.style.transform = b, this.toggleSidebar_(!1)) : (a.el.style.transform = b, this.state = L.State.DEFAULT);
 };
-k.exportProperty(M.prototype, "setCurrentView", M.prototype.setCurrentView);
-M.prototype.toggleSidebar = function() {
-  this.toggleSidebar_(this.state == M.State.DEFAULT);
+k.exportProperty(L.prototype, "setCurrentView", L.prototype.setCurrentView);
+L.prototype.toggleSidebar = function() {
+  this.toggleSidebar_(this.state == L.State.DEFAULT);
 };
-k.exportProperty(M.prototype, "toggleSidebar", M.prototype.toggleSidebar);
-M.prototype.initTouchEvents_ = function() {
+k.exportProperty(L.prototype, "toggleSidebar", L.prototype.toggleSidebar);
+L.prototype.initTouchEvents_ = function() {
   this.rootEl.addEventListener("touchmove", this.onTouchMove_.bind(this), !1);
   this.rootEl.addEventListener("touchend", this.onTouchEnd_.bind(this), !1);
 };
-M.prototype.onTouchMove_ = function(a) {
+L.prototype.onTouchMove_ = function(a) {
   var b = a.changedTouches && a.changedTouches[0].clientX || 0;
   clearTimeout(this.hideSidebarTimeout);
-  if (this.state == M.State.DEFAULT || this.state == M.State.SIDEBAR_OPEN) {
+  if (this.state == L.State.DEFAULT || this.state == L.State.SIDEBAR_OPEN) {
     this.firstX = b;
   }
-  this.state == M.State.DEFAULT && (this.lastTouches = [], this.state = M.State.STARTED_GESTURE);
-  this.state == M.State.STARTED_GESTURE && (50 >= b ? this.history.length && this.currentView && this.currentView.supportsBackGesture && (this.state = M.State.GOING_TO_BACK_VIEW) : this.currentView && this.currentView.hasSidebar && (this.lastTouches.push(this.firstX - b), 4 == this.lastTouches.length && this.lastTouches.shift(), 40 < this.lastTouches[2] - this.lastTouches[0] && (this.state = M.State.OPENING_SIDEBAR)));
-  this.state == M.State.SIDEBAR_OPEN && (this.state = M.State.CLOSING_SIDEBAR);
+  this.state == L.State.DEFAULT && (this.lastTouches = [], this.state = L.State.STARTED_GESTURE);
+  this.state == L.State.STARTED_GESTURE && (50 >= b ? this.history.length && this.currentView && this.currentView.supportsBackGesture && (this.state = L.State.GOING_TO_BACK_VIEW) : this.currentView && this.currentView.hasSidebar && (this.lastTouches.push(this.firstX - b), 4 == this.lastTouches.length && this.lastTouches.shift(), 40 < this.lastTouches[2] - this.lastTouches[0] && (this.state = L.State.OPENING_SIDEBAR)));
+  this.state == L.State.SIDEBAR_OPEN && (this.state = L.State.CLOSING_SIDEBAR);
   switch(this.state) {
-    case M.State.GOING_TO_BACK_VIEW:
+    case L.State.GOING_TO_BACK_VIEW:
       this.backGestureTouchMove_(a);
       break;
-    case M.State.CLOSING_SIDEBAR:
+    case L.State.CLOSING_SIDEBAR:
       this.closeSidebarTouchMove_(a);
       break;
-    case M.State.OPENING_SIDEBAR:
+    case L.State.OPENING_SIDEBAR:
       this.openSidebarTouchMove_(a);
   }
 };
-M.prototype.onTouchEnd_ = function(a) {
+L.prototype.onTouchEnd_ = function(a) {
   switch(this.state) {
-    case M.State.GOING_TO_BACK_VIEW:
+    case L.State.GOING_TO_BACK_VIEW:
       this.backGestureTouchEnd_(a);
       break;
-    case M.State.OPENING_SIDEBAR:
+    case L.State.OPENING_SIDEBAR:
       a = !0;
       3 > this.lastTouches[2] - this.lastTouches[0] && (a = !1);
       this.toggleSidebar_(a);
       break;
-    case M.State.CLOSING_SIDEBAR:
+    case L.State.CLOSING_SIDEBAR:
       a = !0;
       -3 > this.lastTouches[2] - this.lastTouches[0] && (a = !1);
       this.toggleSidebar_(a);
       break;
-    case M.State.SIDEBAR_OPEN:
+    case L.State.SIDEBAR_OPEN:
       if (u.default.gestureHandler.canTap) {
         break;
       }
       this.toggleSidebar_(!1);
       break;
     default:
-      this.state = M.State.DEFAULT;
+      this.state = L.State.DEFAULT;
   }
 };
-M.prototype.backGestureTouchEnd_ = function(a) {
+L.prototype.backGestureTouchEnd_ = function(a) {
   var b = this;
   if (this.firstX) {
     var c = this.history, d = this.getLastViewInHistory(), e = this.currentView, f = a.changedTouches && a.changedTouches[0].clientX || 0, h = l.default.lerp(0.15, 0.35, (I.default.WIDTH - f) / I.default.WIDTH);
@@ -1191,10 +1195,10 @@ M.prototype.backGestureTouchEnd_ = function(a) {
       d.el.style.transform = "translate3d(" + q + ", 0, " + (e.index - 1) + "px)";
       e.el.style.boxShadow = "0px 0 0px black";
     });
-    this.state = M.State.DEFAULT;
+    this.state = L.State.DEFAULT;
   }
 };
-M.prototype.backGestureTouchMove_ = function(a) {
+L.prototype.backGestureTouchMove_ = function(a) {
   if (this.history.length) {
     a.preventDefault();
     var b = this.history[this.history.length - 1], c = this.currentView, d = (a.changedTouches && a.changedTouches[0].clientX || 0) - this.firstX;
@@ -1209,7 +1213,7 @@ M.prototype.backGestureTouchMove_ = function(a) {
     });
   }
 };
-M.prototype.closeSidebarTouchMove_ = function(a) {
+L.prototype.closeSidebarTouchMove_ = function(a) {
   var b = a.changedTouches && a.changedTouches[0].clientX || 0;
   this.lastTouches.push(this.firstX - b);
   4 == this.lastTouches.length && this.lastTouches.shift();
@@ -1220,26 +1224,26 @@ M.prototype.closeSidebarTouchMove_ = function(a) {
     c.el.style.transform = "translate3d(" + d + "px, 0, " + c.index + "px)";
   });
 };
-M.prototype.toggleSidebar_ = function(a) {
+L.prototype.toggleSidebar_ = function(a) {
   var b = this, c = this.currentView, d = document.querySelector("sidebar");
   setTimeout(function() {
     c.el.style.transitionDuration = "0.35s";
     var e = 128 - I.default.WIDTH + "px", f = "0", h = c.index - 1 + "px";
     a ? d.style.transform = "translate3d(" + f + ", 0, " + h + ")" : (e = "0", f = "100%", h = 0, b.hideSidebarTimeout = setTimeout(function() {
-      b.state == M.State.DEFAULT && (d.style.transform = "translate3d(" + f + ", 0, " + h + ")");
+      b.state == L.State.DEFAULT && (d.style.transform = "translate3d(" + f + ", 0, " + h + ")");
     }, 1000));
     c.el.style.transform = "translate3d(" + e + ", 0, " + c.index + "px)";
   }, 10);
-  this.state = a ? M.State.SIDEBAR_OPEN : M.State.DEFAULT;
+  this.state = a ? L.State.SIDEBAR_OPEN : L.State.DEFAULT;
 };
-M.prototype.openSidebarTouchMove_ = function(a) {
+L.prototype.openSidebarTouchMove_ = function(a) {
   if (!u.default.gestureHandler.canTap) {
     var b = a.changedTouches && a.changedTouches[0].clientX || 0;
     this.lastTouches.push(this.firstX - b);
     4 == this.lastTouches.length && this.lastTouches.shift();
     a.preventDefault();
     var c = document.querySelector("sidebar"), d = this.currentView, e = b - this.firstX;
-    0 <= e || (this.state = M.State.OPENING_SIDEBAR, window.requestAnimationFrame(function() {
+    0 <= e || (this.state = L.State.OPENING_SIDEBAR, window.requestAnimationFrame(function() {
       c.style.transform = "translate3d(0, 0, " + (d.index - 1) + "px)";
       c.style.transitionDuration = "0s";
       d.el.style.transitionDuration = "0s";
@@ -1247,35 +1251,35 @@ M.prototype.openSidebarTouchMove_ = function(a) {
     }));
   }
 };
-g.global.Object.defineProperties(M, {State:{configurable:!0, enumerable:!0, get:function() {
+g.global.Object.defineProperties(L, {State:{configurable:!0, enumerable:!0, get:function() {
   return {DEFAULT:"default", STARTED_GESTURE:"started", CLOSING_SIDEBAR:"closingSidebar", OPENING_SIDEBAR:"openingSidebar", SIDEBAR_OPEN:"sidebarOpen", GOING_TO_BACK_VIEW:"going"};
 }}});
-M.prototype.topIndex = 1;
-k.exportProperty(M.prototype, "topIndex", M.prototype.topIndex);
+L.prototype.topIndex = 1;
+k.exportProperty(L.prototype, "topIndex", L.prototype.topIndex);
 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function(a) {
   window.setTimeout(a, 1000 / 60);
 };
-L.default = M;
-var N = {}, O = {en:{__name:"English"}}, P = O.en;
-function Q(a, b) {
-  O[a] = b;
+K.default = L;
+var M = {}, N = {en:{__name:"English"}}, O = N.en;
+function P(a, b) {
+  N[a] = b;
 }
-k.exportSymbol("setDictionary$$module$$src$lib$locale", Q);
-function R(a) {
-  P = O[a];
+k.exportSymbol("setDictionary$$module$$src$lib$locale", P);
+function Q(a) {
+  O = N[a];
 }
-k.exportSymbol("setLanguage$$module$$src$lib$locale", R);
-function S(a, b) {
+k.exportSymbol("setLanguage$$module$$src$lib$locale", Q);
+function R(a, b) {
   for (var c = [], d = 1;d < arguments.length;++d) {
     c[d - 1] = arguments[d];
   }
-  return (P[a] || a).replace(/{(\d+)}/g, function(a, b) {
+  return (O[a] || a).replace(/{(\d+)}/g, function(a, b) {
     return "undefined" != typeof c[b] ? c[b] : a;
   });
 }
-k.exportSymbol("getLocalizedString$$module$$src$lib$locale", S);
-N.default = {setDictionary:Q, setLanguage:R, getLocalizedString:S, __:S};
-var ia = {};
+k.exportSymbol("getLocalizedString$$module$$src$lib$locale", R);
+M.default = {setDictionary:P, setLanguage:Q, getLocalizedString:R, __:R};
+var S = {};
 function T() {
   G.default.call(this);
   this.vm = null;
@@ -1304,18 +1308,17 @@ g.global.Object.defineProperties(T.prototype, {mappings:{configurable:!0, enumer
 g.global.Object.defineProperties(T, {EventType:{configurable:!0, enumerable:!0, get:function() {
   return {SWITCH_VIEW:"switchView"};
 }}});
-ia.default = T;
-var ja = {};
+S.default = T;
+var ia = {};
 function U() {
   I.default.call(this);
   this.vm = null;
   this.views = [];
 }
 g.inherits(U, I.default);
-U.WIDTH = I.default.WIDTH;
-k.exportSymbol("TabBar$$module$$src$components$tabbar$tabbar.WIDTH", U.WIDTH);
+U.width_ = I.default.width_;
 U.prototype.onAfterRender = function() {
-  this.vm = new L.default(this.el);
+  this.vm = new K.default(this.el);
 };
 k.exportProperty(U.prototype, "onAfterRender", U.prototype.onAfterRender);
 U.prototype.onItemTap = function(a) {
@@ -1362,8 +1365,8 @@ g.global.Object.defineProperties(U.prototype, {mappings:{configurable:!0, enumer
   var a = {};
   return {touchend:(a[this.mappings.ITEM] = this.onItemTap.bind(this), a)};
 }}});
-ja.default = U;
-var ka = {};
+ia.default = U;
+var ja = {};
 function V(a) {
   a = void 0 === a ? {hasBackButton:!1, hasMenuButton:!1, title:""} : a;
   G.default.call(this);
@@ -1394,8 +1397,8 @@ g.global.Object.defineProperties(V.prototype, {mappings:{configurable:!0, enumer
   var a = {};
   return {tap:(a[this.mappings.BACK_BUTTON] = this.onBackButtonTap, a[this.mappings.MENU_BUTTON] = this.onMenuButtonTap, a)};
 }}});
-ka.default = V;
-var la = {};
+ja.default = V;
+var ka = {};
 function W() {
   y.default.call(this, {maxListeners:Infinity});
   this.reset();
@@ -1419,11 +1422,11 @@ g.global.Object.defineProperties(W.prototype, {State:{configurable:!0, enumerabl
 }}, EventType:{configurable:!0, enumerable:!0, get:function() {
   return {SHOULD_REFRESH:"refresh"};
 }}});
-la.default = W;
-var ma = {};
+ka.default = W;
+var la = {};
 function X(a) {
   G.default.call(this);
-  this.model = new la.default;
+  this.model = new ka.default;
   this.EventType = this.model.EventType;
   this.releaseListener_ = this.scrollListener_ = this.containerEl = this.scrollEl = null;
   a && this.register(a);
@@ -1490,8 +1493,8 @@ g.global.Object.defineProperties(X.prototype, {mappings:{configurable:!0, enumer
 X.prototype.threshold = 135;
 X.prototype.height = 96;
 X.prototype.arrowOffset = 0;
-ma.default = X;
-var na = {};
+la.default = X;
+var ma = {};
 function Y() {
   y.default.call(this, {maxListeners:Infinity});
   this.state_ = this.State.DEFAULT;
@@ -1514,18 +1517,18 @@ g.global.Object.defineProperties(Y.prototype, {State:{configurable:!0, enumerabl
 }}, EventType:{configurable:!0, enumerable:!0, get:function() {
   return {SHOULD_LOAD:"load"};
 }}});
-na.default = Y;
+ma.default = Y;
 /*
  Throttle function
  https://remysharp.com/2010/07/21/throttling-function-calls
 
  Copyright (c) 2010 Remy Sharp
 */
-var oa = {default:function(a, b, c) {
+var na = {default:function(a, b, c) {
   var d = 0, e;
   return function(f) {
-    for (var h = [], n = 0;n < arguments.length;++n) {
-      h[n - 0] = arguments[n];
+    for (var h = [], p = 0;p < arguments.length;++p) {
+      h[p - 0] = arguments[p];
     }
     var q = +new Date;
     d && q < d + b ? (clearTimeout(e), e = setTimeout(function() {
@@ -1534,14 +1537,14 @@ var oa = {default:function(a, b, c) {
     }, b + d - q)) : (d = q, a.apply(c, h));
   };
 }};
-var pa = {};
+var oa = {};
 function Z(a) {
   G.default.call(this);
-  this.model = new na.default;
+  this.model = new ma.default;
   this.EventType = this.model.EventType;
   this.scrollEl = this.scrollListener_ = null;
   this.endOfListText = "";
-  this.throttle = oa.default(this.checkShouldLoadMore_, 100, this);
+  this.throttle = na.default(this.checkShouldLoadMore_, 100, this);
   a && this.register(a);
   this.bindModelEvents();
 }
@@ -1589,8 +1592,8 @@ Z.prototype.dispose = function() {
   this.scrollEl.removeEventListener(this.scrollListener_);
   G.default.prototype.dispose.call(this);
 };
-pa.default = Z;
-window.erste = {Component:G.default, ViewManager:L.default, View:I.default, locale:N.default, Sidebar:ia.default, TabBar:ja.default, NavBar:ka.default, PullToRefresh:ma.default, InfiniteScroll:pa.default};
+oa.default = Z;
+window.erste = {Component:G.default, ViewManager:K.default, View:I.default, locale:M.default, Sidebar:S.default, TabBar:ia.default, NavBar:ja.default, PullToRefresh:la.default, InfiniteScroll:oa.default};
 k.exportSymbol("window.erste", window.erste);
 
 
