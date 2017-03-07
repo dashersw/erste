@@ -1,4 +1,6 @@
-# erste.js - JavaScript view library for building performant hybrid mobile applications
+<img src="resources/logo.png" height="180" alt="Erste" />
+
+# JavaScript view library for building performant hybrid mobile applications
 
 **erste.js is a zero-hype view library with an attitude. It’s built for achieving maximum performance on mobile devices.**
 
