@@ -229,7 +229,7 @@ We could create the component within the `template` method so that it would be c
 
 `root-view.js`:
 
-```
+```js
 /* … previous code … */
 
     template() {
