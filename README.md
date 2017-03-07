@@ -1,7 +1,7 @@
 <img src="resources/logo.png" height="180" alt="Erste" />
 
 [![npm version](https://badge.fury.io/js/erste.js.svg)](https://badge.fury.io/js/erste.js)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/dashersw/erste.js/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dashersw/erste.js/master/LICENSE)
 
 # JavaScript view library for building performant hybrid mobile applications
 
