@@ -9,8 +9,7 @@
 - No pitfalls
 - Clean, structured and approachable API
 
-Table of Contents
-=================
+## Table of Contents
 
   * [Motivation](#motivation)
   * [Installation](#installation)
