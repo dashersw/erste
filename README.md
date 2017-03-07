@@ -17,6 +17,9 @@ We as application developers don't need fancy features that are only good on the
 erste.js is a solemn approach to application development. It gives you the barebones to get started and doesn't try to steal the show from your application. It lets you focus on your own source code and gets out of the way.
 
 ## Installation
+### Direct download
+- [Development version](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.js)
+- [Minified version - 12kb gzipped](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.min.js)
 
 ### Using bower
 ```bash
