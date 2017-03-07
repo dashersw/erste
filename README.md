@@ -31,6 +31,7 @@
      * [Going back to the master view](#going-back-to-the-master-view)
      * [The back gesture](#the-back-gesture)
   * [Conclusion](#conclusion)
+  * [License](#license)
       
 ## Motivation
 Building applications should be straightforward and simple. Most of the frameworks used today fail hard at being simple, and they make the wrong compromises for marginal gains. A super declarative framework with a megabyte of size, one second boot time and thousands of questions on StackOverflow due to its obscure and unfamiliar API... is this familiar?
@@ -418,3 +419,26 @@ Now you will be able to navigate back to the original view with a swipe!
 ## Conclusion
 erste.js has a lot more to offer in terms of application development. You can check out the various built-in components — such as the navigation bar, the tab bar and more — and learn how you can make use of the advanced features. Make sure to try the demo over at [erste.js-demo](https://github.com/dashersw/erste.js-demo) to see it all in action.
 
+## License
+
+MIT License
+
+Copyright (c) 2017 Armagan Amcalar
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
