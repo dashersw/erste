@@ -9,6 +9,43 @@
 - No pitfalls
 - Clean, structured and approachable API
 
+## Overview
+
+```js
+// 1. Import erste,
+import {Component} from 'erste';
+
+// 2. Create your application,
+class App extends Component {
+
+    // 3. Arrange your view,
+    template() {
+        return `<app>
+                  <h1>0</h1>
+                  <button class="increment">Increment</button>
+                  <button class="decrement">Decrement</button>
+                </app>`;
+    }
+
+    // 4. Create your methods,
+    increment() { this.$('h1').innerText += 1; }
+    decrement() { this.$('h1').innerText -= 1; }
+
+    // 5. Bind your events.
+    get events() {
+        return {
+            'tap': {
+                '.increment': this.increment,
+                '.decrement': this.decrement
+            }
+        }
+    }
+}
+
+// 6. Make your application run.
+new App().render(document.body);
+```
+
 ## Table of Contents
 
   * [Motivation](#motivation)
