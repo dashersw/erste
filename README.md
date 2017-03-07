@@ -9,6 +9,30 @@
 - No pitfalls
 - Clean, structured and approachable API
 
+Table of Contents
+=================
+
+  * [Motivation](#motivation)
+  * [Installation](#installation)
+     * [Direct download](#direct-download)
+     * [Using bower](#using-bower)
+     * [Using npm](#using-npm)
+     * [Builds with Closure Compiler](#builds-with-closure-compiler)
+  * [Example application](#example-application)
+  * [Building your first application](#building-your-first-application)
+     * [The root view](#the-root-view)
+     * [DOM Events](#dom-events)
+     * [How DOM event management works](#how-dom-event-management-works)
+  * [Creating other components](#creating-other-components)
+     * [Lifecycle management of components](#lifecycle-management-of-components)
+        * [Option 1: Declarative](#option-1)
+        * [Option 2: Imperative with erste.js API](#option-2)
+        * [Option 3: Imperative with DOM API](#option-3)
+  * [Creating master and detail views, or introducing the ViewManager](#creating-master-and-detail-views-or-introducing-the-viewmanager)
+     * [Going back to the master view](#going-back-to-the-master-view)
+     * [The back gesture](#the-back-gesture)
+  * [Conclusion](#conclusion)
+      
 ## Motivation
 Building applications should be straightforward and simple. Most of the frameworks used today fail hard at being simple, and they make the wrong compromises for marginal gains. A super declarative framework with a megabyte of size, one second boot time and thousands of questions on StackOverflow due to its obscure and unfamiliar API... is this familiar?
 
@@ -200,7 +224,7 @@ Here is how declarative erste.js is; views and components can include other comp
 ### Lifecycle management of components
 In this example we chose to instantiate the child component within the constructor of the `RootView`. While this is a very common scenario, for some reason we may want to defer the initialization of the child component.
 
-#### Option 1:
+#### Option 1: Declarative
 We could create the component within the `template` method so that it would be created only when the view would be rendered. This wouldn’t be extremely maintainable, but could be a fair trade off for certain cases. Then the `template` method in `RootView` could look like this:
 
 `root-view.js`:
@@ -219,7 +243,7 @@ We could create the component within the `template` method so that it would be c
     }
 ```
 
-#### Option 2:
+#### Option 2: Imperative with erste.js API
 The child component may require its parent to be in the DOM when it’s instantiated. Under those circumstances, it would make sense to imperatively append the child into the parent after the parent is rendered into the DOM. In this case, the `RootView` would look like:
 
 `root-view.js`:
@@ -243,7 +267,7 @@ class RootView extends View {
 
 Of course, you could just as well instantiate `ButtonWithLabel` in `RootView`’s constructor and render it within `onAfterRender`.
 
-#### Option 3:
+#### Option 3: Imperative with DOM API
 If you don’t like to remember custom `render` methods and such, you can also use the native `appendChild` DOM API.
 
 In this case, the `RootView` would look like:
