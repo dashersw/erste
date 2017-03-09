@@ -40,8 +40,6 @@ export default class ViewManager {
 
 
     /**
-     * @export
-     *
      * @param {!View} view View to pull into view.
      * @param {boolean=} opt_canGoBack Whether this view keeps history so that one can go back to the previous view.
      */
@@ -89,8 +87,6 @@ export default class ViewManager {
 
 
     /**
-     * @export
-     *
      * Returns true if there is one or more views in history,
      * returns false otherwise.
      *
@@ -102,8 +98,6 @@ export default class ViewManager {
 
 
     /**
-     * @export
-     *
      * Switches to the previous view if there's one.
      */
     push() {
@@ -135,8 +129,6 @@ export default class ViewManager {
 
 
     /**
-     * @export
-     *
      * Makes a given view the foremost view without animations and with disposing previous views in history.
      *
      * @param {!View} view The view to set as the foremost view.
@@ -184,8 +176,6 @@ export default class ViewManager {
 
 
     /**
-     * @export
-     *
      * Toggles the sidebar on or off according to its current state. This is to be used for a menu button, for example.
      */
     toggleSidebar() {
@@ -488,8 +478,6 @@ export default class ViewManager {
     };
 
     /**
-     * @export
-     *
      * View manager states.
      *
      * @enum {string}
@@ -508,8 +496,6 @@ export default class ViewManager {
 
 
 /**
- * @export
- *
  * 3d transform Z position for the uppermost view. Used to set the right view on top.
  * @type {number}
  */

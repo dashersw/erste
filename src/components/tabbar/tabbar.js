@@ -14,8 +14,6 @@ export default class TabBar extends View {
     }
 
     /**
-     * @export
-     *
      * @override
      */
     onAfterRender() {
@@ -23,8 +21,6 @@ export default class TabBar extends View {
     };
 
     /**
-     * @export
-     *
      * @param {!{targetEl: !Element}} e Item touch event handler.
      */
     onItemTap(e) {
@@ -38,8 +34,6 @@ export default class TabBar extends View {
     };
 
     /**
-     * @export
-     *
      * Adds active class to item.
      * @param {number} index Index of the item to be active.
      */
@@ -57,8 +51,6 @@ export default class TabBar extends View {
 
 
     /**
-     * @export
-     *
      * Activates a tab bar item with a given name. If an item for the given the name isn't found, does nothing.
      *
      * @param {string} name Name for the tab bar item.
@@ -75,8 +67,6 @@ export default class TabBar extends View {
 
 
     /**
-     * @export
-     *
      * Removes active class of active item.
      */
     deactivateActiveItem() {
@@ -87,8 +77,6 @@ export default class TabBar extends View {
 
 
     /**
-     * @export
-     *
      * @return {string} Base template of NavigationBar component.
      */
     template_content() {
@@ -107,8 +95,6 @@ export default class TabBar extends View {
     }
 
     /**
-     * @export
-     *
      * @return {string} Template for tab bar items.
      */
     template_items() {
@@ -116,8 +102,6 @@ export default class TabBar extends View {
     };
 
     /**
-     * @export
-     *
      * @enum {string} Dom mappings.
      */
     get mappings() {
@@ -128,9 +112,6 @@ export default class TabBar extends View {
         };
     }
 
-    /**
-     * @export
-     */
     get events() {
         return {
             'touchend': {

@@ -77,7 +77,7 @@ const angle = (x1, y1, x2, y2) => {
  * @param {number} y2 Y value of the second point
  * @return {number} Distance between two points
  */
-const distance = (x1, y1, x2, y2) => (x1 - x2) ** 2 + (y1 - y2) ** 2;
+const distance = (x1, y1, x2, y2) => Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2);
 
 
 /**

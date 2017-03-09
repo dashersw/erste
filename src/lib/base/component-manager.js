@@ -80,6 +80,8 @@ const handleEvent = e => {
     do {
         if (broken) break;
 
+        e['targetEl'] = e.targetEl;
+
         broken = callHandlers(comps, e);
     } while ((e.targetEl = e.targetEl.parentNode) && (e.targetEl != document.body));
 }

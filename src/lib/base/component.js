@@ -9,6 +9,8 @@ export default class Component extends EventEmitter2 {
      * are extremely dummy, in that they have no memory, or state, of their
      * own. They know how to draw a user interface and how to handle user
      * input; which they delegate to the Representatives.
+     *
+     * @export
      */
     constructor() {
         super({
@@ -120,6 +122,20 @@ export default class Component extends EventEmitter2 {
         var child = opt_base.children[opt_index ? opt_index : opt_base.children.length - 1];
         opt_base.insertBefore(this.el, child || null);
     }
+
+    /**
+     * Method called before a render process. Called automatically before each render. Subclasses should override
+     * this method for tasks that should be done right before the View enters the document.
+     */
+    onBeforeRender() { };
+
+
+    /**
+     * Method called after a render process. Called automatically after each render. Subclasses should override
+     * this method for tasks that should be done when the View is in document.
+     */
+    onAfterRender() { };
+
 
     /**
      * @export

@@ -11,6 +11,10 @@
     "Hybrid mobile applications",
     "javascript framework"
   ],
+  "scripts": {
+    "prepublish": "gulp",
+    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/erste.min.js"
+  },
   "author": "Armagan Amcalar <armagan@amcalar.com>",
   "license": "MIT",
   "bugs": {
@@ -19,11 +23,8 @@
   "homepage": "https://github.com/dashersw/erste.js#readme",
   "devDependencies": {
     "del": "^2.2.2",
-    "eventemitter2": "^3.0.1",
     "google-closure-compiler": "^20170218.0.0",
     "gulp": "^3.9.1",
-    "gulp-sourcemaps": "^2.4.1",
-    "run-sequence": "^1.2.2",
-    "vinyl-source-stream": "^1.1.0"
+    "gulp-sourcemaps": "^2.4.1"
   }
 }

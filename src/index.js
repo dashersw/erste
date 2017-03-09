@@ -11,49 +11,23 @@ import InfiniteScroll from './components/infinite-scroll/infinite-scroll';
 /**
  * @export
  */
-window.erste = {
-    /**
-     * @export
-     */
+export default {
+    /** @export */
     Component: Component,
-
-    /**
-     * @export
-     */
+    /** @export */
     ViewManager: ViewManager,
-
-    /**
-     * @export
-     */
+    /** @export */
     View: View,
-
-    /**
-     * @export
-     */
+    /** @export */
     locale: locale,
-
-    /**
-     * @export
-     */
+    /** @export */
     Sidebar: Sidebar,
-
-    /**
-     * @export
-     */
+    /** @export */
     TabBar: TabBar,
-
-    /**
-     * @export
-     */
+    /** @export */
     NavBar: NavBar,
-
-    /**
-     * @export
-     */
+    /** @export */
     PullToRefresh: PullToRefresh,
-
-    /**
-     * @export
-     */
+    /** @export */
     InfiniteScroll: InfiniteScroll
 };

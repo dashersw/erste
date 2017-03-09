@@ -11,8 +11,6 @@ export default class Sidebar extends Component {
     }
 
     /**
-     * @export
-     *
      * Dispatches a switch view event to listeners and toggles the sidebar of the view manager that
      * is responsible for this sidebar.
      *
@@ -31,8 +29,6 @@ export default class Sidebar extends Component {
 
 
     /**
-     * @export
-     *
      * @override
      */
     template() {
@@ -45,8 +41,6 @@ export default class Sidebar extends Component {
 
 
     /**
-     * @export
-     *
      * @return {string} Returns the items for the sidebar.
      */
     template_items() {
@@ -55,8 +49,6 @@ export default class Sidebar extends Component {
 
 
     /**
-     * @export
-     *
      * @enum {string} Dom mapping.
      */
     get mappings() {
@@ -73,9 +65,6 @@ export default class Sidebar extends Component {
         };
     }
 
-    /**
-     * @export
-     */
     static get EventType() {
         return {
             SWITCH_VIEW: 'switchView'

@@ -14,8 +14,6 @@ export default class View extends Component {
 
 
     /**
-     * @export
-     *
      * Overridden to make document.body the default parent element. This method also saves if a view is already rendered.
      * Original opt_index parameter is also overridden with the view index. In this case, this view will always be appended
      * to the body.
@@ -38,26 +36,6 @@ export default class View extends Component {
     }
 
     /**
-     * @export
-     *
-     * Method called before a render process. Called automatically before each render. Subclasses should override
-     * this method for tasks that should be done right before the View enters the document.
-     */
-    onBeforeRender() { };
-
-
-    /**
-     * @export
-     *
-     * Method called after a render process. Called automatically after each render. Subclasses should override
-     * this method for tasks that should be done when the View is in document.
-     */
-    onAfterRender() { };
-
-
-    /**
-     * @export
-     *
      * Method called when the View is being activated by a ViewManager. Subclasses should override this method for tasks
      * that should be done when the View is in viewport, such as updating information, etc.
      */
@@ -65,8 +43,6 @@ export default class View extends Component {
 
 
     /**
-     * @export
-     *
      * Overriden to include 'view' as a class name.
      *
      * @override
@@ -82,8 +58,6 @@ export default class View extends Component {
 
 
     /**
-     * @export
-     *
      * Empty content template. Subclasses should override this method and implement necessary markup here.
      *
      * @return {string} Content markup for the view.
@@ -115,8 +89,6 @@ export default class View extends Component {
 
 
 /**
- * @export
- *
  * View index in z-axis. This should be used as the z value for initial translate3d style declaration.
  *
  * @type {number}
@@ -125,18 +97,14 @@ View.prototype.index = 0;
 
 
 /**
- * @export
- *
  * Determines whether the view should support back gestures to go back in history or not.
  *
  * @type {boolean}
  */
-View.prototype.supportsBackGesture = true;
+View.prototype.supportsBackGesture = false;
 
 
 /**
- * @export
- *
  * True if the view allows sidebar access. This lets the view manager orchestrate touch gestures for the sidebar menu.
  * Default is false.
  *
@@ -146,8 +114,6 @@ View.prototype.hasSidebar = false;
 
 
 /**
- * @export
- *
  * Defines CSS class names for the view.
  *
  * @type {string}
