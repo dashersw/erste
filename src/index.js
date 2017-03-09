@@ -3,7 +3,7 @@ import ViewManager from './lib/view-manager';
 import View from './lib/view';
 import locale from './lib/locale';
 import Sidebar from './components/sidebar/sidebar';
-import TabBar from './components/tabbar/tabbar';
+import TabView from './components/tab-view/tab-view';
 import NavBar from './components/navbar/navbar';
 import PullToRefresh from './components/pull-to-refresh/pull-to-refresh';
 import InfiniteScroll from './components/infinite-scroll/infinite-scroll';
@@ -11,49 +11,23 @@ import InfiniteScroll from './components/infinite-scroll/infinite-scroll';
 /**
  * @export
  */
-window.erste = {
-    /**
-     * @export
-     */
+export default {
+    /** @export */
     Component: Component,
-
-    /**
-     * @export
-     */
+    /** @export */
     ViewManager: ViewManager,
-
-    /**
-     * @export
-     */
+    /** @export */
     View: View,
-
-    /**
-     * @export
-     */
+    /** @export */
     locale: locale,
-
-    /**
-     * @export
-     */
+    /** @export */
     Sidebar: Sidebar,
-
-    /**
-     * @export
-     */
-    TabBar: TabBar,
-
-    /**
-     * @export
-     */
+    /** @export */
+    TabView: TabView,
+    /** @export */
     NavBar: NavBar,
-
-    /**
-     * @export
-     */
+    /** @export */
     PullToRefresh: PullToRefresh,
-
-    /**
-     * @export
-     */
+    /** @export */
     InfiniteScroll: InfiniteScroll
 };

@@ -12,36 +12,32 @@ export default class NavBar extends Component {
         this.vm = null;
 
         this.config = opt_config;
-
-        this.hasBackButton = this.config.hasBackButton;
-        this.hasMenuButton = this.config.hasMenuButton;
     }
 
     /**
      * Back button tap event handler.
      */
     onBackButtonTap() {
-        this.vm.push();
+        this.vm && this.vm.push();
     };
 
     onMenuButtonTap() {
-        if (this.menuButtonHandler) return this.menuButtonHandler();
-
-        this.vm.toggleSidebar();
+        this.vm && this.vm.toggleSidebar();
     };
 
     /**
      * @override
      */
     template() {
-        var backButton = '',
+        var config = this.config,
+            backButton = '',
             menuButton = '';
 
-        if (this.hasBackButton) backButton = `<back-button></back-button>`;
-        if (this.hasMenuButton) menuButton = `<menu-button></menu-button>`;
+        if (config.hasBackButton) backButton = `<back-button></back-button>`;
+        if (config.hasMenuButton) menuButton = `<menu-button></menu-button>`;
 
         return `
-<nav-bar>${backButton}${menuButton}${this.config.title || ''}</nav-bar>
+<nav-bar>${backButton}${menuButton}${config.title}</nav-bar>
 `;
     }
 

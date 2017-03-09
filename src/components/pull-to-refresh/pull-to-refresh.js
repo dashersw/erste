@@ -44,8 +44,8 @@ export default class PullToRefresh extends Component {
             this.containerEl.style.transform = `translateY(${this.height}px)`;
             this.containerEl.style.transition = '800ms cubic-bezier(.41,1,.1,1)';
 
-            if (spinner) spinner.style.visibility = 'visible';
-            if (arrow) arrow.style.visibility = 'hidden';
+            if (spinner) spinner.style.opacity = 1;
+            if (arrow) arrow.style.opacity = 0;
 
             this.emit(this.model.EventType.SHOULD_REFRESH);
         });
@@ -55,9 +55,8 @@ export default class PullToRefresh extends Component {
     /**
      * @override
      */
-    render(opt_base, opt_index) {
-        super.render(opt_base, opt_index);
-
+    onAfterRender() {
+        super.onAfterRender();
         if (!this.scrollEl) this.register(this.el.parentElement);
     };
 
@@ -76,10 +75,10 @@ export default class PullToRefresh extends Component {
         var spinner = this.$(this.mappings.SPINNER);
         var arrow = this.$(this.mappings.ARROW);
 
-        if (spinner) spinner.style.visibility = 'hidden';
+        if (spinner) spinner.style.opacity = 0;
 
         setTimeout(() => {
-            if (arrow) arrow.style.visibility = 'visible';
+            if (arrow) arrow.style.opacity = 1;
         }, 500);
 
         this.model.reset();

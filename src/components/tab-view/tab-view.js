@@ -1,7 +1,7 @@
 import View from '../../lib/view';
 import ViewManager from '../../lib/view-manager';
 
-export default class TabBar extends View {
+export default class TabView extends View {
     constructor() {
         super();
 
@@ -14,17 +14,19 @@ export default class TabBar extends View {
     }
 
     /**
-     * @export
-     *
      * @override
      */
     onAfterRender() {
-        this.vm = new ViewManager(this.el);
+        super.onAfterRender();
+
+        var $views = this.$(this.mappings.VIEWS);
+        if (!$views) throw new Error('TabView template must have <views>');
+
+        this.vm = new ViewManager($views);
+        this.activateItem(0);
     };
 
     /**
-     * @export
-     *
      * @param {!{targetEl: !Element}} e Item touch event handler.
      */
     onItemTap(e) {
@@ -38,8 +40,6 @@ export default class TabBar extends View {
     };
 
     /**
-     * @export
-     *
      * Adds active class to item.
      * @param {number} index Index of the item to be active.
      */
@@ -57,8 +57,6 @@ export default class TabBar extends View {
 
 
     /**
-     * @export
-     *
      * Activates a tab bar item with a given name. If an item for the given the name isn't found, does nothing.
      *
      * @param {string} name Name for the tab bar item.
@@ -75,8 +73,6 @@ export default class TabBar extends View {
 
 
     /**
-     * @export
-     *
      * Removes active class of active item.
      */
     deactivateActiveItem() {
@@ -87,28 +83,26 @@ export default class TabBar extends View {
 
 
     /**
-     * @export
-     *
      * @return {string} Base template of NavigationBar component.
      */
-    template_content() {
+    template() {
         return `
-        ${this.template_views()}
-<tab-bar>
-    <tab-items>
-        ${this.template_items()}
-    </tab-items>
-</tab-bar>
+<tab-view>
+    ${this.template_views()}
+    <tab-bar>
+        <tab-items>
+            ${this.template_items()}
+        </tab-items>
+    </tab-bar>
+</tab-view>
 `;
     };
 
     template_views() {
-        return this.views.join('');
+        return `<views>${this.views.join('')}</views>`;
     }
 
     /**
-     * @export
-     *
      * @return {string} Template for tab bar items.
      */
     template_items() {
@@ -116,21 +110,17 @@ export default class TabBar extends View {
     };
 
     /**
-     * @export
-     *
      * @enum {string} Dom mappings.
      */
     get mappings() {
         return {
             ITEM: 'tab-item',
             ITEMS: 'tab-items',
-            ACTIVE: '.active'
+            ACTIVE: '.active',
+            VIEWS: 'views'
         };
     }
 
-    /**
-     * @export
-     */
     get events() {
         return {
             'touchend': {

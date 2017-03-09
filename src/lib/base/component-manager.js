@@ -2,6 +2,7 @@ import GestureHandler from './gesture-handler';
 import getUid from './uid';
 
 const componentRegistry = {};
+const componentsToRender = {};
 
 let gestureHandler;
 
@@ -30,14 +31,22 @@ const events = [
     'swipeBottom',
     'swipeLeft'
 ];
-
+var mutationCounter = 0;
 const onLoad = () => {
     events.forEach(type => document.body.addEventListener(type, handleEvent));
 
     gestureHandler = new GestureHandler();
+
+    new MutationObserver(mutations => {
+        for (let cmpId in componentsToRender) {
+            componentsToRender[cmpId].render();
+
+            delete componentsToRender[cmpId];
+        }
+    }).observe(document.body, { childList: true, subtree: true });;
 }
 
-if (document.readyState === "complete") onLoad();
+if (document.body) onLoad();
 else document.addEventListener('DOMContentLoaded', onLoad);
 
 const createElement = (() => {
@@ -52,7 +61,7 @@ const createElement = (() => {
 const getParentComps = child => {
     let node = child, parentComps = [], comp, ids;
 
-    if (ids = node.getAttribute && node.getAttribute('data-comp')) {
+    if (ids = node.parentComps) {
         ids.split(',').forEach(id => parentComps.push(componentRegistry[id]));
 
         return parentComps;
@@ -67,7 +76,7 @@ const getParentComps = child => {
         }
     } while (node = node.parentNode);
 
-    child.setAttribute('data-comp', ids.join(','));
+    child.parentComps = ids.join(',');
     return parentComps;
 }
 
@@ -79,6 +88,8 @@ const handleEvent = e => {
 
     do {
         if (broken) break;
+
+        e['targetEl'] = e.targetEl;
 
         broken = callHandlers(comps, e);
     } while ((e.targetEl = e.targetEl.parentNode) && (e.targetEl != document.body));
@@ -129,10 +140,16 @@ const getComponent = id => {
 
 const setComponent = comp => {
     componentRegistry[comp.id] = comp;
+    if (!comp.rendered) componentsToRender[comp.id] = comp;
 }
 
 const removeComponent = comp => {
     delete componentRegistry[comp.id];
+    delete componentsToRender[comp.id];
+}
+
+const markComponentRendered = comp => {
+    delete componentsToRender[comp.id];
 }
 
 export default {
@@ -141,6 +158,7 @@ export default {
     setComponent: setComponent,
     removeComponent: removeComponent,
     createElement: createElement,
+    markComponentRendered: markComponentRendered,
     get gestureHandler() {
         return gestureHandler;
     }
