@@ -20,19 +20,20 @@ export default class View extends Component {
      *
      * @override
      *
-     * @param {!HTMLElement=} opt_rootEl Root element to render this view in.
+     * @param {?Element=} opt_rootEl Root element to render this view in.
      * @param {number=} opt_index The index of this view in z-axis.
      */
     render(opt_rootEl = document.body, opt_index = 0) {
-        this.onBeforeRender();
-        this.rendered = true;
-
         this.index = opt_index;
 
         super.render(opt_rootEl);
+    }
+
+    onAfterRender() {
+        super.onAfterRender();
 
         this.el.style.zIndex = this.index;
-        this.onAfterRender();
+        this.el.style.transform = `translate3d(0, 0, ${this.index}px)`;
     }
 
     /**
@@ -41,30 +42,23 @@ export default class View extends Component {
      */
     onActivation() { };
 
-
     /**
      * Overriden to include 'view' as a class name.
      *
      * @override
      */
     template() {
-        var classDefinition = this.className ? `class="${this.className}"` : '';
         return `
-<view ${classDefinition}
-    style="transform: translate3d(100%, 0, ${this.index}px)">
-    ${this.template_content()}
-</view>`;
+<view></view>
+`;
     };
-
 
     /**
-     * Empty content template. Subclasses should override this method and implement necessary markup here.
-     *
-     * @return {string} Content markup for the view.
+     * @protected
      */
-    template_content() {
-        return '';
-    };
+    tagExtension_() {
+        return `$1 id="${this.id}" view`;
+    }
 
     /**
      * @export
@@ -111,15 +105,6 @@ View.prototype.supportsBackGesture = false;
  * @type {boolean}
  */
 View.prototype.hasSidebar = false;
-
-
-/**
- * Defines CSS class names for the view.
- *
- * @type {string}
- */
-View.prototype.className = '';
-
 
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);

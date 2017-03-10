@@ -34,9 +34,16 @@ export default class Component extends EventEmitter2 {
         /**
          * @type {?string}
          *
-         * @private
+         * @protected
          */
         this.template_ = null;
+
+        /**
+         * @type {boolean}
+         *
+         * @protected
+         */
+        this.rendered_ = false;
 
         ComponentManager.setComponent(this);
     }
@@ -64,6 +71,13 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
+     * @protected
+     */
+    tagExtension_() {
+        return `$1 id="${this.id}"`;
+    }
+
+    /**
      * @export
      * @override
      */
@@ -78,7 +92,7 @@ export default class Component extends EventEmitter2 {
 
         template = template
             .replace(/\s+/, ' ')
-            .replace(tagRegex, `$1 id="${this.id}"`);
+            .replace(tagRegex, this.tagExtension_());
 
         this.template_ = template;
 
@@ -104,7 +118,7 @@ export default class Component extends EventEmitter2 {
      * @return {?Element}
      */
     $(selector) {
-        let rv = null, el = this.el;
+        let rv = null, el = this.element_;
 
         if (el) rv = selector == undefined ? el : el.querySelector(selector);
 
@@ -113,15 +127,48 @@ export default class Component extends EventEmitter2 {
 
     /**
      * @export
-     * @param {!HTMLElement=} opt_base Base element
+     * @param {?Element=} opt_base Base element
      * @param {number=} opt_index Base element
      */
     render(opt_base, opt_index) {
-        if (!opt_base) return;
+        if (this.rendered_) return;
 
-        var child = opt_base.children[opt_index ? opt_index : opt_base.children.length - 1];
-        opt_base.insertBefore(this.el, child || null);
+        if (!this.element_) {
+            var el = document.getElementById(this.id);
+            if (!el && !opt_base) return;
+            if (el) {
+                opt_base = el.parentElement;
+                if (!opt_index) {
+                    this.element_ = el;
+                    this.rendered_ = true;
+                    this.onAfterRender();
+
+                    return;
+                }
+            }
+
+            var index = opt_index ? opt_index : ((opt_base && opt_base.children.length - 1) || -1);
+            var child = opt_base && opt_base.children[index];
+            opt_base && opt_base.insertBefore(this.el, child || null);
+            this.rendered_ = true;
+        }
+
+        this.onAfterRender();
     }
+
+    get rendered() {
+        if (!this.rendered_) {
+            var el = document.getElementById(this.id);
+            if (el) {
+                this.element_ = el;
+                this.rendered_ = true;
+                this.onAfterRender();
+            }
+        }
+
+        return this.rendered_;
+    }
+
 
     /**
      * Method called before a render process. Called automatically before each render. Subclasses should override

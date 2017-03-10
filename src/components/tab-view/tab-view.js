@@ -1,7 +1,7 @@
 import View from '../../lib/view';
 import ViewManager from '../../lib/view-manager';
 
-export default class TabBar extends View {
+export default class TabView extends View {
     constructor() {
         super();
 
@@ -17,7 +17,13 @@ export default class TabBar extends View {
      * @override
      */
     onAfterRender() {
-        this.vm = new ViewManager(this.el);
+        super.onAfterRender();
+
+        var $views = this.$(this.mappings.VIEWS);
+        if (!$views) throw new Error('TabView template must have <views>');
+
+        this.vm = new ViewManager($views);
+        this.activateItem(0);
     };
 
     /**
@@ -79,19 +85,21 @@ export default class TabBar extends View {
     /**
      * @return {string} Base template of NavigationBar component.
      */
-    template_content() {
+    template() {
         return `
-        ${this.template_views()}
-<tab-bar>
-    <tab-items>
-        ${this.template_items()}
-    </tab-items>
-</tab-bar>
+<tab-view>
+    ${this.template_views()}
+    <tab-bar>
+        <tab-items>
+            ${this.template_items()}
+        </tab-items>
+    </tab-bar>
+</tab-view>
 `;
     };
 
     template_views() {
-        return this.views.join('');
+        return `<views>${this.views.join('')}</views>`;
     }
 
     /**
@@ -108,7 +116,8 @@ export default class TabBar extends View {
         return {
             ITEM: 'tab-item',
             ITEMS: 'tab-items',
-            ACTIVE: '.active'
+            ACTIVE: '.active',
+            VIEWS: 'views'
         };
     }
 

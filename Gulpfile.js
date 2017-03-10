@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const del = require('del');
 const sourcemaps = require('gulp-sourcemaps');
 const closureCompiler = require('google-closure-compiler').gulp();
+const watch = require('gulp-watch');
 
 const outputWrapper = `(function(global){%output%\nconst erste = this.$jscompDefaultExport$$module$$src$index;if(typeof define=='function'&&define.amd){define(function(){return erste})}else if(typeof module=='object'&&typeof exports=='object'){module.exports=erste}else{window.erste=erste}}).call(null, {});`;
 
@@ -43,5 +44,8 @@ function compile(advanced = false) {
 gulp.task('clean', () => del(['dist/*']));
 gulp.task('compile:simple', compile.bind(null, false));
 gulp.task('compile:advanced', compile.bind(null, true));
+
+gulp.task('watch:simple', () => watch('./src/**/*.js', () => compile(false)));
+gulp.task('watch:advanced', () => watch('./src/**/*.js', () => compile()));
 
 gulp.task('default', ['clean', 'compile:simple', 'compile:advanced']);

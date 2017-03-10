@@ -3,7 +3,7 @@ import ViewManager from './lib/view-manager';
 import View from './lib/view';
 import locale from './lib/locale';
 import Sidebar from './components/sidebar/sidebar';
-import TabBar from './components/tabbar/tabbar';
+import TabView from './components/tab-view/tab-view';
 import NavBar from './components/navbar/navbar';
 import PullToRefresh from './components/pull-to-refresh/pull-to-refresh';
 import InfiniteScroll from './components/infinite-scroll/infinite-scroll';
@@ -23,7 +23,7 @@ export default {
     /** @export */
     Sidebar: Sidebar,
     /** @export */
-    TabBar: TabBar,
+    TabView: TabView,
     /** @export */
     NavBar: NavBar,
     /** @export */

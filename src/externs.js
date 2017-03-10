@@ -20,7 +20,7 @@ View.prototype.hasSidebar;
 View.prototype.supportsBackGesture;
 View.prototype.rendered;
 
-class TabBar extends View {
+class TabView extends View {
     template_views() {}
     template_items() {}
     onItemTap() {}
@@ -29,8 +29,8 @@ class TabBar extends View {
     deactivateActiveItem() {}
 }
 
-TabBar.prototype.views;
-TabBar.prototype.vm;
+TabView.prototype.views;
+TabView.prototype.vm;
 
 class ViewManager {
     pull() {}
