@@ -13,7 +13,7 @@
     "javascript",
     "framework"
   ],
-  "homepage": "https://github.com/dashersw/erste.js",
+  "homepage": "https://github.com/dashersw/erste",
   "ignore": [
     "node_modules",
     "bower_components",
