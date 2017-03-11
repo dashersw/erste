@@ -1,6 +1,6 @@
 <img src="resources/logo.png" height="180" alt="Erste" />
 
-[![npm version](https://badge.fury.io/js/erste.js.svg)](https://badge.fury.io/js/erste.js) 
+[![npm version](https://badge.fury.io/js/erste.js.svg)](https://badge.fury.io/js/erste.js)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dashersw/erste.js/master/LICENSE)
 # JavaScript view library for building performant hybrid mobile applications
 
@@ -73,7 +73,7 @@ new App().render(document.body);
      * [The back gesture](#the-back-gesture)
   * [Conclusion](#conclusion)
   * [License](#license)
-      
+
 ## Motivation
 Building applications should be straightforward and simple. Most of the frameworks used today fail hard at being simple, and they make the wrong compromises for marginal gains. A super declarative framework with a megabyte of size, one second boot time and thousands of questions on StackOverflow due to its obscure and unfamiliar API... is this familiar?
 
@@ -175,11 +175,11 @@ class RootView extends View {
         </root-view>
         `;
     }
-    
+
     onTapButton() {
         this.$('h1').innerText = 'Thanks for the tap!';
     }
-    
+
     get events() {
         return {
             'tap': {
@@ -218,11 +218,11 @@ class ButtonWithLabel extends Component {
         </button-with-label>
         `;
     }
-    
+
     onTapButton() {
         this.$('h1').innerText = 'Thanks for the tap!';
     }
-    
+
     get events() {
         return {
             'tap': {
@@ -246,10 +246,10 @@ import ButtonWithLabel from './button-with-label';
 class RootView extends View {
     constructor() {
         super();
-        
+
         this.buttonWithLabel = new ButtonWithLabel();
     }
-    
+
     template() {
         return `
         <root-view>
@@ -275,7 +275,7 @@ We could create the component within the `template` method so that it would be c
 
     template() {
         this.buttonWithLabel = new ButtonWithLabel();
-        
+
         return `
         <root-view>
             ${this.buttonWithLabel}
@@ -296,10 +296,10 @@ import ButtonWithLabel from './button-with-label';
 class RootView extends View {
     onAfterRender() {
         this.buttonWithLabel = new ButtonWithLabel();
-        
+
         this.buttonWithLabel.render(this.el);
     }
-    
+
     template() {
         return `<root-view></root-view>`;
     }
@@ -322,10 +322,10 @@ import ButtonWithLabel from './button-with-label';
 class RootView extends View {
     onAfterRender() {
         this.buttonWithLabel = new ButtonWithLabel();
-        
+
         this.el.appendChild(this.buttonWithLabel.el);
     }
-    
+
     template() {
         return `<root-view></root-view>`;
     }
@@ -363,13 +363,13 @@ Let’s first build our detail view.
 ```js
 import {View} from 'erste';
 
-class DetailView extends View {    
+class DetailView extends View {
     constructor(item) {
         super();
-        
+
         this.item = item;
     }
-        
+
     template() {
         return `
         <detail-view>
@@ -390,26 +390,26 @@ Here is a sample master view implementation and how we can make use of our new d
 import {View} from 'erste';
 import DetailView from './detail-view';
 
-class RootView extends View {    
+class RootView extends View {
     constructor() {
         super();
-        
+
         this.items = [1, 2, 3];
     }
-    
+
     onItemTap(e) {
         var targetIndex = e.targetEl.getAttribute('data-index');
         var item = this.items[targetIndex];
-        
+
         var detailView = new DetailView(item);
 
         this.vm.pull(detailView);
     }
-    
+
     template_item(item, index) {
         return `<div data-index=${index}>${item}</div>`;
     }
-    
+
     template() {
         return `
         <root-view>
@@ -417,7 +417,7 @@ class RootView extends View {
         </root-view>
         `;
     }
-    
+
     get events() {
         return {
             'tap': {
@@ -448,9 +448,9 @@ This gesture recognition is not enabled by default, and you need to enable it ex
     /* … previous code … */
     constructor(item) {
         super();
-        
+
         this.item = item;
-        
+
         this.supportsBackGesture = true;
     }
 ```
