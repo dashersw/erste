@@ -1,6 +1,6 @@
 {
   "name": "erste",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Your first choice for hybrid mobile applications",
   "main": "dist/erste.js",
   "repository": {
