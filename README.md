@@ -413,7 +413,7 @@ class RootView extends View {
     template() {
         return `
         <root-view>
-            this.items.map(this.template_item).join('')
+            ${this.items.map(this.template_item).join('')}
         </root-view>
         `;
     }
