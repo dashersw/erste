@@ -1346,6 +1346,7 @@ function U() {
   J.default.call(this);
   this.vm = null;
   this.views = [];
+  this.activeItemIndex = null;
 }
 h.inherits(U, J.default);
 U.width_ = J.default.width_;
@@ -1359,15 +1360,16 @@ U.prototype.onAfterRender = function() {
   this.activateItem(0);
 };
 U.prototype.onItemTap = function(a) {
-  var b = this.$(this.mappings.ACTIVE);
+  var b = this.$(this.mappings.ACTIVE_ITEM);
   b && b == a.targetEl || (b = this.$(this.mappings.ITEMS), a = [].indexOf.call(b && b.children, a.targetEl), this.activateItem(a));
 };
 U.prototype.activateItem = function(a) {
-  if (-1 != a) {
+  if (!(0 > a)) {
     this.deactivateActiveItem();
     var b = this.$$(this.mappings.ITEM)[a];
     b && b.classList.add("active");
-    this.views && this.views[a] && this.vm.setCurrentView(this.views[a], !0);
+    this.views && this.views[a] && (this.vm.setCurrentView(this.views[a], !0), this.views[a].el.classList.add("active"));
+    this.activeItemIndex = a;
   }
 };
 U.prototype.activateItemByName = function(a) {
@@ -1378,8 +1380,9 @@ U.prototype.activateItemByName = function(a) {
   }
 };
 U.prototype.deactivateActiveItem = function() {
-  var a = this.$(this.mappings.ACTIVE);
-  a && a.classList.remove("active");
+  this.$$(this.mappings.ACTIVE).forEach(function(a) {
+    return a.classList.remove("active");
+  });
 };
 U.prototype.template = function() {
   return "\n<tab-view>\n    " + this.template_views() + "\n    <tab-bar>\n        <tab-items>\n            " + this.template_items() + "\n        </tab-items>\n    </tab-bar>\n</tab-view>\n";
@@ -1391,7 +1394,7 @@ U.prototype.template_items = function() {
   return "";
 };
 h.global.Object.defineProperties(U.prototype, {mappings:{configurable:!0, enumerable:!0, get:function() {
-  return {ITEM:"tab-item", ITEMS:"tab-items", ACTIVE:".active", VIEWS:"views"};
+  return {ITEM:"tab-item", ITEMS:"tab-items", ACTIVE:".active", ACTIVE_ITEM:"tab-items .active", ACTIVE_VIEW:"views .active", VIEWS:"views"};
 }}, events:{configurable:!0, enumerable:!0, get:function() {
   var a = {};
   return {touchend:(a[this.mappings.ITEM] = this.onItemTap.bind(this), a)};
