@@ -29,5 +29,7 @@ export default {
     /** @export */
     PullToRefresh: PullToRefresh,
     /** @export */
-    InfiniteScroll: InfiniteScroll
+    InfiniteScroll: InfiniteScroll,
+    /** @export */
+    __: locale.__
 };
