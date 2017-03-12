@@ -100,7 +100,7 @@ export default class Component extends EventEmitter2 {
     /**
      * @export
      * @param {string} selector Selector
-     * @return {!Array.<?Element>}
+     * @return {!Array.<!Element>}
      */
     $$(selector) {
         let rv = [], el = this.el;
