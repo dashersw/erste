@@ -1619,7 +1619,7 @@ Z.prototype.dispose = function() {
   H.default.prototype.dispose.call(this);
 };
 pa.default = Z;
-k.exportSymbol("$jscompDefaultExport$$module$$src$index", {Component:H.default, ViewManager:L.default, View:J.default, locale:N.default, Sidebar:ia.default, TabView:ja.default, NavBar:ka.default, PullToRefresh:ma.default, InfiniteScroll:pa.default});
+k.exportSymbol("$jscompDefaultExport$$module$$src$index", {Component:H.default, ViewManager:L.default, View:J.default, locale:N.default, Sidebar:ia.default, TabView:ja.default, NavBar:ka.default, PullToRefresh:ma.default, InfiniteScroll:pa.default, __:N.default.__});
 
 const erste = this.$jscompDefaultExport$$module$$src$index;if(typeof define=='function'&&define.amd){define(function(){return erste})}else if(typeof module=='object'&&typeof exports=='object'){module.exports=erste}else{window.erste=erste}}).call(null, {});
 
