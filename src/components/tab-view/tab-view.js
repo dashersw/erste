@@ -11,6 +11,8 @@ export default class TabView extends View {
          * @type {!Array.<!View>}
          */
         this.views = [];
+
+        this.activeItemIndex = null;
     }
 
     /**
@@ -30,7 +32,7 @@ export default class TabView extends View {
      * @param {!{targetEl: !Element}} e Item touch event handler.
      */
     onItemTap(e) {
-        var activeItem = this.$(this.mappings.ACTIVE);
+        var activeItem = this.$(this.mappings.ACTIVE_ITEM);
         if (activeItem && activeItem == e.targetEl) return;
 
         var items = this.$(this.mappings.ITEMS);
@@ -44,17 +46,19 @@ export default class TabView extends View {
      * @param {number} index Index of the item to be active.
      */
     activateItem(index) {
-        if (index == -1) return;
+        if (index < 0) return;
 
         this.deactivateActiveItem();
         var item = this.$$(this.mappings.ITEM)[index];
         item && item.classList.add('active');
 
-        if (this.views && this.views[index])
+        if (this.views && this.views[index]) {
             this.vm.setCurrentView(this.views[index], true);
+            this.views[index].el.classList.add('active');
+        }
+
+        this.activeItemIndex = index;
     };
-
-
 
     /**
      * Activates a tab bar item with a given name. If an item for the given the name isn't found, does nothing.
@@ -76,8 +80,8 @@ export default class TabView extends View {
      * Removes active class of active item.
      */
     deactivateActiveItem() {
-        var activeItem = this.$(this.mappings.ACTIVE);
-        activeItem && activeItem.classList.remove('active');
+        var activeThings = this.$$(this.mappings.ACTIVE);
+        activeThings.forEach(el => el.classList.remove('active'));
     };
 
 
@@ -117,6 +121,8 @@ export default class TabView extends View {
             ITEM: 'tab-item',
             ITEMS: 'tab-items',
             ACTIVE: '.active',
+            ACTIVE_ITEM: 'tab-items .active',
+            ACTIVE_VIEW: 'views .active',
             VIEWS: 'views'
         };
     }
