@@ -21,7 +21,7 @@
 import {Component} from 'erste';
 
 // 2. Create your application,
-class App extends erste.Component {
+class App extends Component {
     constructor() {
         super();
         this.counter = 0;
