@@ -1,4 +1,4 @@
-<img src="resources/logo.png" height="180" alt="Erste" />
+<img src="https://raw.githubusercontent.com/dashersw/erste/master/resources/logo.png" height="180" alt="Erste" />
 
 [![npm version](https://badge.fury.io/js/erste.svg)](https://badge.fury.io/js/erste)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dashersw/erste.js/master/LICENSE)
