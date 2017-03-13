@@ -20,20 +20,25 @@
 import {Component} from 'erste';
 
 // 2. Create your application,
-class App extends Component {
+class App extends erste.Component {
+    constructor() {
+        super();
+        this.counter = 0;
+    }
 
     // 3. Arrange your view,
     template() {
-        return `<app>
-                  <h1>0</h1>
-                  <button class="increment">Increment</button>
-                  <button class="decrement">Decrement</button>
-                </app>`;
+        return `
+        <div>
+            <h1>${this.counter}</h1>
+            <button class="increment">Increment</button>
+            <button class="decrement">Decrement</button>
+        </div>
+        `;
     }
-
     // 4. Create your methods,
-    increment() { this.$('h1').innerText += 1; }
-    decrement() { this.$('h1').innerText -= 1; }
+    increment() { this.$('h1').innerText = ++this.counter; }
+    decrement() { this.$('h1').innerText = --this.counter; }
 
     // 5. Bind your events.
     get events() {
@@ -84,16 +89,16 @@ erste.js is a solemn approach to application development. It gives you the bareb
 ## Installation
 ### Direct download
 - [Development version](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.js)
-- [Minified version - 12kb gzipped](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.min.js)
+- [Minified version - 9.7kb gzipped](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.min.js)
 
 ### Using bower
 ```bash
-bower install --save erste.js
+bower install --save erste
 ```
 
 ### Using npm
 ```bash
-npm install --save erste.js
+npm install --save erste
 ```
 
 ### Builds with Closure Compiler
@@ -121,7 +126,6 @@ class RootView extends View {
         return `
         <root-view>
             <h1>Hello world!</h1>
-            <button>Tap me!</button>
         </root-view>
         `;
     }
