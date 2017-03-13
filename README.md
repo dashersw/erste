@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/erste.svg)](https://badge.fury.io/js/erste)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dashersw/erste.js/master/LICENSE)
+
 # JavaScript view library for building performant hybrid mobile applications
 
 **erste.js is a zero-hype view library with an attitude. It’s built for achieving maximum performance on mobile devices.**
@@ -9,7 +10,7 @@
 ## Features
 - Lightweight, 10kb minified & gzipped
 - No dependencies
-- No magic—as declarative as it should be and no more.
+- No magic—as declarative as it should be and no more
 - No pitfalls—use good old DOM APIs, HTML5 & CSS3 to build modern apps
 - Clean, structured and approachable API
 
