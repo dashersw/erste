@@ -5,7 +5,7 @@
   "main": "dist/erste.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dashersw/erste.js.git"
+    "url": "git+https://github.com/dashersw/erste.git"
   },
   "keywords": [
     "Hybrid mobile applications",
@@ -18,9 +18,9 @@
   "author": "Armagan Amcalar <armagan@amcalar.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dashersw/erste.js/issues"
+    "url": "https://github.com/dashersw/erste/issues"
   },
-  "homepage": "https://github.com/dashersw/erste.js#readme",
+  "homepage": "https://github.com/dashersw/erste#readme",
   "devDependencies": {
     "del": "^2.2.2",
     "google-closure-compiler": "^20170218.0.0",
