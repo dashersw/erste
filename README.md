@@ -9,8 +9,8 @@
 ## Features
 - Lightweight, 10kb minified & gzipped
 - No dependencies
-- No magic, as declarative as it should be and no more.
-- No pitfalls
+- No magic—as declarative as it should be and no more.
+- No pitfalls—use good old DOM APIs, HTML5 & CSS3 to build modern apps
 - Clean, structured and approachable API
 
 ## Overview
