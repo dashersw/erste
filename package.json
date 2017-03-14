@@ -25,6 +25,9 @@
     "del": "^2.2.2",
     "google-closure-compiler": "^20170218.0.0",
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.3",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-watch": "^4.3.11"
   }
