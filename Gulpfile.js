@@ -41,7 +41,7 @@ function compile(advanced = false) {
         .pipe(sourcemaps.init())
         .pipe(closureCompiler(options))
         .pipe(sourcemaps.write('/'))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('dist/js'));
 }
 
 function cssMinify() {
