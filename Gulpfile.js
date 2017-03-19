@@ -6,13 +6,9 @@ const watch = require('gulp-watch');
 
 const outputWrapper = `(function(global){%output%\nconst erste = this.$jscompDefaultExport$$module$$src$index;if(typeof define=='function'&&define.amd){define(function(){return erste})}else if(typeof module=='object'&&typeof exports=='object'){module.exports=erste}else{window.erste=erste}}).call(null, {});`;
 
-function compile(advanced = false) {
-    const compilationLevel = advanced ? 'ADVANCED_OPTIMIZATIONS' : 'SIMPLE_OPTIMIZATIONS';
-
-    const outputFile = advanced ? 'erste.min.js' : 'erste.js';
-
+function compile() {
     const options = {
-        compilation_level: compilationLevel,
+        compilation_level: 'ADVANCED_OPTIMIZATIONS',
         externs: './src/externs.js',
         warning_level: 'VERBOSE',
         language_in: 'ECMASCRIPT7',
@@ -29,10 +25,8 @@ function compile(advanced = false) {
         generate_exports: true,
         export_local_property_definitions: true,
         output_wrapper: outputWrapper,
-        js_output_file: outputFile
+        js_output_file: 'erste.js'
     };
-
-    if (!advanced) options.formatting = 'PRETTY_PRINT';
 
     return gulp.src(['./src/lib/goog.js', './src/**/*.js'])
         .pipe(sourcemaps.init())
@@ -42,10 +36,8 @@ function compile(advanced = false) {
 }
 
 gulp.task('clean', () => del(['dist/*']));
-gulp.task('compile:simple', compile.bind(null, false));
-gulp.task('compile:advanced', compile.bind(null, true));
+gulp.task('compile', compile);
 
-gulp.task('watch:simple', () => watch('./src/**/*.js', () => compile(false)));
-gulp.task('watch:advanced', () => watch('./src/**/*.js', () => compile()));
+gulp.task('watch', () => watch('./src/**/*.js', compile));
 
-gulp.task('default', ['clean', 'compile:simple', 'compile:advanced']);
+gulp.task('default', ['clean', 'compile']);
