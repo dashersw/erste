@@ -4,7 +4,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const closureCompiler = require('google-closure-compiler').gulp();
 const cleanCss = require('gulp-clean-css');
 const concatCss = require('gulp-concat-css');
-const rename = require('gulp-rename');
 const watch = require('gulp-watch');
 
 const outputWrapper = `(function(global){%output%\nconst erste = this.$jscompDefaultExport$$module$$src$index;if(typeof define=='function'&&define.amd){define(function(){return erste})}else if(typeof module=='object'&&typeof exports=='object'){module.exports=erste}else{window.erste=erste}}).call(null, {});`;
@@ -41,15 +40,14 @@ function compile(advanced = false) {
         .pipe(sourcemaps.init())
         .pipe(closureCompiler(options))
         .pipe(sourcemaps.write('/'))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('dist'));
 }
 
 function cssMinify() {
     return gulp.src('src/components/**/*.css')
-        .pipe(concatCss('css/erste.css'))
+        .pipe(concatCss('erste.css'))
         .pipe(sourcemaps.init())
         .pipe(cleanCss())
-        .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('dist'))
 }
@@ -57,7 +55,7 @@ function cssMinify() {
 gulp.task('clean', () => del(['dist/*']));
 gulp.task('compile:simple', compile.bind(null, false));
 gulp.task('compile:advanced', compile.bind(null, true));
-gulp.task('css:min', () => { cssMinify() });
+gulp.task('css:min', cssMinify);
 
 gulp.task('watch:simple', () => watch('./src/**/*.js', () => compile(false)));
 gulp.task('watch:advanced', () => watch('./src/**/*.js', () => compile()));
