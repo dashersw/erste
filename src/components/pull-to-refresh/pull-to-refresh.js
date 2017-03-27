@@ -169,7 +169,7 @@ export default class PullToRefresh extends Component {
         return `
 <pull-to-refresh>
     <pull-to-refresh-arrow></pull-to-refresh-arrow>
-    <pull-to-refresh-spinner></pull-to-refresh-spinner>
+    <div class="spinner"></div>
 </pull-to-refresh>
 `;
     };
@@ -193,7 +193,7 @@ export default class PullToRefresh extends Component {
     get mappings() {
         return {
             ARROW: 'pull-to-refresh-arrow',
-            SPINNER: 'pull-to-refresh-spinner'
+            SPINNER: '.spinner'
         };
     }
 }
