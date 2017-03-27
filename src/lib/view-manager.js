@@ -99,11 +99,12 @@ export default class ViewManager {
             }, 1000);
         }
 
-
+        view.el.style.transitionDuration = '0s';
         view.el.style.transform = `translate3d(100%, 0, ${view.index}px)`;
 
         requestAnimationFrame(() => {
             currentView.el.style.transitionDuration = '0.35s';
+            view.el.style.transitionDuration = '0.35s';
             view.el.style.transform = `translate3d(0, 0, ${view.index}px)`;
             currentView.el.style.transform = `translate3d(-30%, 0, ${currentView.index}px)`;
             view.el.style['boxShadow'] = '0 0 24px black';
@@ -138,6 +139,7 @@ export default class ViewManager {
         if (!this.initialized_) this.init();
 
         window.requestAnimationFrame(() => {
+            currentView.el.style.transitionDuration = '0s';
             lastView.el.style.transitionDuration = '0s';
             lastView.el.style.transform = 'translate3d(-30%,0,0)';
             window.requestAnimationFrame(() => {
