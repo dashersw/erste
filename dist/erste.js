@@ -1108,9 +1108,11 @@ M.prototype.pull = function(a, b) {
       });
     }, 1000);
   }
+  a.el.style.transitionDuration = "0s";
   a.el.style.transform = "translate3d(100%, 0, " + a.index + "px)";
   requestAnimationFrame(function() {
     c.el.style.transitionDuration = "0.35s";
+    a.el.style.transitionDuration = "0.35s";
     a.el.style.transform = "translate3d(0, 0, " + a.index + "px)";
     c.el.style.transform = "translate3d(-30%, 0, " + c.index + "px)";
     a.el.style.boxShadow = "0 0 24px black";
@@ -1124,6 +1126,7 @@ M.prototype.canGoBack = function() {
 M.prototype.push = function() {
   var a = this.history.pop(), b = this.currentView;
   a && (this.initialized_ || this.init(), window.requestAnimationFrame(function() {
+    b.el.style.transitionDuration = "0s";
     a.el.style.transitionDuration = "0s";
     a.el.style.transform = "translate3d(-30%,0,0)";
     window.requestAnimationFrame(function() {
@@ -1508,7 +1511,7 @@ X.prototype.checkShouldRefresh = function() {
   this.model.triggerShouldCheckState();
 };
 X.prototype.template = function() {
-  return "\n<pull-to-refresh>\n    <pull-to-refresh-arrow></pull-to-refresh-arrow>\n    <pull-to-refresh-spinner></pull-to-refresh-spinner>\n</pull-to-refresh>\n";
+  return '\n<pull-to-refresh>\n    <pull-to-refresh-arrow></pull-to-refresh-arrow>\n    <div class="spinner"></div>\n</pull-to-refresh>\n';
 };
 X.prototype.dispose = function() {
   this.model.dispose();
@@ -1517,7 +1520,7 @@ X.prototype.dispose = function() {
   H.default.prototype.dispose.call(this);
 };
 h.global.Object.defineProperties(X.prototype, {mappings:{configurable:!0, enumerable:!0, get:function() {
-  return {ARROW:"pull-to-refresh-arrow", SPINNER:"pull-to-refresh-spinner"};
+  return {ARROW:"pull-to-refresh-arrow", SPINNER:".spinner"};
 }}});
 X.prototype.threshold = 135;
 X.prototype.height = 96;
