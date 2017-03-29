@@ -1113,9 +1113,11 @@ M.prototype.pull = function(a, b) {
   requestAnimationFrame(function() {
     c.el.style.transitionDuration = "0.35s";
     a.el.style.transitionDuration = "0.35s";
-    a.el.style.transform = "translate3d(0, 0, " + a.index + "px)";
-    c.el.style.transform = "translate3d(-30%, 0, " + c.index + "px)";
-    a.el.style.boxShadow = "0 0 24px black";
+    requestAnimationFrame(function() {
+      a.el.style.transform = "translate3d(0, 0, " + a.index + "px)";
+      c.el.style.transform = "translate3d(-30%, 0, " + c.index + "px)";
+      a.el.style.boxShadow = "0 0 24px black";
+    });
   });
   this.currentView = a;
   this.state = M.State.DEFAULT;
