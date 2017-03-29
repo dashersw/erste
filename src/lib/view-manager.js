@@ -105,9 +105,12 @@ export default class ViewManager {
         requestAnimationFrame(() => {
             currentView.el.style.transitionDuration = '0.35s';
             view.el.style.transitionDuration = '0.35s';
-            view.el.style.transform = `translate3d(0, 0, ${view.index}px)`;
-            currentView.el.style.transform = `translate3d(-30%, 0, ${currentView.index}px)`;
-            view.el.style['boxShadow'] = '0 0 24px black';
+
+            requestAnimationFrame(() => {
+                view.el.style.transform = `translate3d(0, 0, ${view.index}px)`;
+                currentView.el.style.transform = `translate3d(-30%, 0, ${currentView.index}px)`;
+                view.el.style['boxShadow'] = '0 0 24px black';
+            });
         });
 
         this.currentView = view;
@@ -227,7 +230,7 @@ export default class ViewManager {
     initTouchEvents_() {
         if (!this.rootEl) return;
 
-        this.rootEl.addEventListener('touchmove', this.onTouchMove_.bind(this) , false);
+        this.rootEl.addEventListener('touchmove', this.onTouchMove_.bind(this), false);
         this.rootEl.addEventListener('touchend', this.onTouchEnd_.bind(this), false);
     };
 
