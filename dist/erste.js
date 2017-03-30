@@ -1120,6 +1120,7 @@ M.prototype.pull = function(a, b) {
     });
   });
   this.currentView = a;
+  this.currentView.onActivation && this.currentView.onActivation();
   this.state = M.State.DEFAULT;
 };
 M.prototype.canGoBack = function() {
