@@ -114,6 +114,7 @@ export default class ViewManager {
         });
 
         this.currentView = view;
+        this.currentView.onActivation && this.currentView.onActivation();
 
         this.state = ViewManager.State.DEFAULT;
     };
