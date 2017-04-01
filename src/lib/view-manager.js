@@ -2,75 +2,143 @@ import View from './view';
 import ComponentManager from '../lib/base/component-manager';
 import math from '../lib/base/math';
 
-export default class ViewManager {
+
+/**
+ * This class handles view transitions and view history in a consistent
+ * manner similar to `NavigationController`s in other frameworks.
+ * An instance of this class should be used by views who would like to contain
+ * other views.
+ *
+ * Also, each multi-view application should have at least one
+ * {@link ViewManager}.
+ */
+class ViewManager {
     /**
-     * This class handles view transitions and view history in a consistent
-     * manner. Should be used by views who would like to contain other views.
-     * Also, each application should have at least one ViewManager.
+     * {@link ViewManager} constructor. At least one {@link ViewManager} should
+     * be present in all multi-view erste applications.
      *
-     * @param {?Element} opt_root Root element for this ViewManager
+     * @param {(!Element|!View)=} opt_root Root element for this ViewManager.
+     * Default is `document.body`. Can also be a {@link View}, in which case the
+     * root element will be the {@link View#el} of the aforementioned View. In
+     * this case, the View instance should be rendered before any
+     * view interactions are done via {@link #ViewManager+pull|viewManager.pull}
+     * or other {@link ViewManager} methods.
      */
     constructor(opt_root) {
         /**
+         * Array of views stored in memory. When
+         * {@link #ViewManager+pull|viewManager.pull} is called with the second
+         * parameter set to `true`, meaning the user should be able to go back,
+         * the current view is pushed to this array.
+         *
+         * When it's time to reset the history, all views in history are
+         * disposed.
+         *
          * @type {!Array.<!View>}
          */
         this.history = [];
-        this.lastTouches = [];
-        this.state = ViewManager.State.DEFAULT;
 
         /**
+         * @private
+         *
+         * @type {!Array.<number>}
+         */
+        this.lastTouches_ = [];
+
+        /**
+         * Initial state of the `viewManager`. Indicates the sidebar is off and
+         * there are no active gestures on the root element.
+         *
+         * @private
+         *
+         * @type {ViewManager.State}
+         */
+        this.state_ = ViewManager.State.DEFAULT;
+
+        /**
+         * @private
+         *
          * @type {?Element}
          */
-        this.rootEl = null;
+        this.rootEl_ = null;
 
         /**
-         * @type {?View} Current active view.
+         * Current active view.
+         *
+         * @type {?View}
          */
         this.currentView = null;
 
-        this.hideSidebarTimeout = null;
+        /**
+         * @private
+         */
+        this.hideSidebarTimeout_ = null;
 
-        this.firstX = null;
+        /**
+         * @private
+         *
+         * @type {number}
+         */
+        this.firstX_ = 0;
 
+        /**
+         * @private
+         *
+         * @type {boolean}
+         */
         this.initialized_ = false;
 
-        if (opt_root) this.root_ = opt_root;
+        /**
+         * @private
+         *
+         * @type {(!Element|!View|undefined)}
+         */
+        this.root_ = undefined;
+
+        if (opt_root) {
+            this.root_ = opt_root;
+        }
     };
 
-    /**
-     * @param {(!View|!Element)=} opt_root Root element for this ViewManager
-     */
-    init(opt_root) {
-        this.initialized_ = true;
-        opt_root = opt_root || this.root_;
 
-        if (opt_root instanceof View)
-            if (!opt_root.rendered)
+    /**
+     * @private
+     */
+    init_() {
+        this.initialized_ = true;
+
+        if (this.root_ instanceof View) {
+            var rootView = /** @type {!View} */(this.root_);
+
+            if (!rootView.rendered)
                 throw new Error(`View Manager's root is not rendered yet`);
             else
-                this.rootEl = opt_root.el;
+                this.rootEl_ = rootView.el;
+        }
         else
-            this.rootEl = opt_root || document.body;
+            this.rootEl_ = /** @type {?Element} */(this.root_) || document.body;
 
         this.initTouchEvents_();
     }
 
+
     /**
-     * @return {!View}
+     * @return {?View}
      */
     getLastViewInHistory() {
-        return this.history[this.history.length - 1];
+        return this.history[this.history.length - 1] || null;
     }
 
 
     /**
      * @param {!View} view View to pull into view.
-     * @param {boolean=} opt_canGoBack Whether this view keeps history so that one can go back to the previous view.
+     * @param {boolean=} opt_canGoBack Whether this view keeps history so that
+     * one can go back to the previous view.
      */
     pull(view, opt_canGoBack) {
-        if (!this.initialized_) this.init();
+        if (!this.initialized_) this.init_();
 
-        if (!view.rendered && this.rootEl) view.render(this.rootEl, this.topIndex += 2);
+        if (!view.rendered && this.rootEl_) view.render(this.rootEl_, this.topIndex_ += 2);
 
         var currentView = this.currentView;
 
@@ -116,7 +184,7 @@ export default class ViewManager {
         this.currentView = view;
         this.currentView.onActivation && this.currentView.onActivation();
 
-        this.state = ViewManager.State.DEFAULT;
+        this.state_ = ViewManager.State.DEFAULT;
     };
 
 
@@ -140,7 +208,7 @@ export default class ViewManager {
 
         if (!lastView) return;
 
-        if (!this.initialized_) this.init();
+        if (!this.initialized_) this.init_();
 
         window.requestAnimationFrame(() => {
             currentView.el.style.transitionDuration = '0s';
@@ -161,20 +229,23 @@ export default class ViewManager {
 
         setTimeout(() => currentView.dispose(), 1000);
 
-        this.state = ViewManager.State.DEFAULT;
+        this.state_ = ViewManager.State.DEFAULT;
     };
 
 
     /**
-     * Makes a given view the foremost view without animations and with disposing previous views in history.
+     * Makes a given view the foremost view without animations and with
+     * disposing previous views in history.
      *
      * @param {!View} view The view to set as the foremost view.
      * @param {boolean=} opt_noDispose Whether to dispose the current view.
+     *
+     * @noalias
      */
     setCurrentView(view, opt_noDispose) {
-        if (!this.initialized_) this.init();
+        if (!this.initialized_) this.init_();
 
-        if (!view.rendered && this.rootEl) view.render(this.rootEl, this.topIndex += 2);
+        if (!view.rendered && this.rootEl_) view.render(this.rootEl_, this.topIndex_ += 2);
 
         var currentView = this.currentView;
 
@@ -185,7 +256,7 @@ export default class ViewManager {
             currentView.el.style.transform = `translate3d(100%, 0, ${currentView.index}px)`;
         }
 
-        view.index = this.topIndex += 2;
+        view.index = this.topIndex_ += 2;
         this.currentView = view;
         this.currentView.onActivation && this.currentView.onActivation();
 
@@ -197,7 +268,7 @@ export default class ViewManager {
         var translation = `translate3d(0, 0, ${view.index}px)`;
         view.el.style.transitionDuration = '0s';
 
-        if (this.state == ViewManager.State.SIDEBAR_OPEN) {
+        if (this.state_ == ViewManager.State.SIDEBAR_OPEN) {
             translation = `translate3d(${128 - View.WIDTH}px, 0, ${view.index}px)`;
 
             view.el.style.transform = translation;
@@ -209,7 +280,7 @@ export default class ViewManager {
         view.el.style.zIndex = view.index;
         view.el.style.transform = translation;
 
-        this.state = ViewManager.State.DEFAULT;
+        this.state_ = ViewManager.State.DEFAULT;
     };
 
 
@@ -217,22 +288,23 @@ export default class ViewManager {
      * Toggles the sidebar on or off according to its current state. This is to be used for a menu button, for example.
      */
     toggleSidebar() {
-        if (!this.initialized_) this.init();
+        if (!this.initialized_) this.init_();
 
-        this.toggleSidebar_(this.state == ViewManager.State.DEFAULT);
+        this.toggleSidebar_(this.state_ == ViewManager.State.DEFAULT);
     };
 
 
     /**
-     * Initializes touch event handlers for all touch end and touch move events ocurring on the root element.
+     * Initializes touch event handlers for all touch end and touch move
+     * events ocurring on the root element.
      *
      * @private
      */
     initTouchEvents_() {
-        if (!this.rootEl) return;
+        if (!this.rootEl_) return;
 
-        this.rootEl.addEventListener('touchmove', this.onTouchMove_.bind(this), false);
-        this.rootEl.addEventListener('touchend', this.onTouchEnd_.bind(this), false);
+        this.rootEl_.addEventListener('touchmove', this.onTouchMove_.bind(this), false);
+        this.rootEl_.addEventListener('touchend', this.onTouchEnd_.bind(this), false);
     };
 
 
@@ -243,36 +315,36 @@ export default class ViewManager {
      */
     onTouchMove_(e) {
         var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
-        clearTimeout(this.hideSidebarTimeout);
+        clearTimeout(this.hideSidebarTimeout_);
 
-        if (this.state == ViewManager.State.DEFAULT || this.state == ViewManager.State.SIDEBAR_OPEN)
-            this.firstX = clientX;
+        if (this.state_ == ViewManager.State.DEFAULT || this.state_ == ViewManager.State.SIDEBAR_OPEN)
+            this.firstX_ = clientX;
 
-        if (this.state == ViewManager.State.DEFAULT) {
-            this.lastTouches = [];
+        if (this.state_ == ViewManager.State.DEFAULT) {
+            this.lastTouches_ = [];
 
-            this.state = ViewManager.State.STARTED_GESTURE;
+            this.state_ = ViewManager.State.STARTED_GESTURE;
         }
 
-        if (this.state == ViewManager.State.STARTED_GESTURE) {
+        if (this.state_ == ViewManager.State.STARTED_GESTURE) {
             if (clientX <= 50) {
                 if (this.history.length && this.currentView && this.currentView.supportsBackGesture)
-                    this.state = ViewManager.State.GOING_TO_BACK_VIEW;
+                    this.state_ = ViewManager.State.GOING_TO_BACK_VIEW;
             }
             else if (this.currentView && this.currentView.hasSidebar) {
-                this.lastTouches.push(this.firstX - clientX);
+                this.lastTouches_.push(this.firstX_ - clientX);
 
-                if (this.lastTouches.length == 4) this.lastTouches.shift();
+                if (this.lastTouches_.length == 4) this.lastTouches_.shift();
 
-                if (this.lastTouches[2] - this.lastTouches[0] > 40)
-                    this.state = ViewManager.State.OPENING_SIDEBAR;
+                if (this.lastTouches_[2] - this.lastTouches_[0] > 40)
+                    this.state_ = ViewManager.State.OPENING_SIDEBAR;
             }
         }
 
-        if (this.state == ViewManager.State.SIDEBAR_OPEN)
-            this.state = ViewManager.State.CLOSING_SIDEBAR;
+        if (this.state_ == ViewManager.State.SIDEBAR_OPEN)
+            this.state_ = ViewManager.State.CLOSING_SIDEBAR;
 
-        switch (this.state) {
+        switch (this.state_) {
             case ViewManager.State.GOING_TO_BACK_VIEW:
                 this.backGestureTouchMove_(e);
                 break;
@@ -294,20 +366,20 @@ export default class ViewManager {
     onTouchEnd_(e) {
         var state;
 
-        switch (this.state) {
+        switch (this.state_) {
             case ViewManager.State.GOING_TO_BACK_VIEW:
                 this.backGestureTouchEnd_(e);
                 break;
             case ViewManager.State.OPENING_SIDEBAR:
                 state = true;
-                if (this.lastTouches[2] - this.lastTouches[0] < 3)
+                if (this.lastTouches_[2] - this.lastTouches_[0] < 3)
                     state = false;
 
                 this.toggleSidebar_(state);
                 break;
             case ViewManager.State.CLOSING_SIDEBAR:
                 state = true;
-                if (this.lastTouches[2] - this.lastTouches[0] < -3)
+                if (this.lastTouches_[2] - this.lastTouches_[0] < -3)
                     state = false;
 
                 this.toggleSidebar_(state);
@@ -317,7 +389,7 @@ export default class ViewManager {
                 this.toggleSidebar_(false);
                 break;
             default:
-                this.state = ViewManager.State.DEFAULT;
+                this.state_ = ViewManager.State.DEFAULT;
         }
     };
 
@@ -329,7 +401,7 @@ export default class ViewManager {
      * @param {!TouchEvent} e Touch end event.
      */
     backGestureTouchEnd_(e) {
-        if (!this.firstX) return;
+        if (!this.firstX_) return;
 
         var history = this.history,
             lastView = this.getLastViewInHistory(),
@@ -371,7 +443,7 @@ export default class ViewManager {
             currentView.el.style['boxShadow'] = '0px 0 0px black';
         });
 
-        this.state = ViewManager.State.DEFAULT;
+        this.state_ = ViewManager.State.DEFAULT;
     };
 
 
@@ -392,10 +464,10 @@ export default class ViewManager {
 
         var lastView = this.history[this.history.length - 1];
         var currentView = this.currentView;
-        var currentViewDiff = clientX - this.firstX;
+        var currentViewDiff = clientX - this.firstX_;
         var viewWidth = View.WIDTH;
-        var lastViewDiff = Math.floor(math.lerp(-viewWidth * 0.3, 0, currentViewDiff / (viewWidth - this.firstX)));
-        var boxShadow = Math.floor(math.lerp(1, 0, currentViewDiff / (viewWidth - this.firstX)) * 5) / 5;
+        var lastViewDiff = Math.floor(math.lerp(-viewWidth * 0.3, 0, currentViewDiff / (viewWidth - this.firstX_)));
+        var boxShadow = Math.floor(math.lerp(1, 0, currentViewDiff / (viewWidth - this.firstX_)) * 5) / 5;
         if (currentViewDiff < 0) return;
 
         window.requestAnimationFrame(() => {
@@ -418,9 +490,9 @@ export default class ViewManager {
     closeSidebarTouchMove_(e) {
         var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
 
-        this.lastTouches.push(this.firstX - clientX);
+        this.lastTouches_.push(this.firstX_ - clientX);
 
-        if (this.lastTouches.length == 4) this.lastTouches.shift();
+        if (this.lastTouches_.length == 4) this.lastTouches_.shift();
 
         /* Google Chrome will fire a touchcancel event about 200 milliseconds
          after touchstart if it thinks the user is panning/scrolling and you
@@ -429,7 +501,7 @@ export default class ViewManager {
 
         var currentView = this.currentView;
         var viewWidth = View.WIDTH;
-        var currentViewDiff = clientX - this.firstX - viewWidth * 4 / 5;
+        var currentViewDiff = clientX - this.firstX_ - viewWidth * 4 / 5;
         window.requestAnimationFrame(() => {
             currentView.el.style.transitionDuration = '0s';
             currentView.el.style.transform = `translate3d(${currentViewDiff}px, 0, ${currentView.index}px)`;
@@ -458,8 +530,8 @@ export default class ViewManager {
                 currentViewX = '0';
                 sidebarX = '100%';
                 sidebarZ = 0;
-                this.hideSidebarTimeout = setTimeout(() => {
-                    if (this.state == ViewManager.State.DEFAULT)
+                this.hideSidebarTimeout_ = setTimeout(() => {
+                    if (this.state_ == ViewManager.State.DEFAULT)
                         sidebar.style.transform = `translate3d(${sidebarX}, 0, ${sidebarZ})`;
                 }, 1000);
             } else {
@@ -469,9 +541,9 @@ export default class ViewManager {
         });
 
         if (state)
-            this.state = ViewManager.State.SIDEBAR_OPEN;
+            this.state_ = ViewManager.State.SIDEBAR_OPEN;
         else
-            this.state = ViewManager.State.DEFAULT;
+            this.state_ = ViewManager.State.DEFAULT;
     };
 
 
@@ -485,9 +557,9 @@ export default class ViewManager {
         if (ComponentManager.gestureHandler.canTap) return;
 
         var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
-        this.lastTouches.push(this.firstX - clientX);
+        this.lastTouches_.push(this.firstX_ - clientX);
 
-        if (this.lastTouches.length == 4) this.lastTouches.shift();
+        if (this.lastTouches_.length == 4) this.lastTouches_.shift();
 
         /* Google Chrome will fire a touchcancel event about 200 milliseconds
          after touchstart if it thinks the user is panning/scrolling and you
@@ -496,10 +568,10 @@ export default class ViewManager {
 
         var sidebar = document.querySelector('sidebar');
         var currentView = this.currentView;
-        var currentViewDiff = clientX - this.firstX;
+        var currentViewDiff = clientX - this.firstX_;
 
         if (currentViewDiff >= 0) return;
-        this.state = ViewManager.State.OPENING_SIDEBAR;
+        this.state_ = ViewManager.State.OPENING_SIDEBAR;
 
         window.requestAnimationFrame(() => {
             sidebar.style.transform = `translate3d(0, 0, ${currentView.index - 1}px)`;
@@ -509,30 +581,33 @@ export default class ViewManager {
             currentView.el.style.transform = `translate3d(${currentViewDiff}px, 0, ${currentView.index}px)`;
         });
     };
-
-    /**
-     * View manager states.
-     *
-     * @enum {string}
-     */
-    static get State() {
-        return {
-            DEFAULT: 'default',
-            STARTED_GESTURE: 'started',
-            CLOSING_SIDEBAR: 'closingSidebar',
-            OPENING_SIDEBAR: 'openingSidebar',
-            SIDEBAR_OPEN: 'sidebarOpen',
-            GOING_TO_BACK_VIEW: 'going'
-        }
-    }
 }
 
 
 /**
- * 3d transform Z position for the uppermost view. Used to set the right view on top.
+ * View manager states.
+ *
+ * @enum {string}
+ */
+ViewManager.State = {
+    DEFAULT: 'default',
+    STARTED_GESTURE: 'started',
+    CLOSING_SIDEBAR: 'closingSidebar',
+    OPENING_SIDEBAR: 'openingSidebar',
+    SIDEBAR_OPEN: 'sidebarOpen',
+    GOING_TO_BACK_VIEW: 'going'
+};
+
+
+/**
+ * 3d transform Z position for the uppermost view.
+ * Used to set the right view on top.
+ *
+ * @private
+ *
  * @type {number}
  */
-ViewManager.prototype.topIndex = 1;
+ViewManager.prototype.topIndex_ = 1;
 
 
 window.requestAnimationFrame = (() => {
@@ -543,3 +618,6 @@ window.requestAnimationFrame = (() => {
             window.setTimeout(callback, 1000 / 60);
         };
 })();
+
+
+export default ViewManager;

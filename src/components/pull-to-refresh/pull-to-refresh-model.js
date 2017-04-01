@@ -1,10 +1,12 @@
-import EventEmitter2 from '../../lib/base/eventemitter2';
+import EventEmitter from '../../lib/base/eventemitter2';
 
 /**
  * Model for the pull to refresh component. Manages refreshing states to prevent
  * performance problems like double actions.
+ *
+ * @extends {EventEmitter}
  */
-export default class P2RComponentModel extends EventEmitter2 {
+export default class P2RComponentModel extends EventEmitter {
     constructor() {
         super({
             maxListeners: Infinity

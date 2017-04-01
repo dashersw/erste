@@ -1,7 +1,10 @@
 import ComponentManager from './component-manager';
-import EventEmitter2 from './eventemitter2';
+import EventEmitter from './eventemitter2';
 
-export default class Component extends EventEmitter2 {
+/**
+ * @extends {EventEmitter}
+ */
+class Component extends EventEmitter {
     /**
      * Component is a role that determines your user interface. It defines what
      * your users see on the page. Component includes a lot of predefined
@@ -47,7 +50,6 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
-     * @export
      * @return {string}
      */
     get id() {
@@ -55,7 +57,6 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
-     * @export
      * @return {!HTMLElement}
      */
     get el() {
@@ -76,7 +77,6 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
-     * @export
      * @override
      */
     toString() {
@@ -98,7 +98,6 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
-     * @export
      * @param {string} selector Selector
      * @return {!Array.<!Element>}
      */
@@ -111,7 +110,6 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
-     * @export
      * @param {string} selector Selector
      * @return {?Element}
      */
@@ -124,7 +122,6 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
-     * @export
      * @param {?Element=} opt_base Base element
      * @param {number=} opt_index Base element
      */
@@ -183,7 +180,6 @@ export default class Component extends EventEmitter2 {
 
 
     /**
-     * @export
      * @return {string}
      */
     template() {
@@ -191,7 +187,6 @@ export default class Component extends EventEmitter2 {
     }
 
     /**
-     * @export
      * Call when removing this Component from memory
      */
     dispose() {
@@ -202,3 +197,5 @@ export default class Component extends EventEmitter2 {
         this.element_ = null;
     }
 }
+
+export default Component;

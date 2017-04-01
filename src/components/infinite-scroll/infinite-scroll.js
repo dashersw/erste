@@ -2,7 +2,10 @@ import Component from '../../lib/base/component';
 import InfiniteScrollModel from './infinite-scroll-model';
 import throttle from '../../lib/throttle';
 
-export default class InfiniteScroll extends Component {
+/**
+ * @extends {Component}
+ */
+class InfiniteScroll extends Component {
     /**
      * InfiniteScrollComponent is a small component which checks the scroll
      * position of a given DOM element, and if it's in
@@ -149,4 +152,4 @@ export default class InfiniteScroll extends Component {
     };
 }
 
-
+export default InfiniteScroll;

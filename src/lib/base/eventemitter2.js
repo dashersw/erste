@@ -65,7 +65,7 @@
   /**
    * @constructor
    */
-  export default function EventEmitter(conf) {
+  function EventEmitter(conf) {
     this._events = {};
     this.newListener = false;
     this.verboseMemoryLeak = false;
@@ -301,7 +301,7 @@
   };
 
   /**
-   * @param {...} var_args description
+   * @param {...*} var_args description
    */
   EventEmitter.prototype.emit = function(var_args) {
 
@@ -773,3 +773,5 @@
     }
 
   };
+
+export default EventEmitter;

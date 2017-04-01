@@ -1,7 +1,10 @@
 import View from '../../lib/view';
 import ViewManager from '../../lib/view-manager';
 
-export default class TabView extends View {
+/**
+ * @extends {View}
+ */
+class TabView extends View {
     constructor() {
         super();
 
@@ -87,6 +90,7 @@ export default class TabView extends View {
 
 
     /**
+     * @override
      * @return {string} Base template of NavigationBar component.
      */
     template() {
@@ -135,3 +139,5 @@ export default class TabView extends View {
         }
     }
 }
+
+export default TabView;

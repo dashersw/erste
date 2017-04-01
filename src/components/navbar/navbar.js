@@ -1,6 +1,9 @@
 import Component from '../../lib/base/component';
 
-export default class NavBar extends Component {
+/**
+ * @extends {Component}
+ */
+class NavBar extends Component {
     /**
      * Includes back button for back navigation.
      *
@@ -62,3 +65,5 @@ export default class NavBar extends Component {
 * @typedef {{hasBackButton: boolean, hasMenuButton: boolean, title: string}}
 */
 NavBar.NavBarOptions;
+
+export default NavBar;
