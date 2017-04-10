@@ -13,45 +13,37 @@ import Component from './base/component';
  * For implementing full-screen, navigable views, users should subclass
  * {@link View}.
  *
+ * erste requires you to manually instantiate
+ * all the views in your application.
+ *
+ * @example
+ *
+ * class RootView extends erste.View {
+ *     template() {
+ *         return `
+ *         <root-view>
+ *             <h1>Hello world!</h1>
+ *             <button>Click me!</button>
+ *         </root-view>
+ *         `;
+ *     }
+ *
+ *     onTapButton() {
+ *         this.$('h1').innerText = 'Thanks for the tap!';
+ *     }
+ *
+ *     get events() {
+ *         return {
+ *             'tap': {
+ *                 'button': this.onTapButton
+ *             }
+ *         }
+ *     }
+ * }
+ *
  * @extends {Component}
  */
 class View extends Component {
-    /**
-     * {@link View} constructor. erste requires you to manually instantiate
-     * all the views in your application.
-     *
-     * @example
-     *
-     * class RootView extends erste.View {
-     *     template() {
-     *         return `
-     *         <root-view>
-     *             <h1>Hello world!</h1>
-     *             <button>Click me!</button>
-     *         </root-view>
-     *         `;
-     *     }
-     *
-     *     onTapButton() {
-     *         this.$('h1').innerText = 'Thanks for the tap!';
-     *     }
-     *
-     *     get events() {
-     *         return {
-     *             'tap': {
-     *                 'button': this.onTapButton
-     *             }
-     *         }
-     *     }
-     * }
-     */
-    constructor() {
-        super();
-
-        this.rendered = false;
-    }
-
-
     /**
      * Renders the view into a parent DOM element. The default root element
      * is `document.body`, so for the sake of simplicity, one can just call
