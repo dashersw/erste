@@ -166,13 +166,6 @@ class Component extends EventEmitter {
 
 
     /**
-     * Method called before a render process. Called automatically before each render. Subclasses should override
-     * this method for tasks that should be done right before the View enters the document.
-     */
-    onBeforeRender() { };
-
-
-    /**
      * Method called after a render process. Called automatically after each render. Subclasses should override
      * this method for tasks that should be done when the View is in document.
      */
