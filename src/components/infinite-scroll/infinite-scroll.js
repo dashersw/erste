@@ -51,9 +51,11 @@ class InfiniteScroll extends Component {
      * @override
      */
     render(opt_base, opt_index) {
-        super.render(opt_base, opt_index);
+        var rv = super.render(opt_base, opt_index);
 
         if (!this.el) this.register(this.el.parentElement);
+
+        return rv;
     };
 
 

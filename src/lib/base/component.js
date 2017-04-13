@@ -122,33 +122,46 @@ class Component extends EventEmitter {
     }
 
     /**
-     * @param {?Element=} opt_base Base element
-     * @param {number=} opt_index Base element
+     * Renders the {@link Component} into a given parent DOM element and returns
+     * the result. May be called with an optional index to indicate where the
+     * DOM element of this {@link Component} should be inserted in the parent.
+     *
+     * @param {!Element} rootEl Root element to render this component in.
+     * @param {number=} opt_index The index of this component within the parent
+     * component. This may be used to render a new child before an existing
+     * child in the parent.
+     *
+     * @return {boolean} Whether the component is rendered. Note that it might
+     * have already been rendered, not as a direct result of this call to
+     * {@link #Component+render|component.render()}.
      */
-    render(opt_base, opt_index) {
-        if (this.rendered_) return;
+    render(rootEl, opt_index) {
+        if (this.rendered_) return true;
 
         if (!this.element_) {
             var el = document.getElementById(this.id);
-            if (!el && !opt_base) return;
+            if (!el && !rootEl) return false;
+
             if (el) {
-                opt_base = el.parentElement;
+                rootEl = el.parentElement;
                 if (!opt_index) {
                     this.element_ = el;
                     this.rendered_ = true;
                     this.onAfterRender();
 
-                    return;
+                    return true;
                 }
             }
 
-            var index = opt_index ? opt_index : ((opt_base && opt_base.children.length - 1) || -1);
-            var child = opt_base && opt_base.children[index];
-            opt_base && opt_base.insertBefore(this.el, child || null);
+            var index = opt_index ? opt_index : ((rootEl && rootEl.children.length - 1) || -1);
+            var child = rootEl && rootEl.children[index];
+            rootEl && rootEl.insertBefore(this.el, child || null);
             this.rendered_ = true;
         }
 
         this.onAfterRender();
+
+        return true;
     }
 
     get rendered() {

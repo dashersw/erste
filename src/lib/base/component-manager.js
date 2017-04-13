@@ -39,9 +39,9 @@ const onLoad = () => {
 
     new MutationObserver(mutations => {
         for (let cmpId in componentsToRender) {
-            componentsToRender[cmpId].render();
+            const rendered = componentsToRender[cmpId].render();
 
-            delete componentsToRender[cmpId];
+            if (rendered) delete componentsToRender[cmpId];
         }
     }).observe(document.body, { childList: true, subtree: true });;
 }
