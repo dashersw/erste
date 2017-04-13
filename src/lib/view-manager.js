@@ -6,10 +6,10 @@ import math from '../lib/base/math';
 /**
  * This class handles view transitions and view history in a consistent
  * manner similar to `NavigationController`s in other frameworks.
- * An instance of this class should be used by views who would like to contain
- * other views.
+ * An instance of this class should be used by views that will contain other
+ * views, and will allow navigation in between them.
  *
- * Also, each multi-view application should have at least one
+ * Also, each multi-view application should have at least one root
  * {@link ViewManager}.
  */
 class ViewManager {
@@ -17,7 +17,9 @@ class ViewManager {
      * {@link ViewManager} constructor. At least one {@link ViewManager} should
      * be present in all multi-view erste applications.
      *
-     * @param {(!Element|!View)=} opt_root Root element for this ViewManager.
+     * @param {(!Element|!View)=} opt_root Root element for this
+     * {@link ViewManager}.
+     *
      * Default is `document.body`. Can also be a {@link View}, in which case the
      * root element will be the {@link View#el} of the aforementioned View. In
      * this case, the View instance should be rendered before any
@@ -28,7 +30,7 @@ class ViewManager {
         /**
          * Array of views stored in memory. When
          * {@link #ViewManager+pull|viewManager.pull} is called with the second
-         * parameter set to `true`, meaning the user should be able to go back,
+         * argument set to `true`, meaning the user should be able to go back,
          * the current view is pushed to this array.
          *
          * When it's time to reset the history, all views in history are
@@ -123,6 +125,14 @@ class ViewManager {
 
 
     /**
+     * Returns the last view in this {@link ViewManager}'s
+     * {@link #ViewManager+history|history}, and null if the
+     * {@link #ViewManager+history|history} is empty.
+     *
+     * This may be used to send messages to whatever the previous {@link View}
+     * is in the history right before a
+     * {@link #ViewManager+pull|viewManager.push()} call.
+     *
      * @return {?View}
      */
     getLastViewInHistory() {
@@ -131,9 +141,11 @@ class ViewManager {
 
 
     /**
-     * @param {!View} view View to pull into view.
-     * @param {boolean=} opt_canGoBack Whether this view keeps history so that
-     * one can go back to the previous view.
+     * @param {!View} view {@link View} instance to pull into the scene.
+     * @param {boolean=} opt_canGoBack Whether the {@link ViewManager} should
+     * keep history so that one can go back to the previous {@link View}.
+     *
+     * Has a hard-coded transition effect similar to iOS7+.
      */
     pull(view, opt_canGoBack) {
         if (!this.initialized_) this.init_();
@@ -200,7 +212,10 @@ class ViewManager {
 
 
     /**
-     * Switches to the previous view if there's one.
+     * Switches to the previous view if there's one, and ignores the call if
+     * the {@link #ViewManager+history|history} is empty.
+     *
+     * Has a hard-coded transition effect similar to iOS7+.
      */
     push() {
         var lastView = this.history.pop(),
@@ -285,7 +300,8 @@ class ViewManager {
 
 
     /**
-     * Toggles the sidebar on or off according to its current state. This is to be used for a menu button, for example.
+     * Toggles the sidebar on or off according to its current state.
+     * This is to be used for a menu button, for example.
      */
     toggleSidebar() {
         if (!this.initialized_) this.init_();
@@ -309,7 +325,8 @@ class ViewManager {
 
 
     /**
-     * Handles touch move events and decides how the view transitions should occur.
+     * Handles touch move events and decides how the view transitions should
+     * occur.
      *
      * @private
      */
@@ -359,7 +376,8 @@ class ViewManager {
 
 
     /**
-     * Handles touch end events and decides how the view transitions should follow.
+     * Handles touch end events and decides how the view transitions should
+     * follow.
      *
      * @private
      */

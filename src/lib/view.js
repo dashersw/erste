@@ -16,34 +16,46 @@ import Component from './base/component';
  * erste requires you to manually instantiate
  * all the views in your application.
  *
- * @example
- *
- * class RootView extends erste.View {
- *     template() {
- *         return `
- *         <root-view>
- *             <h1>Hello world!</h1>
- *             <button>Click me!</button>
- *         </root-view>
- *         `;
- *     }
- *
- *     onTapButton() {
- *         this.$('h1').innerText = 'Thanks for the tap!';
- *     }
- *
- *     get events() {
- *         return {
- *             'tap': {
- *                 'button': this.onTapButton
- *             }
- *         }
- *     }
- * }
- *
  * @extends {Component}
  */
 class View extends Component {
+    /**
+     * Creates a new {@link View} instance. Users should subclass this class
+     * to incorporate their own functionality, as the default View instance
+     * doesn't provide anything out of the box.
+     *
+     * @example
+     *
+     * class RootView extends erste.View {
+     *     template() {
+     *         return `
+     *         <root-view>
+     *             <h1>Hello world!</h1>
+     *             <button>Click me!</button>
+     *         </root-view>
+     *         `;
+     *     }
+     *
+     *     onTapButton() {
+     *         this.$('h1').innerText = 'Thanks for the tap!';
+     *     }
+     *
+     *     get events() {
+     *         return {
+     *             'tap': {
+     *                 'button': this.onTapButton
+     *             }
+     *         }
+     *     }
+     * }
+     *
+     * new RootView().render(); // renders into body.
+     *
+     */
+    constructor() {
+        super();
+    }
+
     /**
      * Renders the view into a parent DOM element. The default root element
      * is `document.body`, so for the sake of simplicity, one can just call
