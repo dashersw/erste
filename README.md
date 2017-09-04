@@ -89,8 +89,7 @@ erste.js is a solemn approach to application development. It gives you the bareb
 
 ## Installation
 ### Direct download
-- [Development version](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.js)
-- [Minified version - 9.7kb gzipped](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.min.js)
+- [Minified version - 9.7kb gzipped](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.js)
 
 ### Using bower
 ```bash
