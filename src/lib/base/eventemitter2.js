@@ -302,6 +302,7 @@
 
   /**
    * @param {...*} var_args description
+   * @export
    */
   EventEmitter.prototype.emit = function(var_args) {
 
