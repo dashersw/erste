@@ -9,7 +9,7 @@ const outputWrapper = `(function(global){%output%\nconst erste = this.$jscompDef
 function compile() {
     const options = {
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
-        externs: './src/externs.js',
+        externs: './dist/externs.js',
         warning_level: 'VERBOSE',
         language_in: 'ECMASCRIPT7',
         assume_function_wrapper: true,
@@ -35,7 +35,7 @@ function compile() {
         .pipe(gulp.dest('dist'));
 }
 
-gulp.task('clean', () => del(['dist/*']));
+gulp.task('clean', () => del(['dist/*', '!dist/externs.js']));
 gulp.task('compile', compile);
 
 gulp.task('watch', () => watch('./src/**/*.js', compile));
