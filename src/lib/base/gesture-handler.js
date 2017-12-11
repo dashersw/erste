@@ -146,7 +146,6 @@ export default class GestureHandler {
         var tap = document.createEvent('Event');
         var eventName = tapTimeDiff > 800 ? EventType.LONG_TAP : EventType.TAP;
         tap && tap.initEvent(eventName, true, true);
-        tap && (tap.target = e.target);
 
         // Target element fix for iOS6+
         var targetElement = e.target;
