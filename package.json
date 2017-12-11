@@ -1,6 +1,6 @@
 {
   "name": "erste",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Your first choice for hybrid mobile applications",
   "main": "dist/erste.js",
   "browser": "dist/erste.js",
