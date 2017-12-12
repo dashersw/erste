@@ -32,6 +32,22 @@ const events = [
     'swipeLeft'
 ];
 var mutationCounter = 0;
+
+const handleEvent = e => {
+    e.targetEl = e.target;
+
+    let comps = getParentComps(e.target),
+        broken = false;
+
+    do {
+        if (broken) break;
+
+        e['targetEl'] = e.targetEl;
+
+        broken = callHandlers(comps, e);
+    } while ((e.targetEl = e.targetEl.parentNode) && (e.targetEl != document.body));
+}
+
 const onLoad = () => {
     events.forEach(type => document.body.addEventListener(type, handleEvent));
 
@@ -78,21 +94,6 @@ const getParentComps = child => {
 
     child.parentComps = ids.join(',');
     return parentComps;
-}
-
-const handleEvent = e => {
-    e.targetEl = e.target;
-
-    let comps = getParentComps(e.target),
-        broken = false;
-
-    do {
-        if (broken) break;
-
-        e['targetEl'] = e.targetEl;
-
-        broken = callHandlers(comps, e);
-    } while ((e.targetEl = e.targetEl.parentNode) && (e.targetEl != document.body));
 }
 
 /**
