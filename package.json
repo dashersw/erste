@@ -3,7 +3,7 @@
   "version": "1.3.5",
   "description": "Your first choice for hybrid mobile applications",
   "main": "dist/erste.js",
-  "browser": "dist/erste.js",
+  "browser": "src/index.js",
   "module": "src/index.js",
   "repository": {
     "type": "git",
