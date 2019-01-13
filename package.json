@@ -2,7 +2,7 @@
   "name": "erste",
   "version": "1.4.0",
   "description": "Your first choice for hybrid mobile applications",
-  "main": "dist/erste.js",
+  "main": "src/index.js",
   "browser": "src/index.js",
   "module": "src/index.js",
   "repository": {
