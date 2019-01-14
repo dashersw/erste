@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/erste.svg)](https://badge.fury.io/js/erste)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/dashersw/erste.js/master/LICENSE)
+[![API Reference Documentation](https://doxdox.org/images/badge-flat.svg)](http://doxdox.org/dashersw/erste/master)
 
 # JavaScript view library for building performant hybrid mobile applications
 
@@ -90,11 +91,6 @@ erste.js is a solemn approach to application development. It gives you the bareb
 ## Installation
 ### Direct download
 - [Minified version - 9.7kb gzipped](https://raw.githubusercontent.com/dashersw/erste.js/master/dist/erste.js)
-
-### Using bower
-```bash
-bower install --save erste
-```
 
 ### Using npm
 ```bash
