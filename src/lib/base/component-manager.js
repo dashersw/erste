@@ -135,21 +135,45 @@ const callHandler = (comp, e, handlers, selectors) => {
     return rv;
 }
 
+/**
+ * Given an id, returns a component in the registry.
+ *
+ * @param {string} id Id for the component instance.
+ */
 const getComponent = id => {
     return componentRegistry[id];
 }
 
+/**
+ * Registers a component to the component registry, setting it up for render if it hasn't already
+ * been rendered.
+ *
+ * Also, if this is the first time this type of component is registered, it checks and decomposes
+ * the event handler declaration syntax sugar.
+ *
+ * @param {!module$$src$lib$base$component} comp Component instance to register.
+ */
 const setComponent = comp => {
     componentRegistry[comp.id] = comp;
     if (!comp.rendered) componentsToRender[comp.id] = comp;
     if (!comp.events) decorateEvents(comp)
 }
 
+/**
+ * Given an id, removes a component from the registry.
+ *
+ * @param {!module$$src$lib$base$component} comp Component instance to remove.
+ */
 const removeComponent = comp => {
     delete componentRegistry[comp.id];
     delete componentsToRender[comp.id];
 }
 
+/**
+ * Given an id, marks a component as rendered, removing it from the render queue.
+ *
+ * @param {!module$$src$lib$base$component} comp Component instance to mark as rendered.
+ */
 const markComponentRendered = comp => {
     delete componentsToRender[comp.id];
 }
@@ -158,11 +182,12 @@ const markComponentRendered = comp => {
 const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
 
 /**
- * Fills events object of given component from method names matching event handler pattern.
- * @suppress {checkTypes}
+ * Fills events object of given component class from method names that match event handler pattern.
+ *
+ * @param {!module$$src$lib$base$component} comp Component instance to decorate events for.
  */
 export function decorateEvents(comp) {
-    const prototype = comp.constructor.prototype;
+    const prototype = /** @type !Function */(comp.constructor).prototype;
 
     if (prototype.events) return;
 
