@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "prepublish": "gulp",
-    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/erste.min.js"
+    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/erste.js"
   },
   "author": "Armagan Amcalar <armagan@amcalar.com>",
   "license": "MIT",
