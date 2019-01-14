@@ -142,6 +142,7 @@ const getComponent = id => {
 const setComponent = comp => {
     componentRegistry[comp.id] = comp;
     if (!comp.rendered) componentsToRender[comp.id] = comp;
+    if (!comp.events) decorateEvents(comp)
 }
 
 const removeComponent = comp => {
@@ -152,6 +153,32 @@ const removeComponent = comp => {
 const markComponentRendered = comp => {
     delete componentsToRender[comp.id];
 }
+
+// match & select "[eventType] [css selector]"
+const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
+
+/**
+ * Fills events object of given component from method names matching event handler pattern.
+ * @suppress {checkTypes}
+ */
+export function decorateEvents(comp) {
+    const prototype = comp.constructor.prototype;
+
+    if (prototype.events) return;
+
+    const events = {};
+
+    Object.getOwnPropertyNames(prototype)
+        .map(propertyName => handlerMethodPattern.exec(propertyName))
+        .filter(x => x)
+        .forEach(([methodName, eventType, eventTarget]) => {
+            events[eventType] = events[eventType] || {};
+            events[eventType][eventTarget] = comp[methodName];
+        })
+
+    prototype.events = events;
+}
+
 
 export default {
     getUid: getUid,
