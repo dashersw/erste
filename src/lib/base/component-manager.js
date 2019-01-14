@@ -162,7 +162,8 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
  * @suppress {checkTypes}
  */
 export function decorateEvents(comp) {
-    const prototype = comp.constructor.prototype;
+    const constructor = comp.constructor;
+    const prototype = constructor.prototype;
 
     if (prototype.events) return;
 
