@@ -43,3 +43,5 @@ export default {
     /** @export */
     __: locale.__
 };
+
+export const __ = locale.__
