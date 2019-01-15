@@ -34,7 +34,7 @@ const EventType = {
     SWIPE_UP: 'swipeUp',
     SWIPE_LEFT: 'swipeLeft',
     SWIPE_DOWN: 'swipeDown'
-}
+};
 
 export default class GestureHandler {
     /**

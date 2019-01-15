@@ -1,5 +1,6 @@
 /*!
  * Throttle function
+ *
  * https://remysharp.com/2010/07/21/throttling-function-calls
  *
  * Copyright (c) 2010 Remy Sharp

@@ -20,6 +20,9 @@ class InfiniteScroll extends Component {
         super();
         this.model = new InfiniteScrollModel();
 
+        /**
+         * @export
+         */
         this.EventType = this.model.EventType;
 
         this.scrollListener_ = null;
@@ -60,6 +63,8 @@ class InfiniteScroll extends Component {
 
 
     /**
+     * @export
+     *
      * Resets the component state to default. This should be used to signal
      * the end of loading so that this component
      * can again check for loading.
@@ -70,6 +75,8 @@ class InfiniteScroll extends Component {
 
 
     /**
+     * @export
+     *
      * Registers an element to track its scroll. This can be used for lazily introducing an element to track.
      *
      * @param {?Element} el Element to track.
@@ -117,6 +124,8 @@ class InfiniteScroll extends Component {
 
 
     /**
+     * @export
+     *
      * Shows spinner during load.
      */
     showSpinner() {
@@ -127,6 +136,8 @@ class InfiniteScroll extends Component {
 
 
     /**
+     * @export
+     *
      * Shows end of list message if no more items are available.
      */
     showEndOfList() {
@@ -147,8 +158,8 @@ class InfiniteScroll extends Component {
      * @override
      */
     dispose() {
-        this.model.dispose();
-        this.scrollEl.removeEventListener(this.scrollListener_);
+        this.model.removeAllListeners();
+        this.scrollEl.removeEventListener('scroll', this.scrollListener_);
 
         super.dispose();
     };

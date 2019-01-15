@@ -14,6 +14,8 @@ class Sidebar extends Component {
     }
 
     /**
+     * @export
+     *
      * Dispatches a switch view event to listeners and toggles the sidebar of the view manager that
      * is responsible for this sidebar.
      *
@@ -44,6 +46,8 @@ class Sidebar extends Component {
 
 
     /**
+     * @export
+     *
      * @return {string} Returns the items for the sidebar.
      */
     template_items() {
@@ -60,6 +64,9 @@ class Sidebar extends Component {
         };
     }
 
+    /**
+     * @override
+     */
     get events() {
         return {
             'tap': {
@@ -68,6 +75,9 @@ class Sidebar extends Component {
         };
     }
 
+    /**
+     * @export
+     */
     static get EventType() {
         return {
             SWITCH_VIEW: 'switchView'

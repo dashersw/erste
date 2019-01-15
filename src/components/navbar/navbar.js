@@ -12,18 +12,30 @@ class NavBar extends Component {
      */
     constructor(opt_config = {hasBackButton: false, hasMenuButton: false, title: ''}) {
         super();
+
+        /**
+         * @export
+         */
         this.vm = null;
 
+        /**
+         * @export
+         */
         this.config = opt_config;
     }
 
     /**
+     * @export
+     *
      * Back button tap event handler.
      */
     onBackButtonTap() {
         this.vm && this.vm.push();
     };
 
+    /**
+     * @export
+     */
     onMenuButtonTap() {
         this.vm && this.vm.toggleSidebar();
     };
@@ -51,6 +63,7 @@ class NavBar extends Component {
         };
     }
 
+    /** @override */
     get events() {
         return {
             'tap': {

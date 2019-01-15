@@ -28,6 +28,8 @@ class ViewManager {
      */
     constructor(opt_root) {
         /**
+         * @export
+         *
          * Array of views stored in memory. When
          * {@link #ViewManager+pull|viewManager.pull} is called with the second
          * argument set to `true`, meaning the user should be able to go back,
@@ -65,6 +67,8 @@ class ViewManager {
         this.rootEl_ = null;
 
         /**
+         * @export
+         *
          * Current active view.
          *
          * @type {?View}
@@ -125,6 +129,8 @@ class ViewManager {
 
 
     /**
+     * @export
+     *
      * Returns the last view in this {@link ViewManager}'s
      * {@link #ViewManager+history|history}, and null if the
      * {@link #ViewManager+history|history} is empty.
@@ -141,6 +147,8 @@ class ViewManager {
 
 
     /**
+     * @export
+     *
      * @param {!View} view {@link View} instance to pull into the scene.
      * @param {boolean=} opt_canGoBack Whether the {@link ViewManager} should
      * keep history so that one can go back to the previous {@link View}.
@@ -201,6 +209,8 @@ class ViewManager {
 
 
     /**
+     * @export
+     *
      * Returns true if there is one or more views in history,
      * returns false otherwise.
      *
@@ -212,6 +222,8 @@ class ViewManager {
 
 
     /**
+     * @export
+     *
      * Switches to the previous view if there's one, and ignores the call if
      * the {@link #ViewManager+history|history} is empty.
      *
@@ -249,6 +261,8 @@ class ViewManager {
 
 
     /**
+     * @export
+     *
      * Makes a given view the foremost view without animations and with
      * disposing previous views in history.
      *
@@ -300,6 +314,8 @@ class ViewManager {
 
 
     /**
+     * @export
+     *
      * Toggles the sidebar on or off according to its current state.
      * This is to be used for a menu button, for example.
      */
@@ -603,6 +619,8 @@ class ViewManager {
 
 
 /**
+ * @export
+ *
  * View manager states.
  *
  * @enum {string}

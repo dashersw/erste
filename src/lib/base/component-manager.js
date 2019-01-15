@@ -1,5 +1,6 @@
 import GestureHandler from './gesture-handler';
 import getUid from './uid';
+import Component from './component';
 
 const componentRegistry = {};
 const componentsToRender = {};
@@ -31,7 +32,6 @@ const events = [
     'swipeBottom',
     'swipeLeft'
 ];
-var mutationCounter = 0;
 
 const handleEvent = e => {
     e.targetEl = e.target;
@@ -151,7 +151,7 @@ const getComponent = id => {
  * Also, if this is the first time this type of component is registered, it checks and decomposes
  * the event handler declaration syntax sugar.
  *
- * @param {!module$$src$lib$base$component} comp Component instance to register.
+ * @param {!Component} comp Component instance to register.
  */
 const setComponent = comp => {
     componentRegistry[comp.id] = comp;
@@ -162,7 +162,7 @@ const setComponent = comp => {
 /**
  * Given an id, removes a component from the registry.
  *
- * @param {!module$$src$lib$base$component} comp Component instance to remove.
+ * @param {!Component} comp Component instance to remove.
  */
 const removeComponent = comp => {
     delete componentRegistry[comp.id];
@@ -172,7 +172,7 @@ const removeComponent = comp => {
 /**
  * Given an id, marks a component as rendered, removing it from the render queue.
  *
- * @param {!module$$src$lib$base$component} comp Component instance to mark as rendered.
+ * @param {!Component} comp Component instance to mark as rendered.
  */
 const markComponentRendered = comp => {
     delete componentsToRender[comp.id];
@@ -184,10 +184,12 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
 /**
  * Fills events object of given component class from method names that match event handler pattern.
  *
- * @param {!module$$src$lib$base$component} comp Component instance to decorate events for.
+ * @param {!Component} comp Component instance to decorate events for.
+ *
+ * @suppress {checkTypes}
  */
 export function decorateEvents(comp) {
-    const prototype = /** @type !Function */(comp.constructor).prototype;
+    const prototype = /** @type {!Function} */(comp.constructor).prototype;
 
     if (prototype.events) return;
 

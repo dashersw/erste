@@ -6,31 +6,30 @@ const watch = require('gulp-watch');
 const cleanCss = require('gulp-clean-css');
 const concatCss = require('gulp-concat-css');
 
-const outputWrapper = `(function(global){%output%\nconst erste = this.$jscompDefaultExport$$module$$src$index;if(typeof define=='function'&&define.amd){define(function(){return erste})}else if(typeof module=='object'&&typeof exports=='object'){module.exports=erste}else{window.erste=erste}}).call(null, {});`;
+const outputWrapper = `(function(global){%output%\nconst erste = this.$jscompDefaultExport$$module$index;if(typeof define=='function'&&define.amd){define(function(){return erste})}else if(typeof module=='object'&&typeof exports=='object'){module.exports=erste}else{window.erste=erste}}).call(null, {});`;
 
 function compile() {
     const options = {
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
         externs: './dist/externs.js',
         warning_level: 'VERBOSE',
-        language_in: 'ECMASCRIPT7',
+        language_in: 'ECMASCRIPT_NEXT',
+        formatting: 'PRETTY_PRINT',
         assume_function_wrapper: true,
-        language_out: 'ECMASCRIPT5',
-        summary_detail_level: 3,
-        new_type_inf: true,
+        language_out: 'ECMASCRIPT6',
+        module_resolution: 'NODE',
         dependency_mode: 'STRICT',
         process_common_js_modules: true,
         jscomp_error: '*',
         jscomp_off: ['lintChecks'],
-        hide_warnings_for: '[synthetic',
-        entry_point: '/src/index',
+        entry_point: 'index.js',
         generate_exports: true,
         export_local_property_definitions: true,
         output_wrapper: outputWrapper,
         js_output_file: 'erste.js'
     };
 
-    return gulp.src(['./src/lib/goog.js', './src/**/*.js'])
+    return gulp.src(['./src/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(closureCompiler(options))
         .pipe(sourcemaps.write('/'))
@@ -55,4 +54,4 @@ gulp.task('watch', () => {
     watch('./src/**/*.css', cssMinify);
 });
 
-gulp.task('default', ['clean', 'css:min', 'compile']);
+gulp.task('default', gulp.parallel('clean', 'css:min', 'compile'));

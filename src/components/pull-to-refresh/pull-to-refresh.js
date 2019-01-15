@@ -4,7 +4,7 @@ import PullToRefreshModel from './pull-to-refresh-model';
 /**
  * @extends {Component}
  */
-class PullToRefresh extends Component {
+export default class PullToRefresh extends Component {
     /**
      * P2RComponent is a small component which checks the scroll position of a
      * given DOM element, and if it's in
@@ -20,6 +20,9 @@ class PullToRefresh extends Component {
 
         this.model = new PullToRefreshModel();
 
+        /**
+         * @export
+         */
         this.EventType = this.model.EventType;
         this.scrollEl = null;
         this.containerEl = null;
@@ -36,6 +39,8 @@ class PullToRefresh extends Component {
     }
 
     /**
+     * @export
+     *
      * Triggered when the components decides a refresh action. This method should be overridden
      * to, for example, display a spinner animation during refresh.
      */
@@ -65,6 +70,8 @@ class PullToRefresh extends Component {
 
 
     /**
+     * @export
+     *
      * Resets the component state to default. This should be used to signal the
      * end of refreshing so that this component
      * can again check for pull to refresh.
@@ -89,6 +96,8 @@ class PullToRefresh extends Component {
 
 
     /**
+     * @export
+     *
      * Registers an element to track its scroll. This can be used for lazily introducing an element to track.
      *
      * @param {?Element} scrollEl Element to track.
@@ -182,7 +191,7 @@ class PullToRefresh extends Component {
      * @override
      */
     dispose() {
-        this.model.dispose();
+        this.model.removeAllListeners();
         this.el && this.el.removeEventListener('scroll', this.scrollListener_);
         document.body.removeEventListener('touchend', this.releaseListener_);
 
@@ -202,6 +211,8 @@ class PullToRefresh extends Component {
 }
 
 /**
+ * @export
+ *
  * Threshold value for the release action. Releases after this threshold will trigger a refresh.
  *
  * @type {number}
@@ -210,6 +221,8 @@ PullToRefresh.prototype.threshold = 135;
 
 
 /**
+ * @export
+ *
  * Height of this component. This setting is used to offset the scroll view while refreshing.
  *
  * @type {number}
@@ -218,10 +231,10 @@ PullToRefresh.prototype.height = 96;
 
 
 /**
+ * @export
+ *
  * Start position of the arrow. This is adjusted for a spring-like effect.
  *
  * @type {number}
  */
 PullToRefresh.prototype.arrowOffset = 0;
-
-export default PullToRefresh;

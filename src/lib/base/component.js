@@ -1,5 +1,5 @@
 import ComponentManager from './component-manager';
-import EventEmitter from './eventemitter2';
+import EventEmitter from './eventemitter3';
 
 
 /**
@@ -14,7 +14,7 @@ import EventEmitter from './eventemitter2';
  *
  * @extends {EventEmitter}
  */
-class Component extends EventEmitter {
+export default class Component extends EventEmitter {
     /**
      * Creates a new {@link View} instance. Users should subclass this class
      * to incorporate their own functionality, as the default View instance
@@ -49,14 +49,13 @@ class Component extends EventEmitter {
      *
      */
     constructor() {
-        super({
-            maxListeners: Infinity
-        });
+        super();
 
         /**
          * @type {string}
          *
          * @private
+         * @const
          */
         this.id_ = ComponentManager.getUid();
 
@@ -90,6 +89,8 @@ class Component extends EventEmitter {
 
 
     /**
+     * @export
+     *
      * The auto-generated, unique id of the {@link Component}.
      *
      * @return {string}
@@ -100,6 +101,8 @@ class Component extends EventEmitter {
 
 
     /**
+     * @export
+     *
      * The DOM element of the {@link Component}. This is a getter that first
      * checks whether the component has been rendered as a DOM element, and
      * returns the `HTMLElement` if so. If the component hasn't been rendered
@@ -132,6 +135,8 @@ class Component extends EventEmitter {
 
 
     /**
+     * @export
+     *
      * This method makes sure that users can conveniently include
      * {@link Component}s in the template of an owner component. Whenever a
      * {@link Component} is cast to a string, we calculate the template and
@@ -162,8 +167,9 @@ class Component extends EventEmitter {
         return this.template_;
     }
 
-
     /**
+     * @export
+     *
      * Given a query selector, returns an array of child `Element`s of this
      * {@link Component} or an empty array if no results are found. This is a
      * wrapper around `el.querySelectorAll`, and conveniently returns an array
@@ -180,8 +186,9 @@ class Component extends EventEmitter {
         return rv;
     }
 
-
     /**
+     * @export
+     *
      * Given a query selector, returns the first child `Element` of this
      * {@link Component} or null if no results are found or the
      * {@link Component} hasn't been rendered yet. This is a wrapper around
@@ -200,6 +207,8 @@ class Component extends EventEmitter {
 
 
     /**
+     * @export
+     *
      * Renders the {@link Component} into a given parent DOM element and returns
      * the result. May be called with an optional index to indicate where the
      * DOM element of this {@link Component} should be inserted in the parent.
@@ -242,7 +251,9 @@ class Component extends EventEmitter {
         return true;
     }
 
-
+    /**
+     * @export
+     */
     get rendered() {
         if (!this.rendered_) {
             var el = document.getElementById(this.id);
@@ -258,6 +269,8 @@ class Component extends EventEmitter {
 
 
     /**
+     * @export
+     *
      * This method is called after a render process either as a direct result
      * of a {@link #Component+render|component.render()} call or after the
      * template of this component is inserted into the DOM.
@@ -265,10 +278,11 @@ class Component extends EventEmitter {
      * Subclasses should override this method for tasks that should be done
      * when the {@link Component} is in the document.
      */
-    onAfterRender() { };
-
+    onAfterRender() {}
 
     /**
+     * @export
+     *
      * Default template for {@link Component}s. Returns an empty `<div>` by
      * default and should be overridden to provide actual HTML templates.
      *
@@ -296,6 +310,8 @@ class Component extends EventEmitter {
     }
 
     /**
+     * @export
+     *
      * This method should be called when this {@link Component} is being
      * removed.
      *
@@ -315,6 +331,9 @@ class Component extends EventEmitter {
         this.element_ && this.element_.parentNode && this.element_.parentNode.removeChild(this.element_);
         this.element_ = null;
     }
-}
 
-export default Component;
+    /**
+     * @export
+     */
+    get events() {}
+}

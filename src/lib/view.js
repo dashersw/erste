@@ -18,7 +18,7 @@ import Component from './base/component';
  *
  * @extends {Component}
  */
-class View extends Component {
+export default class View extends Component {
     /**
      * Creates a new {@link View} instance. Users should subclass this class
      * to incorporate their own functionality, as the default View instance
@@ -70,7 +70,7 @@ class View extends Component {
     render(opt_rootEl = document.body, opt_index = 0) {
         this.index = opt_index;
 
-        return super.render(opt_rootEl);
+        return super.render(/** @type {!Element} */(opt_rootEl));
     }
 
 
@@ -98,6 +98,8 @@ class View extends Component {
 
 
     /**
+     * @export
+     *
      * This method is called after the view is activated by a ViewManager, i.e.,
      * either `pull`ed or set as the current view using
      * {@link ViewManager#setCurrentView|setCurrentView}.
@@ -152,6 +154,8 @@ class View extends Component {
 
 
     /**
+     * @export
+     *
      * Returns the width of the viewport in pixels.
      *
      * @return {number} The device width.
@@ -173,6 +177,8 @@ class View extends Component {
 
 
 /**
+ * @export
+ *
  * View index in z-axis. This is used as the Z-value for initial translate3d
  * CSS declaration.
  *
@@ -182,6 +188,8 @@ View.prototype.index = 0;
 
 
 /**
+ * @export
+ *
  * Determines whether the view should support back gestures to
  * go back in history of a {@link ViewManager}.
  *
@@ -191,6 +199,8 @@ View.prototype.supportsBackGesture = false;
 
 
 /**
+ * @export
+ *
  * Determines whether the view allows swipe / drag gestures to reveal an
  * associated sidebar. This lets the view manager orchestrate the touch gestures
  * for revealing the sidebar menu.
@@ -198,9 +208,3 @@ View.prototype.supportsBackGesture = false;
  * @type {boolean}
  */
 View.prototype.hasSidebar = false;
-
-function isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
-export default View;

@@ -1,4 +1,4 @@
-import EventEmitter from '../../lib/base/eventemitter2';
+import EventEmitter from '../../lib/base/eventemitter3';
 
 /**
  * Model for the infinite scroll component. Manages loading states to prevent
@@ -8,9 +8,7 @@ import EventEmitter from '../../lib/base/eventemitter2';
  */
 export default class InfiniteScrollModel extends EventEmitter {
     constructor() {
-        super({
-            maxListeners: Infinity
-        });
+        super();
 
         this.state_ = this.State.DEFAULT;
     }

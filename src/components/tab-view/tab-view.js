@@ -4,17 +4,25 @@ import ViewManager from '../../lib/view-manager';
 /**
  * @extends {View}
  */
-class TabView extends View {
+export default class TabView extends View {
     constructor() {
         super();
 
+        /**
+         * @export
+         */
         this.vm = null;
 
         /**
+         * @export
+         *
          * @type {!Array.<!View>}
          */
         this.views = [];
 
+        /**
+         * @export
+         */
         this.activeItemIndex = null;
     }
 
@@ -32,6 +40,8 @@ class TabView extends View {
     };
 
     /**
+     * @export
+     *
      * @param {!{targetEl: !Element}} e Item touch event handler.
      */
     onItemTap(e) {
@@ -45,6 +55,8 @@ class TabView extends View {
     };
 
     /**
+     * @export
+     *
      * Adds active class to item.
      * @param {number} index Index of the item to be active.
      */
@@ -64,6 +76,8 @@ class TabView extends View {
     };
 
     /**
+     * @export
+     *
      * Activates a tab bar item with a given name. If an item for the given the name isn't found, does nothing.
      *
      * @param {string} name Name for the tab bar item.
@@ -80,6 +94,8 @@ class TabView extends View {
 
 
     /**
+     * @export
+     *
      * Removes active class of active item.
      */
     deactivateActiveItem() {
@@ -106,11 +122,17 @@ class TabView extends View {
 `;
     };
 
+    /**
+     * @export
+     *
+     */
     template_views() {
         return `<views>${this.views.join('')}</views>`;
     }
 
     /**
+     * @export
+     *
      * @return {string} Template for tab bar items.
      */
     template_items() {
@@ -131,6 +153,9 @@ class TabView extends View {
         };
     }
 
+    /**
+     * @override
+     */
     get events() {
         return {
             'touchend': {
@@ -139,5 +164,3 @@ class TabView extends View {
         }
     }
 }
-
-export default TabView;

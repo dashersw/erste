@@ -1,27 +1,29 @@
+class EventEmitter {}
+class DummyClass {}
+
 class Component extends EventEmitter {
     render() {}
     template() {}
     dispose() {}
     onAfterRender() {}
-    onBeforeRender() {}
     $$() {}
     $() {}
     toString() {}
 }
 
+Component.prototype.rendered;
 Component.prototype.events;
 Component.prototype.el;
 Component.prototype.id;
 
 class View extends Component {
-    template_content() {}
     onActivation() {}
 }
 
 View.prototype.index;
 View.prototype.hasSidebar;
 View.prototype.supportsBackGesture;
-View.prototype.rendered;
+View.prototype.WIDTH;
 
 class TabView extends View {
     template_views() {}
@@ -32,6 +34,7 @@ class TabView extends View {
     deactivateActiveItem() {}
 }
 
+TabView.prototype.activeItemIndex;
 TabView.prototype.views;
 TabView.prototype.vm;
 
@@ -41,12 +44,21 @@ class ViewManager extends DummyClass {
     setCurrentView() {}
     canGoBack() {}
     toggleSidebar() {}
+    getLastViewInHistory() {}
 }
+
+ViewManager.prototype.history;
+ViewManager.prototype.currentView;
 
 class Sidebar extends Component {
     onSidebarItemTap() {}
     template_items() {}
 }
+
+Sidebar.EventType = {
+    SWITCH_VIEW: ''
+};
+Sidebar.prototype.vm;
 
 class NavBar extends Component {
     onBackButtonTap() {}
@@ -54,12 +66,14 @@ class NavBar extends Component {
 }
 
 NavBar.prototype.vm;
-NavBar.prototype.hasBackButton;
-NavBar.prototype.hasMenuButton;
+NavBar.prototype.config;
+NavBar.prototype.hasBackButton; // required for config details
+NavBar.prototype.hasMenuButton; // required for config details
 
 class PullToRefresh extends Component {
     reset() {}
     register() {}
+    onShouldRefresh() {}
 }
 
 PullToRefresh.prototype.threshold;
