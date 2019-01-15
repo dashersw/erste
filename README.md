@@ -62,7 +62,6 @@ new App().render(document.body);
   * [Motivation](#motivation)
   * [Installation](#installation)
      * [Direct download](#direct-download)
-     * [Using bower](#using-bower)
      * [Using npm](#using-npm)
      * [Builds with Closure Compiler](#builds-with-closure-compiler)
   * [Example application](#example-application)
