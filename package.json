@@ -3,8 +3,6 @@
   "version": "2.1.1",
   "description": "Your first choice for hybrid mobile applications",
   "main": "src/index.js",
-  "browser": "src/index.js",
-  "module": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dashersw/erste.git"
