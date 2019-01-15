@@ -1,4 +1,4 @@
-class Component {
+class Component extends EventEmitter {
     render() {}
     template() {}
     dispose() {}
@@ -6,9 +6,12 @@ class Component {
     onBeforeRender() {}
     $$() {}
     $() {}
+    toString() {}
 }
 
 Component.prototype.events;
+Component.prototype.el;
+Component.prototype.id;
 
 class View extends Component {
     template_content() {}
@@ -32,15 +35,13 @@ class TabView extends View {
 TabView.prototype.views;
 TabView.prototype.vm;
 
-class ViewManager {
+class ViewManager extends DummyClass {
     pull() {}
     push() {}
     setCurrentView() {}
     canGoBack() {}
     toggleSidebar() {}
 }
-
-ViewManager.prototype.topIndex;
 
 class Sidebar extends Component {
     onSidebarItemTap() {}

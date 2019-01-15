@@ -1,10 +1,12 @@
-import EventEmitter2 from '../../lib/base/eventemitter2';
+import EventEmitter from '../../lib/base/eventemitter2';
 
 /**
  * Model for the infinite scroll component. Manages loading states to prevent
  * performance problems like double actions.
+ *
+ * @extends {EventEmitter}
  */
-export default class InfiniteScrollModel extends EventEmitter2 {
+export default class InfiniteScrollModel extends EventEmitter {
     constructor() {
         super({
             maxListeners: Infinity

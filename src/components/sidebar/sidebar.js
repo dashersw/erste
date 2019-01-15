@@ -1,6 +1,9 @@
 import Component from '../../lib/base/component';
 
-export default class Sidebar extends Component {
+/**
+ * @extends {Component}
+ */
+class Sidebar extends Component {
     constructor() {
         super();
 
@@ -72,3 +75,5 @@ export default class Sidebar extends Component {
     }
 
 }
+
+export default Sidebar;

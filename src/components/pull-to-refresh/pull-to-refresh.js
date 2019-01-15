@@ -1,7 +1,10 @@
 import Component from '../../lib/base/component';
 import PullToRefreshModel from './pull-to-refresh-model';
 
-export default class PullToRefresh extends Component {
+/**
+ * @extends {Component}
+ */
+class PullToRefresh extends Component {
     /**
      * P2RComponent is a small component which checks the scroll position of a
      * given DOM element, and if it's in
@@ -169,7 +172,7 @@ export default class PullToRefresh extends Component {
         return `
 <pull-to-refresh>
     <pull-to-refresh-arrow></pull-to-refresh-arrow>
-    <pull-to-refresh-spinner></pull-to-refresh-spinner>
+    <div class="spinner"></div>
 </pull-to-refresh>
 `;
     };
@@ -193,7 +196,7 @@ export default class PullToRefresh extends Component {
     get mappings() {
         return {
             ARROW: 'pull-to-refresh-arrow',
-            SPINNER: 'pull-to-refresh-spinner'
+            SPINNER: '.spinner'
         };
     }
 }
@@ -220,3 +223,5 @@ PullToRefresh.prototype.height = 96;
  * @type {number}
  */
 PullToRefresh.prototype.arrowOffset = 0;
+
+export default PullToRefresh;
