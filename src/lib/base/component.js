@@ -1,5 +1,5 @@
 import ComponentManager from './component-manager';
-import EventEmitter from './eventemitter2';
+import EventEmitter from './eventemitter3';
 
 
 /**
@@ -49,14 +49,13 @@ class Component extends EventEmitter {
      *
      */
     constructor() {
-        super({
-            maxListeners: Infinity
-        });
+        super();
 
         /**
          * @type {string}
          *
          * @private
+         * @const
          */
         this.id_ = ComponentManager.getUid();
 
@@ -315,6 +314,8 @@ class Component extends EventEmitter {
         this.element_ && this.element_.parentNode && this.element_.parentNode.removeChild(this.element_);
         this.element_ = null;
     }
+
+    get events() {}
 }
 
 export default Component;

@@ -18,9 +18,6 @@ import NavBar from './components/navbar/navbar';
 import PullToRefresh from './components/pull-to-refresh/pull-to-refresh';
 import InfiniteScroll from './components/infinite-scroll/infinite-scroll';
 
-/**
- * @export
- */
 export default {
     /** @export */
     Component: Component,

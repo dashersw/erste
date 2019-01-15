@@ -147,8 +147,8 @@ class InfiniteScroll extends Component {
      * @override
      */
     dispose() {
-        this.model.dispose();
-        this.scrollEl.removeEventListener(this.scrollListener_);
+        this.model.removeAllListeners();
+        this.scrollEl.removeEventListener('scroll', this.scrollListener_);
 
         super.dispose();
     };

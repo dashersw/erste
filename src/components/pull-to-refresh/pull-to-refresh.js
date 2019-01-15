@@ -182,7 +182,7 @@ class PullToRefresh extends Component {
      * @override
      */
     dispose() {
-        this.model.dispose();
+        this.model.removeAllListeners();
         this.el && this.el.removeEventListener('scroll', this.scrollListener_);
         document.body.removeEventListener('touchend', this.releaseListener_);
 

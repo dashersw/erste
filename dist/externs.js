@@ -1,3 +1,6 @@
+class EventEmitter {}
+class DummyClass {}
+
 class Component extends EventEmitter {
     render() {}
     template() {}
@@ -7,6 +10,8 @@ class Component extends EventEmitter {
     $$() {}
     $() {}
     toString() {}
+
+    get rendered() {}
 }
 
 Component.prototype.events;
@@ -21,7 +26,6 @@ class View extends Component {
 View.prototype.index;
 View.prototype.hasSidebar;
 View.prototype.supportsBackGesture;
-View.prototype.rendered;
 
 class TabView extends View {
     template_views() {}

@@ -13,16 +13,11 @@ var dictionaries_ = {
 
 var dictionary_ = dictionaries_[defaultLang_];
 
-/**
- * @export
- */
 const setDictionary = (lang, dict) => {
     dictionaries_[lang] = dict;
 };
 
 /**
- * @export
- *
  * Change the active dictionary
  *
  * @param {string} lang Language code.
@@ -33,8 +28,6 @@ const setLanguage = (lang) => {
 
 
 /**
- * @export
- *
  * Return translation of the given text
  *
  * Look for a translation from goog.require()'d scripts.
@@ -47,7 +40,6 @@ const setLanguage = (lang) => {
  * @param  {string}    text    Text to be translated.
  * @param  {...*}      args    Translation arguments.
  * @return {string}    Localized string.
- * @see    {goog.LOCALE}
  */
 const getLocalizedString = (text, ...args) => {
     var translation = dictionary_[text] || text;

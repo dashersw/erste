@@ -131,6 +131,9 @@ class TabView extends View {
         };
     }
 
+    /**
+     * @override
+     */
     get events() {
         return {
             'touchend': {

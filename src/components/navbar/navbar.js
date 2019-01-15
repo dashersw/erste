@@ -51,6 +51,7 @@ class NavBar extends Component {
         };
     }
 
+    /** @override */
     get events() {
         return {
             'tap': {

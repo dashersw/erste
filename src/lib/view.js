@@ -70,7 +70,7 @@ class View extends Component {
     render(opt_rootEl = document.body, opt_index = 0) {
         this.index = opt_index;
 
-        return super.render(opt_rootEl);
+        return super.render(/** @type !Element */(opt_rootEl));
     }
 
 

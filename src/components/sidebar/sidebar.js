@@ -60,6 +60,9 @@ class Sidebar extends Component {
         };
     }
 
+    /**
+     * @override
+     */
     get events() {
         return {
             'tap': {

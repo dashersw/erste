@@ -13,24 +13,26 @@ function compile() {
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
         externs: './dist/externs.js',
         warning_level: 'VERBOSE',
-        language_in: 'ECMASCRIPT7',
+        language_in: 'ECMASCRIPT_NEXT',
         assume_function_wrapper: true,
         language_out: 'ECMASCRIPT5',
-        summary_detail_level: 3,
-        new_type_inf: true,
+        // js_module_root: 'src',
+        // summary_detail_level: 3,
+        // new_type_inf: true,
+        module_resolution: 'NODE',
         dependency_mode: 'STRICT',
         process_common_js_modules: true,
         jscomp_error: '*',
         jscomp_off: ['lintChecks'],
-        hide_warnings_for: '[synthetic',
-        entry_point: '/src/index',
+        // hide_warnings_for: '[synthetic',
+        entry_point: 'index.js',
         generate_exports: true,
         export_local_property_definitions: true,
         output_wrapper: outputWrapper,
         js_output_file: 'erste.js'
     };
 
-    return gulp.src(['./src/lib/goog.js', './src/**/*.js'])
+    return gulp.src(['./src/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(closureCompiler(options))
         .pipe(sourcemaps.write('/'))
@@ -55,4 +57,4 @@ gulp.task('watch', () => {
     watch('./src/**/*.css', cssMinify);
 });
 
-gulp.task('default', ['clean', 'css:min', 'compile']);
+gulp.task('default', gulp.parallel('clean', 'css:min', 'compile'));
