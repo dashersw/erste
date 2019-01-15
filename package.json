@@ -12,6 +12,7 @@
     "javascript framework"
   ],
   "scripts": {
+    "build": "gulp",
     "prepublish": "gulp",
     "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/erste.js"
   },
