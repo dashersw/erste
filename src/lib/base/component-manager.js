@@ -106,7 +106,8 @@ const callHandlers = (comps, e) => {
 
     for (let i = 0; i < comps.length; i++) {
         let comp = comps[i];
-        let handlers = comp && comp.events && comp.events[e.type];
+        const events = comp && (comp.events || comp._events)
+        let handlers = events[e.type];
 
         if (!handlers) continue;
 
