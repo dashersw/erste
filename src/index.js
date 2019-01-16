@@ -2,7 +2,6 @@ export { default as Component } from './lib/base/component';
 export { default as ViewManager } from './lib/view-manager';
 export { default as View } from './lib/view';
 export { default as locale } from './lib/locale';
-export { default as __ } from './lib/locale';
 export { default as Sidebar } from './components/sidebar/sidebar';
 export { default as TabView } from './components/tab-view/tab-view';
 export { default as NavBar } from './components/navbar/navbar';
@@ -42,3 +41,5 @@ export default {
     /** @export */
     __: locale.__
 };
+
+export const __ = locale.__;
