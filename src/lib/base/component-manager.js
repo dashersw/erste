@@ -186,12 +186,16 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
  *
  * @param {!Component} comp Component instance to decorate events for.
  *
- * @suppress {checkTypes}
  */
 export function decorateEvents(comp) {
     const prototype = /** @type {!Function} */(comp.constructor).prototype;
 
-    if (prototype.events) return;
+    if (prototype._events) return;
+
+    if (prototype.events) {
+        prototype._events = prototype.events;
+        return;
+    }
 
     const events = {};
 
@@ -200,10 +204,12 @@ export function decorateEvents(comp) {
         .filter(x => x)
         .forEach(([methodName, eventType, eventTarget]) => {
             events[eventType] = events[eventType] || {};
+
+            /** @suppress {checkTypes} */
             events[eventType][eventTarget] = comp[methodName];
         })
 
-    prototype.events = events;
+    prototype._events = events;
 }
 
 
