@@ -14,7 +14,7 @@ function compile() {
         externs: './dist/externs.js',
         warning_level: 'VERBOSE',
         language_in: 'ECMASCRIPT_NEXT',
-        formatting: 'PRETTY_PRINT',
+        // formatting: 'PRETTY_PRINT',
         assume_function_wrapper: true,
         language_out: 'ECMASCRIPT6',
         module_resolution: 'NODE',
