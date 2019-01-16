@@ -106,7 +106,7 @@ const callHandlers = (comps, e) => {
 
     for (let i = 0; i < comps.length; i++) {
         let comp = comps[i];
-        const events = comp && (comp.events || comp._events)
+        const events = comp && (comp.events || comp.__events)
         let handlers = events[e.type];
 
         if (!handlers) continue;
@@ -191,10 +191,10 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
 export function decorateEvents(comp) {
     const prototype = /** @type {!Function} */(comp.constructor).prototype;
 
-    if (prototype._events) return;
+    if (prototype.__events) return;
 
     if (prototype.events) {
-        prototype._events = prototype.events;
+        prototype.__events = prototype.events;
         return;
     }
 
@@ -210,7 +210,7 @@ export function decorateEvents(comp) {
             events[eventType][eventTarget] = comp[methodName];
         })
 
-    prototype._events = events;
+    prototype.__events = events;
 }
 
 
