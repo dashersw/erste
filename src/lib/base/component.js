@@ -47,8 +47,9 @@ export default class Component extends EventEmitter {
      *     }
      * }
      *
+     * @param {Object!} props Properties that will be saved as `this.props`.
      */
-    constructor() {
+    constructor(props = {}) {
         super();
 
         /**
@@ -83,6 +84,15 @@ export default class Component extends EventEmitter {
          * @private
          */
         this.rendered_ = false;
+
+        /**
+         * @export
+         *
+         * An object that holds the properties passed to the constructor at instantiation.
+         *
+         * @type {!Object}
+         */
+        this.props = props;
 
         ComponentManager.setComponent(this);
 
@@ -168,7 +178,7 @@ export default class Component extends EventEmitter {
         if (this.template_) return this.template_;
 
         var tagRegex = /^(<[^>]+)/;
-        var template = this.template().trim();
+        var template = this.template(this.props).trim();
 
         if (!template.match(tagRegex))
             throw Error('Template needs to start with a valid tag.');
@@ -318,9 +328,11 @@ export default class Component extends EventEmitter {
      *     `;
      * }
      *
+     * @param {!Object} props The properties passed onto this {@link Component}
+     * at instantiation.
      * @return {string}
      */
-    template() {
+    template(props) {
         return `<div></div>`;
     }
 

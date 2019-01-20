@@ -51,9 +51,10 @@ export default class View extends Component {
      *
      * new RootView().render(); // renders into body.
      *
+     * @param {!Object} props Properties that will be saved as `this.props`.
      */
-    constructor() {
-        super();
+    constructor(props = {}) {
+        super(props);
     }
 
     /**
