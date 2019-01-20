@@ -186,9 +186,8 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
  * Fills events object of given component class from method names that match event handler pattern.
  *
  * @param {!Component} comp Component instance to decorate events for.
- *
  */
-export function decorateEvents(comp) {
+function decorateEvents(comp) {
     const prototype = /** @type {!Function} */(comp.constructor).prototype;
 
     if (prototype.__events) return;
