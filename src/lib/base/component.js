@@ -85,7 +85,22 @@ export default class Component extends EventEmitter {
         this.rendered_ = false;
 
         ComponentManager.setComponent(this);
+
+        this.created();
     }
+
+
+    /**
+     * @export
+     *
+     * This method is called after a {@link Component} is created, but before it's
+     * rendered into the DOM.
+     *
+     * Subclasses should override this method for tasks that should be done
+     * when the {@link Component} is created. It's a convenient method that can be
+     * used instead of overriding the constructor.
+     */
+    created() {}
 
 
     /**
