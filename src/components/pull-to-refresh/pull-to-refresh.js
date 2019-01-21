@@ -13,7 +13,7 @@ export default class PullToRefresh extends Component {
      * done with refreshing, it should reset this P2RComponent with the
      * reset() method.
      *
-     * @param {!Element=} opt_el Optional element to track its scroll.
+     * @param {!HTMLElement=} opt_el Optional element to track its scroll.
      */
     constructor(opt_el) {
         super();
@@ -52,8 +52,8 @@ export default class PullToRefresh extends Component {
             this.containerEl.style.transform = `translateY(${this.height}px)`;
             this.containerEl.style.transition = '800ms cubic-bezier(.41,1,.1,1)';
 
-            if (spinner) spinner.style.opacity = 1;
-            if (arrow) arrow.style.opacity = 0;
+            if (spinner) spinner.style.opacity = '1';
+            if (arrow) arrow.style.opacity = '0';
 
             this.emit(this.model.EventType.SHOULD_REFRESH);
         });
@@ -65,7 +65,7 @@ export default class PullToRefresh extends Component {
      */
     onAfterRender() {
         super.onAfterRender();
-        if (!this.scrollEl) this.register(this.el.parentElement);
+        if (!this.scrollEl) this.register(/** @type {HTMLElement} */(this.el.parentElement));
     };
 
 
@@ -85,10 +85,10 @@ export default class PullToRefresh extends Component {
         var spinner = this.$(this.mappings.SPINNER);
         var arrow = this.$(this.mappings.ARROW);
 
-        if (spinner) spinner.style.opacity = 0;
+        if (spinner) spinner.style.opacity = '0';
 
         setTimeout(() => {
-            if (arrow) arrow.style.opacity = 1;
+            if (arrow) arrow.style.opacity = '1';
         }, 500);
 
         this.model.reset();
@@ -100,8 +100,8 @@ export default class PullToRefresh extends Component {
      *
      * Registers an element to track its scroll. This can be used for lazily introducing an element to track.
      *
-     * @param {?Element} scrollEl Element to track.
-     * @param {?Element=} containerEl Element to offset during activity.
+     * @param {?HTMLElement} scrollEl Element to track.
+     * @param {?HTMLElement=} containerEl Element to offset during activity.
      */
     register(scrollEl, containerEl) {
         if (!scrollEl) return;
@@ -139,7 +139,7 @@ export default class PullToRefresh extends Component {
         this.checkShouldRefresh();
 
         var rot = 0,
-            scroll = -(e.target && e.target.scrollTop || 0),
+            scroll = -(e.target && /** @type {HTMLElement} */(e.target).scrollTop || 0),
             pos = this.arrowOffset + Math.pow(scroll, 0.75),
             rotationThreshold = this.threshold - 60;
 

@@ -64,14 +64,14 @@ export default class View extends Component {
      *
      * @override
      *
-     * @param {?Element=} opt_rootEl=document.body Root element
+     * @param {?HTMLElement=} opt_rootEl=document.body Root element
      * to render this view in.
      * @param {number=} opt_index The index of this view in z-axis.
      */
     render(opt_rootEl = document.body, opt_index = 0) {
         this.index = opt_index;
 
-        return super.render(/** @type {!Element} */(opt_rootEl));
+        return super.render(/** @type {!HTMLElement} */(opt_rootEl));
     }
 
 
@@ -93,7 +93,7 @@ export default class View extends Component {
     onAfterRender() {
         super.onAfterRender();
 
-        this.el.style.zIndex = this.index;
+        this.el.style.zIndex = String(this.index);
         this.el.style.transform = `translate3d(0, 0, ${this.index}px)`;
     }
 
@@ -165,7 +165,7 @@ export default class View extends Component {
         if (!View.width_) {
             var bodyStyle = window.getComputedStyle(document.body, null);
 
-            var width = parseInt(bodyStyle && bodyStyle.width || 0, 10);
+            var width = parseInt(bodyStyle && bodyStyle.width || '0', 10);
 
             View.width_ = width;
             return View.width_;
@@ -176,6 +176,9 @@ export default class View extends Component {
     }
 }
 
+/**
+ * @static @type {?number} */
+View.width_ = null
 
 /**
  * @export
