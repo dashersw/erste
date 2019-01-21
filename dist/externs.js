@@ -9,10 +9,12 @@ class Component extends EventEmitter {
     $$() {}
     $() {}
     toString() {}
+    created() {}
 }
 
 Component.prototype.rendered;
 Component.prototype.events;
+Component.prototype.props;
 Component.prototype.el;
 Component.prototype.id;
 
