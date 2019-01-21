@@ -96,7 +96,7 @@ export default class Component extends EventEmitter {
 
         ComponentManager.setComponent(this);
 
-        this.created();
+        this.created(this.props);
     }
 
 
@@ -109,8 +109,11 @@ export default class Component extends EventEmitter {
      * Subclasses should override this method for tasks that should be done
      * when the {@link Component} is created. It's a convenient method that can be
      * used instead of overriding the constructor.
+     *
+     * @param {!Object} props The properties passed onto this {@link Component}
+     * at instantiation.
      */
-    created() {}
+    created(props) {}
 
 
     /**
