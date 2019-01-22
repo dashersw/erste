@@ -61,7 +61,7 @@ export default class Component extends EventEmitter {
         this.id_ = ComponentManager.getUid();
 
         /**
-         * @type {?Element}
+         * @type {?HTMLElement}
          *
          * @private
          */
@@ -142,8 +142,8 @@ export default class Component extends EventEmitter {
     get el() {
         let rv = this.element_;
         if (!rv) {
-            rv = this.element_ = document.getElementById(this.id) ||
-                ComponentManager.createElement(this.toString());
+            rv = this.element_ = /** @type {!HTMLElement} */ (document.getElementById(this.id) ||
+                 (ComponentManager.createElement(this.toString())));
         }
 
         return rv;
@@ -223,12 +223,12 @@ export default class Component extends EventEmitter {
      * `el.querySelector`.
      *
      * @param {string} selector Selector
-     * @return {?Element}
+     * @return {?HTMLElement}
      */
     $(selector) {
         let rv = null, el = this.element_;
 
-        if (el) rv = selector == undefined ? el : el.querySelector(selector);
+        if (el) rv = selector == undefined ? el : /** @type {HTMLElement} */(el.querySelector(selector));
 
         return rv;
     }
@@ -241,7 +241,7 @@ export default class Component extends EventEmitter {
      * the result. May be called with an optional index to indicate where the
      * DOM element of this {@link Component} should be inserted in the parent.
      *
-     * @param {!Element} rootEl Root element to render this component in.
+     * @param {!HTMLElement} rootEl Root element to render this component in.
      * @param {number=} opt_index The index of this component within the parent
      * component. This may be used to render a new child before an existing
      * child in the parent.
@@ -254,11 +254,12 @@ export default class Component extends EventEmitter {
         if (this.rendered_) return true;
 
         if (!this.element_) {
-            var el = document.getElementById(this.id);
+
+            var el = /** @type {HTMLElement} */ (document.getElementById(this.id));
             if (!el && !rootEl) return false;
 
             if (el) {
-                rootEl = /** @type {!Element} */(el.parentElement);
+                rootEl = /** @type {!HTMLElement} */(el.parentElement);
                 if (!opt_index) {
                     this.element_ = el;
                     this.rendered_ = true;
@@ -286,7 +287,7 @@ export default class Component extends EventEmitter {
         if (!this.rendered_) {
             var el = document.getElementById(this.id);
             if (el) {
-                this.element_ = el;
+                this.element_ = /** @type {HTMLElement} */(el);
                 this.rendered_ = true;
                 this.onAfterRender();
             }
@@ -365,5 +366,7 @@ export default class Component extends EventEmitter {
     /**
      * @export
      */
-    get events() {}
+    get events() {
+      return {}
+    }
 }

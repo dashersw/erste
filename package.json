@@ -14,7 +14,8 @@
   "scripts": {
     "build": "gulp",
     "prepare": "gulp",
-    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/erste.js"
+    "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/erste.js",
+    "ts-type-check": "tsc --noEmit --project jsconfig.json"
   },
   "author": "Armagan Amcalar <armagan@amcalar.com>",
   "license": "MIT",
@@ -29,6 +30,7 @@
     "gulp-clean-css": "^4.0.0",
     "gulp-concat-css": "^3.1.0",
     "gulp-sourcemaps": "^2.4.1",
-    "gulp-watch": "^5.0.1"
+    "gulp-watch": "^5.0.1",
+    "typescript": "^3.2.4"
   }
 }

@@ -77,6 +77,6 @@ class NavBar extends Component {
 /**
 * @typedef {{hasBackButton: boolean, hasMenuButton: boolean, title: string}}
 */
-NavBar.NavBarOptions;
+NavBar.NavBarOptions = null;
 
 export default NavBar;

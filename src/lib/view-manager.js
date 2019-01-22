@@ -62,7 +62,7 @@ class ViewManager {
         /**
          * @private
          *
-         * @type {?Element}
+         * @type {?HTMLElement}
          */
         this.rootEl_ = null;
 
@@ -122,7 +122,7 @@ class ViewManager {
                 this.rootEl_ = rootView.el;
         }
         else
-            this.rootEl_ = /** @type {?Element} */(this.root_) || document.body;
+            this.rootEl_ = /** @type {?HTMLElement} */(this.root_) || document.body;
 
         this.initTouchEvents_();
     }
@@ -306,7 +306,7 @@ class ViewManager {
             return;
         }
 
-        view.el.style.zIndex = view.index;
+        view.el.style.zIndex = String(view.index);
         view.el.style.transform = translation;
 
         this.state_ = ViewManager.State.DEFAULT;
@@ -551,7 +551,7 @@ class ViewManager {
      */
     toggleSidebar_(state) {
         var currentView = this.currentView,
-            sidebar = document.querySelector('sidebar');
+            sidebar = /** @type {HTMLElement} */(document.querySelector('sidebar'));
 
         requestAnimationFrame(() => {
             currentView.el.style.transitionDuration = '0.35s';
@@ -563,7 +563,7 @@ class ViewManager {
             if (!state) {
                 currentViewX = '0';
                 sidebarX = '100%';
-                sidebarZ = 0;
+                sidebarZ = '0';
                 this.hideSidebarTimeout_ = setTimeout(() => {
                     if (this.state_ == ViewManager.State.DEFAULT)
                         sidebar.style.transform = `translate3d(${sidebarX}, 0, ${sidebarZ})`;
@@ -600,7 +600,8 @@ class ViewManager {
          do not call event.preventDefault(). */
         e.preventDefault();
 
-        var sidebar = document.querySelector('sidebar');
+
+        var sidebar = /** @type {HTMLElement} */ (document.querySelector('sidebar'));
         var currentView = this.currentView;
         var currentViewDiff = clientX - this.firstX_;
 
@@ -649,6 +650,7 @@ ViewManager.prototype.topIndex_ = 1;
 window.requestAnimationFrame = (() => {
     return window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
+        // @ts-ignore
         window.mozRequestAnimationFrame ||
         function(callback) {
             window.setTimeout(callback, 1000 / 60);

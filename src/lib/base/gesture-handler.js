@@ -40,7 +40,7 @@ export default class GestureHandler {
     /**
      * Tracks and fires gestures on touch enabled devices.
      *
-     * @param {!Element=} opt_el Provided, gesture handler will track gesture
+     * @param {!HTMLElement=} opt_el Provided, gesture handler will track gesture
      *                           events on this element. The default
      *                           value is document.body; but an optional
      *                           root element is inevitable for iframe's.

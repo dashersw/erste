@@ -14,7 +14,7 @@ class InfiniteScroll extends Component {
      * done loading new items, it should reset this InfiniteScrollComponent
      * with the reset() method.
      *
-     * @param {!Element=} opt_el Optional element to track its scroll.
+     * @param {!HTMLElement=} opt_el Optional element to track its scroll.
      */
     constructor(opt_el) {
         super();
@@ -26,6 +26,7 @@ class InfiniteScroll extends Component {
         this.EventType = this.model.EventType;
 
         this.scrollListener_ = null;
+        /** @type {HTMLElement} */
         this.scrollEl = null;
 
         /**
@@ -79,7 +80,7 @@ class InfiniteScroll extends Component {
      *
      * Registers an element to track its scroll. This can be used for lazily introducing an element to track.
      *
-     * @param {?Element} el Element to track.
+     * @param {?HTMLElement} el Element to track.
      */
     register(el) {
         if (!el) return;
