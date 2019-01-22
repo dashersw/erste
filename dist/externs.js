@@ -12,6 +12,10 @@ class Component extends EventEmitter {
     created() {}
 }
 
+class ErstePlugin {
+    $$register() {}
+}
+
 Component.prototype.rendered;
 Component.prototype.events;
 Component.prototype.props;
