@@ -426,14 +426,14 @@ export default class Component extends EventEmitter {
         this.element_ && this.element_.parentNode && this.element_.parentNode.removeChild(this.element_);
         this.element_ = null;
     }
-
-    /**
-     * @export
-     */
-    get events() {
-      return undefined
-    }
 }
+
+/**
+ * @export
+ *
+ * @type {Object|undefined}
+ */
+Component.prototype.events = undefined
 
 /**
  * @type {Object|undefined}

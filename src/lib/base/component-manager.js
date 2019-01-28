@@ -107,7 +107,7 @@ const callHandlers = (comps, e) => {
 
     for (let i = 0; i < comps.length; i++) {
         let comp = comps[i];
-        const events = comp && (comp.events || comp.__events)
+        const events = comp && comp.__events;
         let handlers = events[e.type];
 
         if (!handlers) continue;
@@ -158,7 +158,7 @@ const getComponent = id => {
 const setComponent = comp => {
     componentRegistry[comp.id] = comp;
     if (!comp.rendered) componentsToRender[comp.id] = comp;
-    if (!comp.events) decorateEvents(comp)
+    if (!comp.__events) decorateEvents(comp)
 }
 
 /**
@@ -193,12 +193,11 @@ function decorateEvents(comp) {
 
     if (prototype.__events) return;
 
-    if (prototype.events) {
-        prototype.__events = prototype.events;
-        return;
-    }
+    let events = {};
 
-    const events = {};
+    if (prototype.events) {
+        events = prototype.events;
+    }
 
     Object.getOwnPropertyNames(prototype)
         .map(propertyName => handlerMethodPattern.exec(propertyName))
