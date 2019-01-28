@@ -8,6 +8,7 @@ const componentsToRender = {};
 let gestureHandler;
 
 const events = [
+    'blur',
     'click',
     'mouseover',
     'mouseout',

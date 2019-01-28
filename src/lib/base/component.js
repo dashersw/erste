@@ -276,6 +276,7 @@ export default class Component extends EventEmitter {
         }
 
         this.onAfterRender();
+        this.onAfterRenderHooks()
 
         return true;
     }
@@ -290,6 +291,7 @@ export default class Component extends EventEmitter {
                 this.element_ = /** @type {HTMLElement} */(el);
                 this.rendered_ = true;
                 this.onAfterRender();
+                this.onAfterRenderHooks();
             }
         }
 
@@ -308,6 +310,35 @@ export default class Component extends EventEmitter {
      * when the {@link Component} is in the document.
      */
     onAfterRender() {}
+
+    /**
+     * @export
+     *
+     * This method is called after a {@link Component} is rendered.
+     *
+     * Plugins should override this method for tasks that should be done
+     * when the {@link Component} is rendered. It's a convenient method that
+     * can be used instead of overriding `onAfterRender`.
+     */
+    onAfterRenderHooks() {
+        const attachEvents = (eventName) => {
+            if (!this.__events[eventName]) return
+
+            Object.keys(this.__events[eventName]).forEach(selector => {
+                const els = this.$$(selector)
+                const fn = this.__events[eventName][selector].bind(this)
+
+                els.forEach(el => {
+                    el['__ersteEventHandlers'] = el['__ersteEventHandlers'] || {}
+                    el['__ersteEventHandlers'][eventName] = fn
+                    el.addEventListener(eventName, fn)
+                })
+            })
+        }
+
+        attachEvents('focus')
+        attachEvents('blur')
+    }
 
     /**
      * @export
@@ -359,6 +390,23 @@ export default class Component extends EventEmitter {
         ComponentManager.removeComponent(this);
         this.removeAllListeners();
 
+        const detachEvents = eventName => {
+            if (!this.__events[eventName]) return
+
+            Object.keys(this.__events[eventName]).forEach(selector => {
+                const els = this.$$(selector)
+
+                els.forEach(el => {
+                    const fn = el['__ersteEventHandlers'][eventName]
+                    el.removeEventListener(eventName, fn)
+                })
+            })
+        }
+
+        detachEvents('focus')
+        detachEvents('blur')
+
+
         this.element_ && this.element_.parentNode && this.element_.parentNode.removeChild(this.element_);
         this.element_ = null;
     }
@@ -370,3 +418,8 @@ export default class Component extends EventEmitter {
       return undefined
     }
 }
+
+/**
+ * @type {Object|undefined}
+ */
+Component.prototype.__events = undefined

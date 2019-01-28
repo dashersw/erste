@@ -6,6 +6,7 @@ class Component extends EventEmitter {
     template() {}
     dispose() {}
     onAfterRender() {}
+    onAfterRenderHooks() {}
     $$() {}
     $() {}
     toString() {}
