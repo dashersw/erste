@@ -1,6 +1,6 @@
 {
   "name": "erste",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Your first choice for hybrid mobile applications",
   "main": "src/index.js",
   "repository": {
