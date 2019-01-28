@@ -11,6 +11,7 @@ class Component extends EventEmitter {
     $() {}
     toString() {}
     created() {}
+    createdHooks() {}
 }
 
 class ErstePlugin {

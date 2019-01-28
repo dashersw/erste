@@ -97,6 +97,7 @@ export default class Component extends EventEmitter {
         ComponentManager.setComponent(this);
 
         this.created(this.props);
+        this.createdHooks(this.props);
     }
 
 
@@ -115,6 +116,20 @@ export default class Component extends EventEmitter {
      */
     created(props) {}
 
+    /**
+     * @export
+     *
+     * This method is called after a {@link Component} is created, but before it's
+     * rendered into the DOM.
+     *
+     * Plugins should override this method for tasks that should be done
+     * when the {@link Component} is created. It's a convenient method that can be
+     * used instead of overriding the constructor.
+     *
+     * @param {!Object} props The properties passed onto this {@link Component}
+     * at instantiation.
+     */
+    createdHooks(props) {}
 
     /**
      * @export
