@@ -279,6 +279,7 @@ export default class Component extends EventEmitter {
                     this.element_ = el;
                     this.rendered_ = true;
                     this.onAfterRender();
+                    this.onAfterRenderHooks();
 
                     return true;
                 }
