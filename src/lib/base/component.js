@@ -367,6 +367,6 @@ export default class Component extends EventEmitter {
      * @export
      */
     get events() {
-      return {}
+      return undefined
     }
 }
