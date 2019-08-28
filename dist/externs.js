@@ -31,6 +31,7 @@ class View extends Component {
 View.prototype.index;
 View.prototype.hasSidebar;
 View.prototype.supportsBackGesture;
+View.prototype.backGestureTouchTargetWidth;
 View.prototype.WIDTH;
 
 class TabView extends View {

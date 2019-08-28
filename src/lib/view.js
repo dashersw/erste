@@ -201,6 +201,14 @@ View.prototype.index = 0;
  */
 View.prototype.supportsBackGesture = false;
 
+/**
+ * @export
+ *
+ * Determines the touch area width of the back gesture
+ *
+ * @type {number}
+ */
+View.prototype.backGestureTouchTargetWidth = 50;
 
 /**
  * @export

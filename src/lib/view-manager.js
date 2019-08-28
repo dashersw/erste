@@ -360,7 +360,7 @@ class ViewManager {
         }
 
         if (this.state_ == ViewManager.State.STARTED_GESTURE) {
-            if (clientX <= 50) {
+            if (clientX <= this.currentView.backGestureTouchTargetWidth) {
                 if (this.history.length && this.currentView && this.currentView.supportsBackGesture)
                     this.state_ = ViewManager.State.GOING_TO_BACK_VIEW;
             }

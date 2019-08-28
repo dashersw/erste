@@ -440,6 +440,7 @@ Later, you can call `vm.push()` whenever you want, and the view manager will go 
 erste.js also features the swiping gesture from iOS for view navigation. You can drag from the left edge of the screen towards the right and it will reveal the master view below.
 
 This gesture recognition is not enabled by default, and you need to enable it explicitly for the detail view. Modify `DetailView` constructor and set `supportsBackGesture` to `true`.
+By default back gesture touch target width is 100px on the left side of the view. To alter it you can set `backGestureTouchTargetWidth`.
 
 `detail-view.js`:
 
@@ -451,6 +452,7 @@ This gesture recognition is not enabled by default, and you need to enable it ex
         this.item = item;
 
         this.supportsBackGesture = true;
+        this.backGestureTouchTargetWidth = window.innerWidth / 2; // you can set as half of the screen's width.
     }
 ```
 
