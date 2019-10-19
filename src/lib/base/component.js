@@ -281,6 +281,8 @@ export default class Component extends EventEmitter {
                     this.onAfterRender();
                     this.onAfterRenderHooks();
 
+                    requestAnimationFrame(() => this.onAfterRenderAsync());
+
                     return true;
                 }
             }
@@ -293,6 +295,8 @@ export default class Component extends EventEmitter {
 
         this.onAfterRender();
         this.onAfterRenderHooks();
+
+        requestAnimationFrame(() => this.onAfterRenderAsync());
 
         return true;
     }
@@ -326,6 +330,22 @@ export default class Component extends EventEmitter {
      * when the {@link Component} is in the document.
      */
     onAfterRender() {}
+
+    /**
+     * @export
+     *
+     * This method is called after a render process either as a direct result
+     * of a {@link #Component+render|component.render()} call or after the
+     * template of this component is inserted into the DOM. The main difference
+     * with {@link #Component+onAfterRender|component.onAfterRender()} is that
+     * this method is for operations that need to be implemented
+     * asynchronously — such as CSS transitions. Effectively, this saves you
+     * from calling requestAnimationFrame or setTimeout yourself.
+     *
+     * Subclasses should override this method for tasks that should be done
+     * asynchronously after the {@link Component} is rendered in the document.
+     */
+    onAfterRenderAsync() {}
 
     /**
      * @export
