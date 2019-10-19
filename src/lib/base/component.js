@@ -281,7 +281,7 @@ export default class Component extends EventEmitter {
                     this.onAfterRender();
                     this.onAfterRenderHooks();
 
-                    requestAnimationFrame(() => this.onAfterRenderAsync());
+                    setTimeout(() => requestAnimationFrame(() => this.onAfterRenderAsync()));
 
                     return true;
                 }
@@ -296,7 +296,7 @@ export default class Component extends EventEmitter {
         this.onAfterRender();
         this.onAfterRenderHooks();
 
-        requestAnimationFrame(() => this.onAfterRenderAsync());
+        setTimeout(() => requestAnimationFrame(() => this.onAfterRenderAsync()));
 
         return true;
     }
