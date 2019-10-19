@@ -292,7 +292,7 @@ export default class Component extends EventEmitter {
         }
 
         this.onAfterRender();
-        this.onAfterRenderHooks()
+        this.onAfterRenderHooks();
 
         return true;
     }
