@@ -28,7 +28,7 @@ export default class InfiniteScrollModel extends EventEmitter {
     triggerShouldCheckState() {
         if (this.state_ != this.State.LOADING)
             this.state_ = this.State.SHOULD_CHECK;
-    };
+    }
 
 
     /**
@@ -40,7 +40,7 @@ export default class InfiniteScrollModel extends EventEmitter {
      */
     shouldCheck() {
         return this.state_ == this.State.SHOULD_CHECK;
-    };
+    }
 
 
     /**
@@ -53,7 +53,7 @@ export default class InfiniteScrollModel extends EventEmitter {
         this.state_ = this.State.LOADING;
 
         this.emit(this.EventType.SHOULD_LOAD);
-    };
+    }
 
 
     /**
@@ -67,7 +67,7 @@ export default class InfiniteScrollModel extends EventEmitter {
             SHOULD_CHECK: 'shouldCheck',
             LOADING: 'loading'
         }
-    };
+    }
 
 
     /**
@@ -79,5 +79,5 @@ export default class InfiniteScrollModel extends EventEmitter {
         return {
             SHOULD_LOAD: 'load'
         }
-    };
+    }
 }

@@ -104,7 +104,7 @@ class ViewManager {
         if (opt_root) {
             this.root_ = opt_root;
         }
-    };
+    }
 
 
     /**
@@ -186,7 +186,7 @@ class ViewManager {
         this.currentView.onActivation && this.currentView.onActivation();
 
         this.state_ = ViewManager.State.DEFAULT;
-    };
+    }
 
 
     /**
@@ -199,7 +199,7 @@ class ViewManager {
      */
     canGoBack() {
         return this.history && this.history.length > 0;
-    };
+    }
 
 
     /**
@@ -227,7 +227,7 @@ class ViewManager {
         setTimeout(() => currentView.dispose(), 1000);
 
         this.state_ = ViewManager.State.DEFAULT;
-    };
+    }
 
 
     /**
@@ -280,7 +280,7 @@ class ViewManager {
         view.el.style.transform = translation;
 
         this.state_ = ViewManager.State.DEFAULT;
-    };
+    }
 
 
     /**
@@ -293,7 +293,7 @@ class ViewManager {
         if (!this.initialized_) this.init_();
 
         this.toggleSidebar_(this.state_ == ViewManager.State.DEFAULT);
-    };
+    }
 
 
     /**
@@ -307,7 +307,7 @@ class ViewManager {
 
         this.rootEl_.addEventListener('touchmove', this.onTouchMove_.bind(this), false);
         this.rootEl_.addEventListener('touchend', this.onTouchEnd_.bind(this), false);
-    };
+    }
 
 
     /**
@@ -348,17 +348,17 @@ class ViewManager {
             this.state_ = ViewManager.State.CLOSING_SIDEBAR;
 
         switch (this.state_) {
-            case ViewManager.State.GOING_TO_BACK_VIEW:
-                this.backGestureTouchMove_(e);
-                break;
-            case ViewManager.State.CLOSING_SIDEBAR:
-                this.closeSidebarTouchMove_(e);
-                break;
-            case ViewManager.State.OPENING_SIDEBAR:
-                this.openSidebarTouchMove_(e);
-                break;
+        case ViewManager.State.GOING_TO_BACK_VIEW:
+            this.backGestureTouchMove_(e);
+            break;
+        case ViewManager.State.CLOSING_SIDEBAR:
+            this.closeSidebarTouchMove_(e);
+            break;
+        case ViewManager.State.OPENING_SIDEBAR:
+            this.openSidebarTouchMove_(e);
+            break;
         }
-    };
+    }
 
 
     /**
@@ -371,31 +371,31 @@ class ViewManager {
         var state;
 
         switch (this.state_) {
-            case ViewManager.State.GOING_TO_BACK_VIEW:
-                this.backGestureTouchEnd_(e);
-                break;
-            case ViewManager.State.OPENING_SIDEBAR:
-                state = true;
-                if (this.lastTouches_[2] - this.lastTouches_[0] < 3)
-                    state = false;
+        case ViewManager.State.GOING_TO_BACK_VIEW:
+            this.backGestureTouchEnd_(e);
+            break;
+        case ViewManager.State.OPENING_SIDEBAR:
+            state = true;
+            if (this.lastTouches_[2] - this.lastTouches_[0] < 3)
+                state = false;
 
-                this.toggleSidebar_(state);
-                break;
-            case ViewManager.State.CLOSING_SIDEBAR:
-                state = true;
-                if (this.lastTouches_[2] - this.lastTouches_[0] < -3)
-                    state = false;
+            this.toggleSidebar_(state);
+            break;
+        case ViewManager.State.CLOSING_SIDEBAR:
+            state = true;
+            if (this.lastTouches_[2] - this.lastTouches_[0] < -3)
+                state = false;
 
-                this.toggleSidebar_(state);
-                break;
-            case ViewManager.State.SIDEBAR_OPEN:
-                if (ComponentManager.gestureHandler.canTap) return;
-                this.toggleSidebar_(false);
-                break;
-            default:
-                this.state_ = ViewManager.State.DEFAULT;
+            this.toggleSidebar_(state);
+            break;
+        case ViewManager.State.SIDEBAR_OPEN:
+            if (ComponentManager.gestureHandler.canTap) return;
+            this.toggleSidebar_(false);
+            break;
+        default:
+            this.state_ = ViewManager.State.DEFAULT;
         }
-    };
+    }
 
 
     /**
@@ -448,7 +448,7 @@ class ViewManager {
         });
 
         this.state_ = ViewManager.State.DEFAULT;
-    };
+    }
 
 
     /**
@@ -482,7 +482,7 @@ class ViewManager {
 
             currentView.el.style['boxShadow'] = `0px 0 24px rgba(0, 0, 0, ${boxShadow})`;
         });
-    };
+    }
 
 
     /**
@@ -510,7 +510,7 @@ class ViewManager {
             currentView.el.style.transitionDuration = '0s';
             currentView.el.style.transform = `translate3d(${currentViewDiff}px, 0, ${currentView.index}px)`;
         });
-    };
+    }
 
 
     /**
@@ -548,7 +548,7 @@ class ViewManager {
             this.state_ = ViewManager.State.SIDEBAR_OPEN;
         else
             this.state_ = ViewManager.State.DEFAULT;
-    };
+    }
 
 
     /**
@@ -585,7 +585,7 @@ class ViewManager {
             currentView.el.style.transitionDuration = '0s';
             currentView.el.style.transform = `translate3d(${currentViewDiff}px, 0, ${currentView.index}px)`;
         });
-    };
+    }
 }
 
 

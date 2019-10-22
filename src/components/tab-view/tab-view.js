@@ -37,7 +37,7 @@ export default class TabView extends View {
 
         this.vm = new ViewManager($views);
         this.activateItem(0);
-    };
+    }
 
     /**
      * @export
@@ -52,7 +52,7 @@ export default class TabView extends View {
         var itemIndex = [].indexOf.call(items && items.children, e.targetEl);
 
         this.activateItem(itemIndex);
-    };
+    }
 
     /**
      * @export
@@ -73,7 +73,7 @@ export default class TabView extends View {
         }
 
         this.activeItemIndex = index;
-    };
+    }
 
     /**
      * @export
@@ -90,7 +90,7 @@ export default class TabView extends View {
         var itemIndex = [].indexOf.call(items && items.children, child);
 
         this.activateItem(itemIndex);
-    };
+    }
 
 
     /**
@@ -101,7 +101,7 @@ export default class TabView extends View {
     deactivateActiveItem() {
         var activeThings = this.$$(this.mappings.ACTIVE);
         activeThings.forEach(el => el.classList.remove('active'));
-    };
+    }
 
 
 
@@ -120,7 +120,7 @@ export default class TabView extends View {
     </tab-bar>
 </tab-view>
 `;
-    };
+    }
 
     /**
      * @export
@@ -137,7 +137,7 @@ export default class TabView extends View {
      */
     template_items() {
         return '';
-    };
+    }
 
     /**
      * @enum {string} Dom mappings.

@@ -62,7 +62,7 @@ const onLoad = () => {
 
             if (rendered) delete componentsToRender[cmpId];
         }
-    }).observe(document.body, { childList: true, subtree: true });;
+    }).observe(document.body, { childList: true, subtree: true });
 }
 
 if (document.body) onLoad();
