@@ -110,6 +110,78 @@ export default class View extends Component {
      */
     onActivation() { };
 
+    /**
+     * @export
+     * 
+     * This method is called to animate in a view.
+     *
+     * Subclasses should override this method to take controll over the way
+     * the `currentView` ot the `lastView` is animated in when `pull`ed or `push`ed.
+     * 
+     * @param {boolean} isTheViewBeingPulled Whether the view is being `pull`ed or `push`ed
+     */
+    panIn(isTheViewBeingPulled) { 
+        if (isTheViewBeingPulled) {
+            this.el.style.transitionDuration = '0s';
+            this.el.style.transform = `translate3d(100%, 0, ${this.index}px)`;
+            requestAnimationFrame(() => {
+                this.el.style.transitionDuration = '0.35s';
+                requestAnimationFrame(() => {
+                    this.el.style.transform = `translate3d(0, 0, ${this.index}px)`;
+                    this.el.style['boxShadow'] = '0 0 24px black';
+                });
+            });
+        } else {
+            window.requestAnimationFrame(() => {
+                this.el.style.transitionDuration = '0s';
+                this.el.style.transform = 'translate3d(-30%,0,0)';
+                window.requestAnimationFrame(() => {
+                    this.el.style.transitionDuration = '0.35s';
+
+                    this.el.style.transform = `translate3d(0, 0, ${this.index}px)`;
+                });
+            });
+        }
+    };
+    
+    /**
+     * @export
+     * 
+     * This method is called to animate out a view.
+     *
+     * Subclasses should override this method to take controll over the way
+     * the `currentView` ot the `lastView` is animated out when `pull`ed or `push`ed.
+     * 
+     * @param {boolean} isTheViewBeingPulled Whether the view is being `pull`ed or `push`ed.
+     */
+    panOut(isTheViewBeingPulled) { 
+        const fn = () => {
+            this.el.style.transitionDuration = '0s';
+            this.el.style.transform = 'translate3d(-100%,-100%,0)';
+            this.el.removeEventListener('transitionend', fn);
+        };
+
+        this.el.addEventListener('transitionend', fn);
+
+        if(isTheViewBeingPulled){
+            requestAnimationFrame(() => {
+                this.el.style.transitionDuration = '0.35s';
+                requestAnimationFrame(() => {
+                    this.el.style.transform = `translate3d(-30%, 0, ${this.index}px)`;
+                });
+            });
+        } else {
+            window.requestAnimationFrame(() => {
+                this.el.style.transitionDuration = '0s';
+                window.requestAnimationFrame(() => {
+                    this.el.style.transitionDuration = '0.35s';
+                    this.el.style.transform = `translate3d(100%, 0, ${this.index}px)`;
+                    this.el.style['boxShadow'] = '0 0 0 black';
+                });
+            });
+        }
+    };
+
 
     /**
      * Default template for views. Uses a custom element `<view>`, which should

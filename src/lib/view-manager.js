@@ -166,14 +166,6 @@ class ViewManager {
 
         if (opt_canGoBack) {
             this.history.push(currentView);
-
-            const fn = () => {
-                currentView.el.style.transitionDuration = '0s';
-                currentView.el.style.transform = 'translate3d(-100%,-100%,0)';
-                currentView.el.removeEventListener('transitionend', fn);
-            };
-
-            currentView.el.addEventListener('transitionend', fn);
         }
         else {
             var history = this.history.slice(0);
@@ -186,20 +178,9 @@ class ViewManager {
                 history.forEach(historicView => historicView.dispose());
             }, 1000);
         }
-
-        view.el.style.transitionDuration = '0s';
-        view.el.style.transform = `translate3d(100%, 0, ${view.index}px)`;
-
-        requestAnimationFrame(() => {
-            currentView.el.style.transitionDuration = '0.35s';
-            view.el.style.transitionDuration = '0.35s';
-
-            requestAnimationFrame(() => {
-                view.el.style.transform = `translate3d(0, 0, ${view.index}px)`;
-                currentView.el.style.transform = `translate3d(-30%, 0, ${currentView.index}px)`;
-                view.el.style['boxShadow'] = '0 0 24px black';
-            });
-        });
+        
+        view.panIn(true)
+        currentView.panOut(true)
 
         this.currentView = view;
         this.currentView.onActivation && this.currentView.onActivation();
@@ -237,19 +218,8 @@ class ViewManager {
 
         if (!this.initialized_) this.init_();
 
-        window.requestAnimationFrame(() => {
-            currentView.el.style.transitionDuration = '0s';
-            lastView.el.style.transitionDuration = '0s';
-            lastView.el.style.transform = 'translate3d(-30%,0,0)';
-            window.requestAnimationFrame(() => {
-                lastView.el.style.transitionDuration = '0.35s';
-                currentView.el.style.transitionDuration = '0.35s';
-
-                lastView.el.style.transform = `translate3d(0, 0, ${lastView.index}px)`;
-                currentView.el.style.transform = `translate3d(100%, 0, ${currentView.index}px)`;
-                currentView.el.style['boxShadow'] = '0 0 0 black';
-            });
-        });
+        lastView.panIn(false)
+        currentView.panOut(false)
 
         this.currentView = lastView;
         lastView.onActivation && lastView.onActivation();
