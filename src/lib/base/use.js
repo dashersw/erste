@@ -12,6 +12,6 @@ const ErstePlugin = null
  * Components to have a special syntax to declare observations for state
  * properties.
  */
-  export default function(plugin) {
-  plugin.$$register(this)
+export default function(plugin) {
+    plugin.$$register(this)
 }

@@ -108,7 +108,7 @@ export default class View extends Component {
      * Subclasses should override this method for tasks that should be done
      * when the View is in viewport, such as updating information, etc.
      */
-    onActivation() { };
+    onActivation() { }
 
     /**
      * @export
@@ -208,7 +208,7 @@ export default class View extends Component {
         return `
 <view></view>
 `;
-    };
+    }
 
 
     /**

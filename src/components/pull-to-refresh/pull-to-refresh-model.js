@@ -27,7 +27,7 @@ export default class P2RComponentModel extends EventEmitter {
     triggerShouldCheckState() {
         if (this.state_ != this.State.REFRESHING)
             this.state_ = this.State.SHOULD_CHECK;
-    };
+    }
 
 
     /**
@@ -39,7 +39,7 @@ export default class P2RComponentModel extends EventEmitter {
      */
     shouldCheck() {
         return this.state_ == this.State.SHOULD_CHECK;
-    };
+    }
 
     /**
      * Dispatches a refresh event to inform the parent component that it's at the appropriate
@@ -51,7 +51,7 @@ export default class P2RComponentModel extends EventEmitter {
         this.state_ = this.State.REFRESHING;
 
         this.emit(this.EventType.SHOULD_REFRESH);
-    };
+    }
 
 
 
@@ -66,7 +66,7 @@ export default class P2RComponentModel extends EventEmitter {
             SHOULD_CHECK: 'shouldCheck',
             REFRESHING: 'refreshing'
         }
-    };
+    }
 
 
     /**

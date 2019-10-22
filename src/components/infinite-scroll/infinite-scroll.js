@@ -60,7 +60,7 @@ class InfiniteScroll extends Component {
         if (!this.el) this.register(this.el.parentElement);
 
         return rv;
-    };
+    }
 
 
     /**
@@ -72,7 +72,7 @@ class InfiniteScroll extends Component {
      */
     reset() {
         this.model.reset();
-    };
+    }
 
 
     /**
@@ -92,7 +92,7 @@ class InfiniteScroll extends Component {
         this.scrollEl = el;
         this.scrollListener_ = this.onScroll_.bind(this);
         this.scrollEl.addEventListener('scroll', this.scrollListener_);
-    };
+    }
 
 
     /**
@@ -103,7 +103,7 @@ class InfiniteScroll extends Component {
      */
     onScroll_() {
         this.throttle();
-    };
+    }
 
 
     /**
@@ -121,7 +121,7 @@ class InfiniteScroll extends Component {
         if (el.scrollHeight > el.offsetHeight && // the element can actually scroll
             el.scrollTop > el.scrollHeight - el.offsetHeight - 400) // and we're in a good position to load more
             this.model.load();
-    };
+    }
 
 
     /**
@@ -133,7 +133,7 @@ class InfiniteScroll extends Component {
         this.el.classList.add('spinner');
         this.el.innerText = '';
         this.reset();
-    };
+    }
 
 
     /**
@@ -144,7 +144,7 @@ class InfiniteScroll extends Component {
     showEndOfList() {
         this.el.innerText = this.endOfListText;
         this.el.classList.remove('spinner');
-    };
+    }
 
 
     /**
@@ -152,7 +152,7 @@ class InfiniteScroll extends Component {
      */
     template() {
         return `<inf-scroll></inf-scroll>`;
-    };
+    }
 
 
     /**
@@ -163,7 +163,7 @@ class InfiniteScroll extends Component {
         this.scrollEl.removeEventListener('scroll', this.scrollListener_);
 
         super.dispose();
-    };
+    }
 }
 
 export default InfiniteScroll;

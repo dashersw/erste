@@ -15,7 +15,8 @@
     "build": "gulp",
     "prepare": "gulp",
     "size": "node -e \"process.stdout.write('gzip size: ')\" && gzip-size dist/erste.js",
-    "ts-type-check": "tsc --noEmit --project jsconfig.json"
+    "ts-type-check": "tsc --noEmit --project jsconfig.json",
+    "lint": "eslint src --fix"
   },
   "author": "Armagan Amcalar <armagan@amcalar.com>",
   "license": "MIT",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/dashersw/erste#readme",
   "devDependencies": {
     "del": "^3.0.0",
+    "eslint": "^6.5.1",
     "google-closure-compiler": "^20181210.0.0",
     "gulp": "^4.0.0",
     "gulp-clean-css": "^4.0.0",

@@ -90,7 +90,7 @@ const distance = (x1, y1, x2, y2) => (x1 - x2) ** 2 + (y1 - y2) ** 2;
  * @return {number} The interpolated value between a and b.
  */
 const lerp = (a, b, x) => {
-  return a + x * (b - a);
+    return a + x * (b - a);
 };
 
 export default {

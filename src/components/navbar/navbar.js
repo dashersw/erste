@@ -31,14 +31,14 @@ class NavBar extends Component {
      */
     onBackButtonTap() {
         this.vm && this.vm.push();
-    };
+    }
 
     /**
      * @export
      */
     onMenuButtonTap() {
         this.vm && this.vm.toggleSidebar();
-    };
+    }
 
     /**
      * @override

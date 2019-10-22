@@ -57,7 +57,7 @@ export default class PullToRefresh extends Component {
 
             this.emit(this.model.EventType.SHOULD_REFRESH);
         });
-    };
+    }
 
 
     /**
@@ -66,7 +66,7 @@ export default class PullToRefresh extends Component {
     onAfterRender() {
         super.onAfterRender();
         if (!this.scrollEl) this.register(/** @type {HTMLElement} */(this.el.parentElement));
-    };
+    }
 
 
     /**
@@ -92,7 +92,7 @@ export default class PullToRefresh extends Component {
         }, 500);
 
         this.model.reset();
-    };
+    }
 
 
     /**
@@ -125,7 +125,7 @@ export default class PullToRefresh extends Component {
 
         this.scrollEl.addEventListener('scroll', this.scrollListener_);
         document.body.addEventListener('touchend', this.releaseListener_);
-    };
+    }
 
 
     /**
@@ -150,7 +150,7 @@ export default class PullToRefresh extends Component {
 
         if (arrow)
             arrow.style.transform = `translateY(${pos}px) rotate(${rot}deg)`;
-    };
+    }
 
 
     /**
@@ -162,7 +162,7 @@ export default class PullToRefresh extends Component {
     onRelease_() {
         if (this.scrollEl.scrollTop < -this.threshold)
             this.model.refresh();
-    };
+    }
 
 
     /**
@@ -171,7 +171,7 @@ export default class PullToRefresh extends Component {
      */
     checkShouldRefresh() {
         this.model.triggerShouldCheckState();
-    };
+    }
 
 
     /**
@@ -184,7 +184,7 @@ export default class PullToRefresh extends Component {
     <div class="spinner"></div>
 </pull-to-refresh>
 `;
-    };
+    }
 
 
     /**
@@ -196,7 +196,7 @@ export default class PullToRefresh extends Component {
         document.body.removeEventListener('touchend', this.releaseListener_);
 
         super.dispose();
-    };
+    }
 
 
     /**

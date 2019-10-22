@@ -30,7 +30,7 @@ class Sidebar extends Component {
         });
 
         this.vm && this.vm.toggleSidebar();
-    };
+    }
 
 
     /**
@@ -42,7 +42,7 @@ class Sidebar extends Component {
     <sidebar-items>${this.template_items()}</sidebar-items>
 </sidebar>
 `;
-    };
+    }
 
 
     /**
@@ -52,7 +52,7 @@ class Sidebar extends Component {
      */
     template_items() {
         return '';
-    };
+    }
 
 
     /**

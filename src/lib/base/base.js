@@ -48,9 +48,9 @@ goog.global = this;
  * @return {boolean} Whether variable is defined.
  */
 goog.isDef = function(val) {
-  // void 0 always evaluates to undefined and hence we do not need to depend on
-  // the definition of the global variable named 'undefined'.
-  return val !== void 0;
+    // void 0 always evaluates to undefined and hence we do not need to depend on
+    // the definition of the global variable named 'undefined'.
+    return val !== void 0;
 };
 
 /**
@@ -65,26 +65,26 @@ goog.isDef = function(val) {
  * @private
  */
 goog.exportPath_ = function(name, opt_object, opt_objectToExportTo) {
-  var parts = name.split(".");
-  var cur = opt_objectToExportTo || goog.global;
+    var parts = name.split(".");
+    var cur = opt_objectToExportTo || goog.global;
 
-  // Internet Explorer exhibits strange behavior when throwing errors from
-  // methods externed in this manner.  See the testExportSymbolExceptions in
-  // base_test.html for an example.
-  if (!(parts[0] in cur) && typeof cur.execScript != "undefined") {
-    cur.execScript("var " + parts[0]);
-  }
-
-  for (var part; parts.length && (part = parts.shift()); ) {
-    if (!parts.length && goog.isDef(opt_object)) {
-      // last part and we have an object; use it
-      cur[part] = opt_object;
-    } else if (cur[part] && cur[part] !== Object.prototype[part]) {
-      cur = cur[part];
-    } else {
-      cur = cur[part] = {};
+    // Internet Explorer exhibits strange behavior when throwing errors from
+    // methods externed in this manner.  See the testExportSymbolExceptions in
+    // base_test.html for an example.
+    if (!(parts[0] in cur) && typeof cur.execScript != "undefined") {
+        cur.execScript("var " + parts[0]);
     }
-  }
+
+    for (var part; parts.length && (part = parts.shift()); ) {
+        if (!parts.length && goog.isDef(opt_object)) {
+            // last part and we have an object; use it
+            cur[part] = opt_object;
+        } else if (cur[part] && cur[part] !== Object.prototype[part]) {
+            cur = cur[part];
+        } else {
+            cur = cur[part] = {};
+        }
+    }
 };
 
 /**
@@ -109,7 +109,7 @@ goog.exportPath_ = function(name, opt_object, opt_objectToExportTo) {
  *     is goog.global.
  */
 goog.exportSymbol = function(publicPath, object, opt_objectToExportTo) {
-  goog.exportPath_(publicPath, object, opt_objectToExportTo);
+    goog.exportPath_(publicPath, object, opt_objectToExportTo);
 };
 
 /**
@@ -121,5 +121,5 @@ goog.exportSymbol = function(publicPath, object, opt_objectToExportTo) {
  * @param {*} symbol Object the name should point to.
  */
 goog.exportProperty = function(object, publicName, symbol) {
-  object[publicName] = symbol;
+    object[publicName] = symbol;
 };
