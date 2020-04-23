@@ -58,7 +58,7 @@ export default class Component extends EventEmitter {
          * @private
          * @const
          */
-        this.id_ = ComponentManager.getUid();
+        this.id_ = ComponentManager.getInstance().getUid();
 
         /**
          * @type {?HTMLElement}
@@ -94,7 +94,7 @@ export default class Component extends EventEmitter {
          */
         this.props = props;
 
-        ComponentManager.setComponent(this);
+        ComponentManager.getInstance().setComponent(this);
 
         this.created(this.props);
         this.createdHooks(this.props);
@@ -158,7 +158,7 @@ export default class Component extends EventEmitter {
         let rv = this.element_;
         if (!rv) {
             rv = this.element_ = /** @type {!HTMLElement} */ (document.getElementById(this.id) ||
-                 (ComponentManager.createElement(this.toString())));
+                 (ComponentManager.getInstance().createElement(this.toString())));
         }
 
         return rv;
@@ -423,7 +423,7 @@ export default class Component extends EventEmitter {
      * document.
      */
     dispose() {
-        ComponentManager.removeComponent(this);
+        ComponentManager.getInstance().removeComponent(this);
         this.removeAllListeners();
 
         const detachEvents = eventName => {
