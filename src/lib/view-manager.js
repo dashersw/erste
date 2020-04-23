@@ -389,7 +389,7 @@ class ViewManager {
             this.toggleSidebar_(state);
             break;
         case ViewManager.State.SIDEBAR_OPEN:
-            if (ComponentManager.gestureHandler.canTap) return;
+            if (ComponentManager.getInstance().gestureHandler.canTap) return;
             this.toggleSidebar_(false);
             break;
         default:
@@ -558,7 +558,7 @@ class ViewManager {
      * @param {!TouchEvent} e
      */
     openSidebarTouchMove_(e) {
-        if (ComponentManager.gestureHandler.canTap) return;
+        if (ComponentManager.getInstance().gestureHandler.canTap) return;
 
         var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
         this.lastTouches_.push(this.firstX_ - clientX);
