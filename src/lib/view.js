@@ -142,7 +142,7 @@ export default class View extends Component {
                 });
             });
         }
-    };
+    }
     
     /**
      * @export
@@ -180,7 +180,7 @@ export default class View extends Component {
                 });
             });
         }
-    };
+    }
 
 
     /**
