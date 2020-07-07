@@ -182,6 +182,22 @@ export default class View extends Component {
         }
     }
 
+    backGestureTouchMoveLastViewAnimation({lastViewDiff,currentViewIndex}){
+        window.requestAnimationFrame(() => {
+            this.el.style.transitionDuration = '0s';
+            this.el.style.transform = `translate3d(${lastViewDiff}px, 0, ${currentViewIndex - 1}px)`;
+        });
+    }
+
+    backGestureTouchMoveCurrentViewAnimation({currentViewDiff, boxShadow}){
+        window.requestAnimationFrame(() => {
+            this.el.style.transitionDuration = '0s';
+            this.el.style.transform = `translate3d(${currentViewDiff}px, 0, ${this.index}px)`;
+
+            this.el.style['boxShadow'] = `0px 0 24px rgba(0, 0, 0, ${boxShadow})`;
+        });
+    }
+
 
     /**
      * Default template for views. Uses a custom element `<view>`, which should

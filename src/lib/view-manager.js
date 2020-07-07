@@ -472,16 +472,11 @@ class ViewManager {
         var viewWidth = View.WIDTH;
         var lastViewDiff = Math.floor(math.lerp(-viewWidth * 0.3, 0, currentViewDiff / (viewWidth - this.firstX_)));
         var boxShadow = Math.floor(math.lerp(1, 0, currentViewDiff / (viewWidth - this.firstX_)) * 5) / 5;
+        var currentViewIndex = currentView.index
         if (currentViewDiff < 0) return;
 
-        window.requestAnimationFrame(() => {
-            currentView.el.style.transitionDuration = '0s';
-            lastView.el.style.transitionDuration = '0s';
-            currentView.el.style.transform = `translate3d(${currentViewDiff}px, 0, ${currentView.index}px)`;
-            lastView.el.style.transform = `translate3d(${lastViewDiff}px, 0, ${currentView.index - 1}px)`;
-
-            currentView.el.style['boxShadow'] = `0px 0 24px rgba(0, 0, 0, ${boxShadow})`;
-        });
+        lastView.backGestureTouchMoveLastViewAnimation({lastViewDiff, currentViewIndex})
+        currentView.backGestureTouchMoveCurrentViewAnimation({currentViewDiff, boxShadow})
     }
 
 
