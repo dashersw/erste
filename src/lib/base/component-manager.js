@@ -46,7 +46,7 @@ function decorateEvents(comp) {
 
     let events = {};
 
-    if (prototype.events) {
+    if ('events' in prototype) {
         events = prototype.events;
     }
 
