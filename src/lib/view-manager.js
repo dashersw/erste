@@ -238,8 +238,6 @@ class ViewManager {
      *
      * @param {!View} view The view to set as the foremost view.
      * @param {boolean=} opt_noDispose Whether to dispose the current view.
-     *
-     * @noalias
      */
     setCurrentView(view, opt_noDispose) {
         if (!this.initialized_) this.init_();

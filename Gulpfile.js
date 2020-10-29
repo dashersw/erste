@@ -18,7 +18,6 @@ function compile() {
         assume_function_wrapper: true,
         language_out: 'ECMASCRIPT6',
         module_resolution: 'NODE',
-        dependency_mode: 'STRICT',
         process_common_js_modules: true,
         jscomp_error: '*',
         jscomp_off: ['lintChecks'],
