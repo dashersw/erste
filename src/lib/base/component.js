@@ -196,7 +196,7 @@ export default class Component extends EventEmitter {
         if (this.template_) return this.template_;
 
         var tagRegex = /^(<[^>]+)/;
-        var template = this.template(this.props).trim();
+        var template = this.template(this.props).toString().trim();
 
         if (!template.match(tagRegex))
             throw Error('Template needs to start with a valid tag.');
