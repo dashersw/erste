@@ -456,3 +456,8 @@ Component.prototype.events = undefined
  * @type {Object|undefined}
  */
 Component.prototype.__events = undefined
+
+/**
+ * @type {Array|undefined}
+ */
+Component.prototype.__nonBubblingEvents = undefined;
