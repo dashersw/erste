@@ -33,8 +33,36 @@ const events = [
     'swipeLeft'
 ];
 
+const nonBubblingEventsMap = {
+    'blur': 1,
+    'focus': 1,
+    'abort': 1,
+    'canplay': 1,
+    'canplaythrough': 1,
+    'durationchange': 1,
+    'emptied': 1,
+    'ended': 1,
+    'error': 1,
+    'loadeddata': 1,
+    'loadedmetadata': 1,
+    'loadstart': 1,
+    'pause': 1,
+    'play': 1,
+    'playing': 1,
+    'progress': 1,
+    'ratechange': 1,
+    'seeked': 1,
+    'seeking': 1,
+    'stalled': 1,
+    'suspend': 1,
+    'timeupdate': 1,
+    'volumechange': 1,
+    'waiting': 1
+};
+
+
 // match & select "[eventType] [css selector]"
-const handlerMethodPattern = new RegExp(`^(${events.join('|')}) (.*)`);
+const handlerMethodPattern = new RegExp(`^(${events.join('|')}|${Object.keys(nonBubblingEventsMap).join('|')}) (.*)`);
 
 /**
  * Fills events object of given component class from method names that match event handler pattern.
@@ -45,6 +73,8 @@ function decorateEvents(comp) {
     const prototype = /** @type {!Function} */(comp.constructor).prototype;
 
     if (prototype.__events) return;
+
+    const nonBubblingEvents = [];
 
     let events = {};
 
@@ -58,10 +88,13 @@ function decorateEvents(comp) {
         .forEach(([methodName, eventType, eventTarget]) => {
             events[eventType] = events[eventType] || {};
 
+            if (eventType in nonBubblingEventsMap) nonBubblingEvents.push(eventType);
+
             /** @suppress {checkTypes} */
             events[eventType][eventTarget] = comp[methodName];
         })
 
+    prototype.__nonBubblingEvents = nonBubblingEvents;
     prototype.__events = events;
 }
 

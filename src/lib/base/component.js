@@ -372,8 +372,7 @@ export default class Component extends EventEmitter {
             })
         }
 
-        attachEvents('focus')
-        attachEvents('blur')
+        this.__nonBubblingEvents.forEach(attachEvents)
     }
 
     /**
@@ -439,9 +438,7 @@ export default class Component extends EventEmitter {
             })
         }
 
-        detachEvents('focus')
-        detachEvents('blur')
-
+        this.__nonBubblingEvents.forEach(detachEvents)
 
         this.element_ && this.element_.parentNode && this.element_.parentNode.removeChild(this.element_);
         this.element_ = null;
