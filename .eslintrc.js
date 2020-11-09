@@ -14,6 +14,7 @@ module.exports = {
     "sourceType": "module"
   },
   "rules": {
+    "semi": "error",
     "eqeqeq": "off",
     "indent": ["error", 4]
   }
