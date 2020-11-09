@@ -14,6 +14,8 @@ const events = [
     'keyup',
     'keypress',
     'focus',
+    'focusin',
+    'focusout',
     'paste',
     'input',
     'touchstart',
