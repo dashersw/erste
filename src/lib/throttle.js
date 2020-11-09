@@ -35,7 +35,7 @@ export default (fn, threshhold, scope) => {
     };
 
     return rv;
-}
+};
 
 function add(a, b) {
     return a + b;

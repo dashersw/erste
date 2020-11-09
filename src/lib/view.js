@@ -266,7 +266,7 @@ export default class View extends Component {
 
 /**
  * @static @type {?number} */
-View.width_ = null
+View.width_ = null;
 
 /**
  * @export

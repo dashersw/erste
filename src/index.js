@@ -43,10 +43,10 @@ const erste = {
     InfiniteScroll: InfiniteScroll,
     /** @export */
     __: locale.__
-}
+};
 
 /** @export */
-erste.use = use.bind(erste)
+erste.use = use.bind(erste);
 
 export default erste;
 

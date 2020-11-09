@@ -179,8 +179,8 @@ class ViewManager {
             }, 1000);
         }
         
-        view.panIn(true)
-        currentView.panOut(true)
+        view.panIn(true);
+        currentView.panOut(true);
 
         this.currentView = view;
         this.currentView.onActivation && this.currentView.onActivation();
@@ -218,8 +218,8 @@ class ViewManager {
 
         if (!this.initialized_) this.init_();
 
-        lastView.panIn(false)
-        currentView.panOut(false)
+        lastView.panIn(false);
+        currentView.panOut(false);
 
         this.currentView = lastView;
         lastView.onActivation && lastView.onActivation();
@@ -426,7 +426,7 @@ class ViewManager {
                     lastView.el.style.transitionDuration = '0s';
                     lastView.el.style.transform = 'translate3d(-100%,-100%,0)';
                     lastView.el.removeEventListener('transitionend', fn);
-                }
+                };
 
                 lastView.el.addEventListener('transitionend', fn);
             } else {
@@ -470,11 +470,11 @@ class ViewManager {
         var viewWidth = View.WIDTH;
         var lastViewDiff = Math.floor(math.lerp(-viewWidth * 0.3, 0, currentViewDiff / (viewWidth - this.firstX_)));
         var boxShadow = Math.floor(math.lerp(1, 0, currentViewDiff / (viewWidth - this.firstX_)) * 5) / 5;
-        var currentViewIndex = currentView.index
+        var currentViewIndex = currentView.index;
         if (currentViewDiff < 0) return;
 
-        lastView.backGestureTouchMoveLastViewAnimation({lastViewDiff, currentViewIndex})
-        currentView.backGestureTouchMoveCurrentViewAnimation({currentViewDiff, boxShadow})
+        lastView.backGestureTouchMoveLastViewAnimation({lastViewDiff, currentViewIndex});
+        currentView.backGestureTouchMoveCurrentViewAnimation({currentViewDiff, boxShadow});
     }
 
 

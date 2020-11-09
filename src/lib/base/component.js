@@ -358,21 +358,21 @@ export default class Component extends EventEmitter {
      */
     onAfterRenderHooks() {
         const attachEvents = (eventName) => {
-            if (!this.__events[eventName]) return
+            if (!this.__events[eventName]) return;
 
             Object.keys(this.__events[eventName]).forEach(selector => {
-                const els = this.$$(selector)
-                const fn = this.__events[eventName][selector].bind(this)
+                const els = this.$$(selector);
+                const fn = this.__events[eventName][selector].bind(this);
 
                 els.forEach(el => {
-                    el['__ersteEventHandlers'] = el['__ersteEventHandlers'] || {}
-                    el['__ersteEventHandlers'][eventName] = fn
-                    el.addEventListener(eventName, fn)
-                })
-            })
-        }
+                    el['__ersteEventHandlers'] = el['__ersteEventHandlers'] || {};
+                    el['__ersteEventHandlers'][eventName] = fn;
+                    el.addEventListener(eventName, fn);
+                });
+            });
+        };
 
-        this.__nonBubblingEvents.forEach(attachEvents)
+        this.__nonBubblingEvents.forEach(attachEvents);
     }
 
     /**
@@ -426,19 +426,19 @@ export default class Component extends EventEmitter {
         this.removeAllListeners();
 
         const detachEvents = eventName => {
-            if (!this.__events[eventName]) return
+            if (!this.__events[eventName]) return;
 
             Object.keys(this.__events[eventName]).forEach(selector => {
-                const els = this.$$(selector)
+                const els = this.$$(selector);
 
                 els.forEach(el => {
-                    const fn = el['__ersteEventHandlers'][eventName]
-                    el.removeEventListener(eventName, fn)
-                })
-            })
-        }
+                    const fn = el['__ersteEventHandlers'][eventName];
+                    el.removeEventListener(eventName, fn);
+                });
+            });
+        };
 
-        this.__nonBubblingEvents.forEach(detachEvents)
+        this.__nonBubblingEvents.forEach(detachEvents);
 
         this.element_ && this.element_.parentNode && this.element_.parentNode.removeChild(this.element_);
         this.element_ = null;
@@ -450,12 +450,12 @@ export default class Component extends EventEmitter {
  *
  * @type {Object|undefined}
  */
-Component.prototype.events = undefined
+Component.prototype.events = undefined;
 
 /**
  * @type {Object|undefined}
  */
-Component.prototype.__events = undefined
+Component.prototype.__events = undefined;
 
 /**
  * @type {Array|undefined}

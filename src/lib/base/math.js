@@ -97,4 +97,4 @@ export default {
     angle: angle,
     distance: distance,
     lerp: lerp
-}
+};

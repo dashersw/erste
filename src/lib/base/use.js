@@ -1,7 +1,7 @@
 /**
  * @typedef {{$$register: Function}}
  */
-const ErstePlugin = null
+const ErstePlugin = null;
 
 /**
  * @param {ErstePlugin} plugin An erste plugin to install and use. Its `$$register`
@@ -13,5 +13,5 @@ const ErstePlugin = null
  * properties.
  */
 export default function(plugin) {
-    plugin.$$register(this)
+    plugin.$$register(this);
 }

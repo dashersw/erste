@@ -92,7 +92,7 @@ function decorateEvents(comp) {
 
             /** @suppress {checkTypes} */
             events[eventType][eventTarget] = comp[methodName];
-        })
+        });
 
     prototype.__nonBubblingEvents = nonBubblingEvents;
     prototype.__events = events;
@@ -116,8 +116,8 @@ export default class ComponentManager {
         if (document.body) this.onLoad();
         else document.addEventListener('DOMContentLoaded', () => this.onLoad());
 
-        this.getUid = getUid
-        this.createElement = createElement
+        this.getUid = getUid;
+        this.createElement = createElement;
     
     }
 
@@ -233,7 +233,7 @@ export default class ComponentManager {
     setComponent(comp) {
         this.componentRegistry[comp.id] = comp;
         if (!comp.rendered) this.componentsToRender[comp.id] = comp;
-        if (!comp.__events) decorateEvents(comp)
+        if (!comp.__events) decorateEvents(comp);
     }
 
     /**
@@ -257,9 +257,9 @@ export default class ComponentManager {
 
     static getInstance() {
         if (!ComponentManager.instance) 
-            ComponentManager.instance = new ComponentManager()
+            ComponentManager.instance = new ComponentManager();
 
-        return ComponentManager.instance
+        return ComponentManager.instance;
     }
 
 }

@@ -65,7 +65,7 @@ export default class P2RComponentModel extends EventEmitter {
             DEFAULT: 'default',
             SHOULD_CHECK: 'shouldCheck',
             REFRESHING: 'refreshing'
-        }
+        };
     }
 
 
@@ -77,6 +77,6 @@ export default class P2RComponentModel extends EventEmitter {
     get EventType() {
         return {
             SHOULD_REFRESH: 'refresh'
-        }
+        };
     }
 }

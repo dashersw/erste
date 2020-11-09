@@ -66,7 +66,7 @@ export default class InfiniteScrollModel extends EventEmitter {
             DEFAULT: 'default',
             SHOULD_CHECK: 'shouldCheck',
             LOADING: 'loading'
-        }
+        };
     }
 
 
@@ -78,6 +78,6 @@ export default class InfiniteScrollModel extends EventEmitter {
     get EventType() {
         return {
             SHOULD_LOAD: 'load'
-        }
+        };
     }
 }
