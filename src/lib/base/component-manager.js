@@ -70,19 +70,28 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}|${Object.keys(non
  * @param {!Component} comp Component instance to decorate events for.
  */
 function decorateEvents(comp) {
-    const prototype = /** @type {!Function} */(comp.constructor).prototype;
+    const originalPrototype = /** @type {!Function} */(comp.constructor).prototype;
 
-    if (prototype.__events) return;
+    if (originalPrototype.__events) return;
 
     const nonBubblingEvents = [];
 
     let events = {};
 
-    if ('events' in prototype && prototype.events) {
-        events = prototype.events;
+    if ('events' in originalPrototype && originalPrototype.events) {
+        events = originalPrototype.events;
     }
 
-    Object.getOwnPropertyNames(prototype)
+    const methods = [];
+
+    let prototype = originalPrototype;
+
+    do {
+        methods.push(...Object.getOwnPropertyNames(/** @type {!Object} */(prototype)));
+        prototype = Object.getPrototypeOf(/** @type {!Object} */(prototype));
+    } while (prototype != Component.prototype && Object.getPrototypeOf(/** @type {!Object} */(prototype)));
+
+    methods
         .map(propertyName => handlerMethodPattern.exec(propertyName))
         .filter(x => x)
         .forEach(([methodName, eventType, eventTarget]) => {
@@ -94,8 +103,8 @@ function decorateEvents(comp) {
             events[eventType][eventTarget] = comp[methodName];
         });
 
-    prototype.__nonBubblingEvents = nonBubblingEvents;
-    prototype.__events = events;
+    originalPrototype.__nonBubblingEvents = nonBubblingEvents;
+    originalPrototype.__events = events;
 }
 
 const createElement = (() => {
