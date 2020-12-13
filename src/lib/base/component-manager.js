@@ -127,7 +127,6 @@ export default class ComponentManager {
 
         this.getUid = getUid;
         this.createElement = createElement;
-    
     }
 
     handleEvent(e) {
@@ -265,11 +264,10 @@ export default class ComponentManager {
     }
 
     static getInstance() {
-        if (!ComponentManager.instance) 
+        if (!ComponentManager.instance)
             ComponentManager.instance = new ComponentManager();
 
         return ComponentManager.instance;
     }
 
 }
-
