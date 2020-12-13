@@ -298,6 +298,7 @@ export default class Component extends EventEmitter {
         }
 
         this.rendered_ = true;
+        ComponentManager.getInstance().markComponentRendered(this);
 
         this.onAfterRender();
         this.onAfterRenderHooks();
