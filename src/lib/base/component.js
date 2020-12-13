@@ -265,33 +265,39 @@ export default class Component extends EventEmitter {
      * have already been rendered, not as a direct result of this call to
      * {@link #Component+render|component.render()}.
      */
-    render(rootEl, opt_index) {
+    render(rootEl, opt_index = Infinity) {
         if (this.rendered_) return true;
 
-        if (!this.element_) {
+        this.element_ = this.el;
 
-            var el = /** @type {HTMLElement} */ (document.getElementById(this.id));
-            if (!el && !rootEl) return false;
+        if (rootEl) {
+            if (opt_index < 0) opt_index = Infinity; // negative numbers should put this element at the end
 
-            if (el) {
-                rootEl = /** @type {!HTMLElement} */(el.parentElement);
-                if (!opt_index) {
-                    this.element_ = el;
-                    this.rendered_ = true;
-                    this.onAfterRender();
-                    this.onAfterRenderHooks();
+            if (rootEl != this.element_.parentElement) { // if the root changes, move the element immediately
+                rootEl.insertBefore(this.element_, rootEl.children[opt_index]);
+            } else { // if the root is the same, we need to make sure we render at the correct index
+                let newIndex = opt_index;
+                let elementIndex = 0;
+                let t = this.element_;
 
-                    setTimeout(() => requestAnimationFrame(() => this.onAfterRenderAsync()));
+                // eslint-disable-next-line no-cond-assign
+                while (t = /** @type {HTMLElement} */(t.previousElementSibling)) elementIndex++;
 
-                    return true;
+                // if element comes before where we want it to render, we need to increment the index; because
+                // when we move it around, we will remove it from the first place and that would implicitly
+                // decrement the elements count by 1.
+                if (elementIndex < newIndex) newIndex++;
+
+                // don't move around if the new index is the same as the old index,
+                // or if we want to move to or past the end and our element is already the last element
+                if (!(elementIndex == newIndex ||
+                    (newIndex >= rootEl.childElementCount && this.element_ == rootEl.lastElementChild))) {
+                    rootEl.insertBefore(this.element_, rootEl.children[newIndex]);
                 }
             }
-
-            var index = opt_index ? opt_index : ((rootEl && rootEl.children.length - 1) || -1);
-            var child = rootEl && rootEl.children[index];
-            rootEl && rootEl.insertBefore(this.el, child || null);
-            this.rendered_ = true;
         }
+
+        this.rendered_ = true;
 
         this.onAfterRender();
         this.onAfterRenderHooks();
