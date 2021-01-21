@@ -159,7 +159,7 @@ export default class TabView extends View {
     get events() {
         return {
             'touchend': {
-                [this.mappings.ITEM]: this.onItemTap.bind(this)
+                [this.mappings.ITEM]: this.onItemTap
             }
         };
     }
