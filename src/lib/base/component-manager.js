@@ -67,6 +67,8 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}|${Object.keys(non
 /**
  * Fills events object of given component class from method names that match event handler pattern.
  *
+ * @suppress {strictMissingProperties}
+ *
  * @param {!Component} comp Component instance to decorate events for.
  */
 function decorateEvents(comp) {
@@ -78,7 +80,7 @@ function decorateEvents(comp) {
 
     let events = {};
 
-    if ('events' in originalPrototype && originalPrototype.events) {
+    if (originalPrototype.events) {
         events = originalPrototype.events;
     }
 
