@@ -66,23 +66,9 @@ const handlerMethodPattern = new RegExp(`^(${events.join('|')}|${Object.keys(non
 
 /**
  * Injects fallback mouse events for non-touch devices to events object.
- * 
- * @param {!Object} events
  */
 function injectFallbackMouseEvents(events) {
-    const fallbackableEvents = ['touchend', 'tap'];
-
-    const _events = { ...events };
-
-    fallbackableEvents.forEach(eventType => {
-        if (events['click'] || !events[eventType]) {
-            return;
-        }
-
-        _events['click'] = _events[eventType];
-    });
-
-    return _events;
+    events['click'] = events['touchend'] || events['tap'];
 }
 
 /**
@@ -105,8 +91,8 @@ function decorateEvents(comp) {
         events = originalPrototype.events;
     }
 
-    if (!('ontouchstart' in window)) {
-        events = injectFallbackMouseEvents(events);
+    if (!('ontouchstart' in window) && !events['click']) {
+        injectFallbackMouseEvents(events);
     }
 
     const methods = [];
