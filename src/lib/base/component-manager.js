@@ -65,6 +65,13 @@ const nonBubblingEventsMap = {
 const handlerMethodPattern = new RegExp(`^(${events.join('|')}|${Object.keys(nonBubblingEventsMap).join('|')}) (.*)`);
 
 /**
+ * Injects fallback mouse events for non-touch devices to events object.
+ */
+function injectFallbackMouseEvents(events) {
+    events['click'] = events['touchend'] || events['tap'];
+}
+
+/**
  * Fills events object of given component class from method names that match event handler pattern.
  *
  * @suppress {strictMissingProperties}
@@ -82,6 +89,10 @@ function decorateEvents(comp) {
 
     if (originalPrototype.events) {
         events = originalPrototype.events;
+    }
+
+    if (!('ontouchstart' in window) && !events['click'] && (events['touchend'] || events['tap'])) {
+        injectFallbackMouseEvents(events);
     }
 
     const methods = [];
