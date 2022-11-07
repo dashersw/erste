@@ -91,7 +91,7 @@ function decorateEvents(comp) {
         events = originalPrototype.events;
     }
 
-    if (!('ontouchstart' in window) && !events['click']) {
+    if (!('ontouchstart' in window) && !events['click'] && events['touchend'] || events['tap']) {
         injectFallbackMouseEvents(events);
     }
 
