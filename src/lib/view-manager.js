@@ -160,7 +160,7 @@ class ViewManager {
 
         if (!view.rendered && this.rootEl_) view.render(this.rootEl_, this.topIndex_ += 2);
 
-        var currentView = this.currentView;
+        const currentView = this.currentView;
 
         if (!currentView) return this.setCurrentView(view);
 
@@ -168,7 +168,7 @@ class ViewManager {
             this.history.push(currentView);
         }
         else {
-            var history = this.history.slice(0);
+            const history = this.history.slice(0);
             this.history = [];
 
             setTimeout(() => {
@@ -211,7 +211,7 @@ class ViewManager {
      * Has a hard-coded transition effect similar to iOS7+.
      */
     push() {
-        var lastView = this.history.pop(),
+        const lastView = this.history.pop(),
             currentView = this.currentView;
 
         if (!lastView) return;
@@ -244,7 +244,7 @@ class ViewManager {
 
         if (!view.rendered && this.rootEl_) view.render(this.rootEl_, this.topIndex_ += 2);
 
-        var currentView = this.currentView;
+        const currentView = this.currentView;
 
         if (!opt_noDispose) {
             setTimeout(() => currentView && currentView.dispose(), 1000);
@@ -262,7 +262,7 @@ class ViewManager {
 
         this.history = [];
 
-        var translation = `translate3d(0, 0, ${view.index}px)`;
+        let translation = `translate3d(0, 0, ${view.index}px)`;
         view.el.style.transitionDuration = '0s';
 
         if (this.state_ == ViewManager.State.SIDEBAR_OPEN) {
@@ -315,7 +315,7 @@ class ViewManager {
      * @private
      */
     onTouchMove_(e) {
-        var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
+        const clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
         clearTimeout(this.hideSidebarTimeout_);
 
         if (this.state_ == ViewManager.State.DEFAULT || this.state_ == ViewManager.State.SIDEBAR_OPEN)
@@ -366,7 +366,7 @@ class ViewManager {
      * @private
      */
     onTouchEnd_(e) {
-        var state;
+        let state;
 
         switch (this.state_) {
         case ViewManager.State.GOING_TO_BACK_VIEW:
@@ -405,7 +405,7 @@ class ViewManager {
     backGestureTouchEnd_(e) {
         if (!this.firstX_) return;
 
-        var history = this.history,
+        const history = this.history,
             lastView = this.getLastViewInHistory(),
             currentView = this.currentView,
             clientX = e.changedTouches && e.changedTouches[0].clientX || 0,
@@ -415,7 +415,7 @@ class ViewManager {
             currentView.el.style.transitionDuration = duration + 's';
             lastView.el.style.transitionDuration = duration + 's';
 
-            var currentViewX = '100%',
+            let currentViewX = '100%',
                 lastViewX = '0';
 
             if (clientX < (View.WIDTH / 2)) {
@@ -462,15 +462,15 @@ class ViewManager {
          after touchstart if it thinks the user is panning/scrolling and you
          do not call event.preventDefault(). */
         e.preventDefault();
-        var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
+        const clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
 
-        var lastView = this.history[this.history.length - 1];
-        var currentView = this.currentView;
-        var currentViewDiff = clientX - this.firstX_;
-        var viewWidth = View.WIDTH;
-        var lastViewDiff = Math.floor(math.lerp(-viewWidth * 0.3, 0, currentViewDiff / (viewWidth - this.firstX_)));
-        var boxShadow = Math.floor(math.lerp(1, 0, currentViewDiff / (viewWidth - this.firstX_)) * 5) / 5;
-        var currentViewIndex = currentView.index;
+        const lastView = this.history[this.history.length - 1];
+        const currentView = this.currentView;
+        const currentViewDiff = clientX - this.firstX_;
+        const viewWidth = View.WIDTH;
+        const lastViewDiff = Math.floor(math.lerp(-viewWidth * 0.3, 0, currentViewDiff / (viewWidth - this.firstX_)));
+        const boxShadow = Math.floor(math.lerp(1, 0, currentViewDiff / (viewWidth - this.firstX_)) * 5) / 5;
+        const currentViewIndex = currentView.index;
         if (currentViewDiff < 0) return;
 
         lastView.backGestureTouchMoveLastViewAnimation({lastViewDiff, currentViewIndex});
@@ -485,7 +485,7 @@ class ViewManager {
      * @param {!TouchEvent} e
      */
     closeSidebarTouchMove_(e) {
-        var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
+        const clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
 
         this.lastTouches_.push(this.firstX_ - clientX);
 
@@ -496,9 +496,9 @@ class ViewManager {
          do not call event.preventDefault(). */
         e.preventDefault();
 
-        var currentView = this.currentView;
-        var viewWidth = View.WIDTH;
-        var currentViewDiff = clientX - this.firstX_ - viewWidth * 4 / 5;
+        const currentView = this.currentView;
+        const viewWidth = View.WIDTH;
+        const currentViewDiff = clientX - this.firstX_ - viewWidth * 4 / 5;
         window.requestAnimationFrame(() => {
             currentView.el.style.transitionDuration = '0s';
             currentView.el.style.transform = `translate3d(${currentViewDiff}px, 0, ${currentView.index}px)`;
@@ -513,13 +513,13 @@ class ViewManager {
      * @param {boolean} state Whether to open or close the sidebar.
      */
     toggleSidebar_(state) {
-        var currentView = this.currentView,
+        const currentView = this.currentView,
             sidebar = /** @type {HTMLElement} */(document.querySelector('sidebar'));
 
         requestAnimationFrame(() => {
             currentView.el.style.transitionDuration = '0.35s';
 
-            var currentViewX = `${128 - View.WIDTH}px`,
+            let currentViewX = `${128 - View.WIDTH}px`,
                 sidebarX = '0',
                 sidebarZ = `${currentView.index - 1}px`;
 
@@ -553,7 +553,7 @@ class ViewManager {
     openSidebarTouchMove_(e) {
         if (ComponentManager.getInstance().gestureHandler.canTap) return;
 
-        var clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
+        const clientX = e.changedTouches && e.changedTouches[0].clientX || 0;
         this.lastTouches_.push(this.firstX_ - clientX);
 
         if (this.lastTouches_.length == 4) this.lastTouches_.shift();
@@ -564,9 +564,9 @@ class ViewManager {
         e.preventDefault();
 
 
-        var sidebar = /** @type {HTMLElement} */ (document.querySelector('sidebar'));
-        var currentView = this.currentView;
-        var currentViewDiff = clientX - this.firstX_;
+        const sidebar = /** @type {HTMLElement} */ (document.querySelector('sidebar'));
+        const currentView = this.currentView;
+        const currentViewDiff = clientX - this.firstX_;
 
         if (currentViewDiff >= 0) return;
         this.state_ = ViewManager.State.OPENING_SIDEBAR;
